@@ -1,20 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectEmployee } from "../action";
 
-const EmployeeItem = ({selectEmployee, employee}) => {
+const EmployeeItem = ({ selectEmployee, employee }) => {
 
     return (
         <div onClick={() => selectEmployee(employee)}>
-           <img alt={"emp-img"} src="/"/>
-           <div>
+            <img alt={"emp-img"} src="/" />
+            <div>
                 <div>{employee.name}</div>
-           </div>
-           <div>
-                <button>View</button>
-                <button>Edit</button>
-                <button>Delete</button>
-           </div>
+            </div>
+            <div>
+                <Link to="/emp"><button>View</button></Link>
+                <Link><button>Edit</button></Link>
+                <Link><button>Delete</button></Link>
+            </div>
         </div>
     );
 };

@@ -3,6 +3,6 @@ import selectEmployeeReducer from "./selectEmployeeReducer";
 import addEmployeeReducer from "./addEmployeeReducer";
 
 export default combineReducers({
-    selectEmployee: selectEmployeeReducer,
+    selectedEmployee: selectEmployeeReducer,
     addEmployee: addEmployeeReducer
 });

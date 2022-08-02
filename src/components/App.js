@@ -6,6 +6,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import EmployeeList from "./EmployeeList";
 import CreateEmployee from "./CreateEmployee";
+import EmployeeDetails from "./EmployeeDetails";
 
 const users = [
     {
@@ -19,24 +20,6 @@ const users = [
     {
         email: "user3@xyz",
         password: "pass3"
-    },
-];
-
-const employeesList = [
-    {
-        name: "emp-1",
-        id: "101",
-        period: "1 year"
-    },
-    {
-        name: "emp-2",
-        id: "102",
-        period: "1.5 year"
-    },
-    {
-        name: "emp-3",
-        id: "103",
-        period: "2 year"
     },
 ];
 
@@ -56,6 +39,9 @@ const App = () => {
                 </Route>
                 <Route path="/new" exact>
                     <CreateEmployee />
+                </Route>
+                <Route path="/emp" exact>
+                    <EmployeeDetails />
                 </Route>
             </BrowserRouter>
         </div>
