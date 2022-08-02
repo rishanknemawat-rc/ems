@@ -1,8 +1,14 @@
-import React from "react";
-
 export const selectEmployee = (employee) => {
     return ({
-        type: "EMPLOYEE_SELECT",
+        type: "SELECT_EMPLOYEE",
+        payload: employee
+    });
+    
+};
+
+export const addEmployee = (employee) => {
+    return ({
+        type: "ADD_EMPLOYEE",
         payload: employee
     });
     

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route } from "react-router-dom";
 
 import Login from "./Login";
 import Signup from "./Signup";
 import EmployeeList from "./EmployeeList";
+import CreateEmployee from "./CreateEmployee";
 
 const users = [
     {
@@ -41,13 +42,6 @@ const employeesList = [
 
 const App = () => {
 
-    const [employees, setEmployees] = useState(employeesList);
-    const [selectedEmployee, setSelectedEmployee] = useState(employees[0]);
-
-    const onEmployeeSelect = (employee) => {
-        setSelectedEmployee(employee);
-    };
-    
     return (
         <div>
             <BrowserRouter>
@@ -58,7 +52,10 @@ const App = () => {
                     <Signup users={users}/>
                 </Route>
                 <Route path="/" exact>
-                    <EmployeeList employees={employees}/>
+                    <EmployeeList />
+                </Route>
+                <Route path="/new" exact>
+                    <CreateEmployee />
                 </Route>
             </BrowserRouter>
         </div>
