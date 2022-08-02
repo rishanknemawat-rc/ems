@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 const Login = ({ users }) => {
     const [errorMessage, setErrorMessage] = useState({});
@@ -83,5 +84,9 @@ const Login = ({ users }) => {
     );
 };
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {users: state.users}
+};
+
+export default connect(mapStateToProps)(Login);
 

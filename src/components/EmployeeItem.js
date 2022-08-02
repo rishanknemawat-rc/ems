@@ -7,14 +7,13 @@ const EmployeeItem = ({ selectEmployee, employee }) => {
 
     return (
         <div onClick={() => selectEmployee(employee)}>
-            <img alt={"emp-img"} src="/" />
             <div>
-                <div>{employee.name}</div>
+                <h3>{employee.name}</h3>
             </div>
             <div>
-                <Link to="/emp"><button>View</button></Link>
-                <Link><button>Edit</button></Link>
-                <Link><button>Delete</button></Link>
+                <Link to="/emp" ><button className="btn btn-outline-dark m-2">View</button></Link>
+                <Link><button className="btn btn-outline-dark m-2">Edit</button></Link>
+                <Link><button className="btn btn-outline-dark m-2">Delete</button></Link>
             </div>
         </div>
     );

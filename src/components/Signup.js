@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { addUser } from "../action";
 
-const Signup = ({ users }) => {
+const Signup = ({ users, addUser }) => {
     const [errorMessage, setErrorMessage] = useState({});
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,10 +32,11 @@ const Signup = ({ users }) => {
                 });
             else {
                 setUserCreated(true);
-                users.push({
+                const newUser = {
                     email: email,
                     password: password
-                });
+                };
+                addUser(newUser);
             };
         }
 
@@ -91,6 +94,8 @@ const Signup = ({ users }) => {
     );
 };
 
+const mapStateToProps = (state) => {
+    return {users: state.users}
+};
 
-
-export default Signup;
+export default connect(mapStateToProps, { addUser })(Signup);

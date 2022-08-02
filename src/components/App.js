@@ -8,31 +8,16 @@ import EmployeeList from "./EmployeeList";
 import CreateEmployee from "./CreateEmployee";
 import EmployeeDetails from "./EmployeeDetails";
 
-const users = [
-    {
-        email: "user1@xyz",
-        password: "pass1"
-    },
-    {
-        email: "user2@xyz",
-        password: "pass2"
-    },
-    {
-        email: "user3@xyz",
-        password: "pass3"
-    },
-];
-
 const App = () => {
 
     return (
         <div>
             <BrowserRouter>
                 <Route path="/login" exact>
-                    <Login users={users}/>
+                    <Login />
                 </Route>
                 <Route path="/signup" exact>
-                    <Signup users={users}/>
+                    <Signup/>
                 </Route>
                 <Route path="/" exact>
                     <EmployeeList />
