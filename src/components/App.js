@@ -7,27 +7,23 @@ import Signup from "./Signup";
 import EmployeeList from "./EmployeeList";
 import CreateEmployee from "./CreateEmployee";
 import EmployeeDetails from "./EmployeeDetails";
+import EmployeeEdit from "./EmployeeEdit";
+import Header from "./Header";
 
 const App = () => {
 
     return (
         <div>
             <BrowserRouter>
-                <Route path="/login" exact>
-                    <Login />
-                </Route>
-                <Route path="/signup" exact>
-                    <Signup/>
-                </Route>
-                <Route path="/" exact>
-                    <EmployeeList />
-                </Route>
-                <Route path="/new" exact>
-                    <CreateEmployee />
-                </Route>
-                <Route path="/emp" exact>
-                    <EmployeeDetails />
-                </Route>
+                <div>
+                    <Header />
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/signup" exact component={Signup} />
+                    <Route path="/" exact component={EmployeeList} />
+                    <Route path="/new" exact component={CreateEmployee}/>
+                    <Route path="/employee/:id" exact component={EmployeeDetails} />
+                    <Route path="/employee/:id/edit" exact component={EmployeeEdit} />
+                </div>
             </BrowserRouter>
         </div>
     );

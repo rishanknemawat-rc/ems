@@ -31,7 +31,7 @@ const Login = ({ users }) => {
         return (
             <div>
                
-                <form className="form-group" onSubmit={handleSubmit}>
+                <form className="form-group " onSubmit={handleSubmit}>
                     <div className="col px-md-5">
                         <label className="form-label"> Email: </label>
                         <input className="form-control"

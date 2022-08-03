@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import selectEmployeeReducer from "./selectEmployeeReducer";
-import addEmployeeReducer from "./addEmployeeReducer";
+import employeeReducer from "./employeeReducer";
 import addUserReducer from "./addUserReducer";
 
 export default combineReducers({
     selectedEmployee: selectEmployeeReducer,
-    addEmployee: addEmployeeReducer,
+    employees: employeeReducer,
     users: addUserReducer
 });

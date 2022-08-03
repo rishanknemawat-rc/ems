@@ -31,7 +31,7 @@ const EmployeeList = ({ employees }) => {
 };
 
 const mapStateToProps = (state) => {
-    return { employees: state.addEmployee }
+    return { employees: state.employees}
 };
 
 export default connect(mapStateToProps)(EmployeeList);
