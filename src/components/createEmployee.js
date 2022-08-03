@@ -2,9 +2,12 @@ import React from "react";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { addEmployee } from "../action";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const CreateEmployee = (props) => {
+
+    let history = useHistory();
+
     const addEmployee = props.addEmployee;
     const formik = useFormik({
         initialValues: {
@@ -19,6 +22,7 @@ const CreateEmployee = (props) => {
                 period: value.period
             });
             console.log(value);
+            history.push("/");
         }
     });
 
@@ -40,9 +44,9 @@ const CreateEmployee = (props) => {
                     <input className="form-control" type="text" name="period" value={formik.values.period} onChange={formik.handleChange} />
                 </div>
                 <div className="text-center font-weight-bold">
-                    <Link to={formik.setSubmitting === false ? "/" : ""}>
+                    {/* <Link to={formik.setSubmitting === true ? "/" : ""}> */}
                         <button className="btn btn-outline-secondary text-center m-2" type="submit">Submit</button>
-                    </Link>
+                    {/* </Link> */}
                 </div>
             </form>
         </div>

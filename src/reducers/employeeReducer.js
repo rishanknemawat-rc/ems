@@ -17,6 +17,7 @@ const initalEmployees = [
 ];
 
 const employeeReducer = (employees = initalEmployees, action) => {
+
     if(action.type === "ADD_EMPLOYEE")
         return [...employees, action.payload];
 
@@ -26,6 +27,22 @@ const employeeReducer = (employees = initalEmployees, action) => {
         };
         return employees.filter(getEmp);
     }
+
+    if(action.type === "EDIT_EMPLOYEE"){
+        const updatesEmployees = employees.map(emp => {
+            const updatedEmp = emp;
+            if(emp.id === action.payload.id)
+            {
+                updatedEmp.name = action.payload.name
+                updatedEmp.period = action.payload.period;
+            }
+
+            return updatedEmp;
+        });
+
+        return updatesEmployees;
+    }
+
     return employees;
 };
 

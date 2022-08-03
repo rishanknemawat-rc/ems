@@ -1,33 +1,40 @@
 import React from "react";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { editEmployee } from "../action";
+import { useHistory } from "react-router-dom";
 
-const EmployeeEdit = ({ employeeList, selectedEmployee }) => {
-    // console.log(employeeList);
-    // console.log(selectedEmployee);
+const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee }) => {
 
+    const history = useHistory();
     const formik = useFormik({
         initialValues: {
-            name: "",
-            id: "",
-            period: "",
+            name: selectedEmployee.name,
+            id: selectedEmployee.id,
+            period: selectedEmployee.period,
         },
         onSubmit: (value, { setSubmitting }) => {
             const updatedEmployee = {
                 name: value.name,
                 id: value.id,
-                period: value.id
+                period: value.period
             };
+            
+            // console.log(employeeList);
             const ind = employeeList.findIndex(emp => {
+                // console.log(emp);
                 return (emp.id === value.id);
             });
 
+            // console.log(ind);
+
             if (ind !== -1) {
-                employeeList[ind] = updatedEmployee;
+                editEmployee(updatedEmployee);
+                // employeeList[ind] = updatedEmployee;
                 console.log(employeeList);
                 alert('SUCCESSFULLY EDITED!! :-)\n\n' + JSON.stringify(value, null, 3));
-                setSubmitting(false);
+                // setSubmitting(false);
+                history.push("/");
             }
             else {
                 alert('NOT A VALID EMPLOYEE!! :-)\n\n' + JSON.stringify(value, null, 3));
@@ -45,7 +52,7 @@ const EmployeeEdit = ({ employeeList, selectedEmployee }) => {
 
                     <div className=" m-2 text-center font-weight-bold">
                         <label className="form-label">Enter Employee ID</label>
-                        <input className="form-control" type="number" name="id" value={formik.values.id} onChange={formik.handleChange} />
+                        <input className="form-control" type="number" name="id" value={formik.values.id} onChange={formik.handleChange} disabled={true}/>
                     </div>
 
                     <div className=" m-2 text-center font-weight-bold">
@@ -64,10 +71,11 @@ const EmployeeEdit = ({ employeeList, selectedEmployee }) => {
 };
 
 const mapStateToProps = (state) => {
+    // console.log(state);
     return ({ 
         employeeList: state.employees, 
         selectedEmployee: state.selectedEmployee 
     });
 };
 
-export default connect(mapStateToProps)(EmployeeEdit);
+export default connect(mapStateToProps, { editEmployee })(EmployeeEdit);

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const EmployeeDetails = ({ selectedEmployee }) => {
-    console.log(selectedEmployee);
+    // console.log(selectedEmployee);
     if(!selectedEmployee)
         return <div>Please Try Again...</div>
     return (

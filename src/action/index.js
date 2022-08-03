@@ -19,10 +19,10 @@ export const addUser = (user) => {
     });
 };
 
-export const editUser = (user) => {
+export const editEmployee = (employee) => {
     return ({
-        type: "EDIT_USER",
-        payload: user
+        type: "EDIT_EMPLOYEE",
+        payload: employee
     });
 };
 
