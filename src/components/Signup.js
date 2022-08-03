@@ -65,14 +65,16 @@ const Signup = ({ users, addUser }) => {
                     </div>
                     <br />
                     <div className="col px-md-5 text-center">
-                        <button className="btn btn-primary" type="submit">Submit</button>
+                        <button className="btn btn-outline-secondary" type="submit">Submit</button>
                     </div>
                 </form>
+                <br />
+                <br />
                 <br />
                 <div className="text-center font-weight-bold">
                     Already a user?
                     <Link to="/login">
-                    <button className="btn btn-primary"> Login </button>
+                    <button className="btn btn-outline-secondary m-3"> Login </button>
                     </Link>
                 </div>
             </div>
@@ -83,7 +85,7 @@ const Signup = ({ users, addUser }) => {
 
     return (
         <div>
-            <h1 className="text-center font-weight-bold">Signup Page</h1>
+            <h1 className="text-center font-weight-bold m-3">Signup Page</h1>
             {!userCreated ?
                 renderForm() :
                 <div className="alert alert-success text-center" role="alert">

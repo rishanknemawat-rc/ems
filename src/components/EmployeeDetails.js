@@ -7,13 +7,16 @@ const EmployeeDetails = ({ selectedEmployee }) => {
     if(!selectedEmployee)
         return <div>Please Try Again...</div>
     return (
-        <div className="border border-secondary text-center m-5 p-4">
-            <h5 className="font-weight-bold">Employee Name: {selectedEmployee.name}</h5>
-            
-            <h5 className="font-weight-bold">Employee Number: {selectedEmployee.id}</h5>
-            
-            <h5 className="font-weight-bold">Employee Period: {selectedEmployee.period}</h5>
-            <Link to="/"><button className="btn btn-outline-dark m-2"> Home</button></Link>
+        <div className="row">
+            <div className="col-4"></div>
+            <div className="border border-secondary text-center m-5 p-4 col-4">
+                <p className="font-weight-bold">Employee Name: {selectedEmployee.name}</p>
+                
+                <p className="font-weight-bold">Employee Number: {selectedEmployee.id}</p>
+                
+                <p className="font-weight-bold">Employee Period: {selectedEmployee.period}</p>
+                <Link to="/"><button className="btn btn-outline-dark m-2"> Home</button></Link>
+            </div>
         </div>
     );
 };

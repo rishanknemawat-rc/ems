@@ -12,8 +12,8 @@ const EmployeeItem = ({ selectEmployee, employee }) => {
             </div>
             <div>
                 <Link to="/emp" ><button className="btn btn-outline-dark m-2">View</button></Link>
-                <Link><button className="btn btn-outline-dark m-2">Edit</button></Link>
-                <Link><button className="btn btn-outline-dark m-2">Delete</button></Link>
+                {/* <Link><button className="btn btn-outline-dark m-2">Edit</button></Link>
+                <Link><button className="btn btn-outline-dark m-2">Delete</button></Link> */}
             </div>
         </div>
     );

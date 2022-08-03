@@ -6,9 +6,9 @@ import EmployeeItem from "./EmployeeItem";
 const EmployeeList = ({ employees }) => {
     const renderedList = employees.map(employee => {
         return (
-            <div>
+            <div key={employee.id}>
                 <div key={employee.id} className="list-group m-4">
-                    <div className="list-group-item text-center">
+                    <div key={employee.id} className="list-group-item text-center">
                         <div>
                             <EmployeeItem
                                 key={employee.id}

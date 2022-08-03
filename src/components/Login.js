@@ -30,6 +30,7 @@ const Login = ({ users }) => {
 
         return (
             <div>
+               
                 <form className="form-group" onSubmit={handleSubmit}>
                     <div className="col px-md-5">
                         <label className="form-label"> Email: </label>
@@ -53,18 +54,19 @@ const Login = ({ users }) => {
                     <br />
 
                     <div className="col px-md-5 text-center">
-                        <button className="btn btn-primary" type="submit">Submit</button>
+                        <button className="btn btn-outline-secondary" type="submit">Submit</button>
                     </div>
                     <br />
-
-                    <span className={errorMessage.message ? "alert alert-danger text-center" : ""}>
+                    <br />
+                    <br />
+                    <span className={errorMessage.message ? "alert alert-danger text-center" : "text-center"}>
                         {errorMessage.message ? `${errorMessage.message} Please try Again.` : ""}
                     </span>
                 </form>
-                <div className="text-center font-weight-bold">
+                <div className="text-center font-weight-bold ">
                     New User?
                     <Link to="/signup">
-                        <button className="btn btn-primary"> Signup </button>
+                        <button className="btn btn-outline-secondary m-3"> Signup </button>
                     </Link>
                 </div>
             </div>
@@ -73,7 +75,7 @@ const Login = ({ users }) => {
 
     return (
         <div>
-            <h1 className="text-center font-weight-bold"> Login Page </h1>
+            <h1 className="text-center font-weight-bold m-3"> Login Page </h1>
             {submitted ?
                 <div className="alert alert-success text-center" role="alert">
                     User Logged In
