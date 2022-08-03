@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route } from "react-router-dom";
 
@@ -12,17 +12,35 @@ import Header from "./Header";
 
 const App = () => {
 
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    const handleLogin = (event) => {
+        setLoggedIn(event);
+    };
+
     return (
         <div>
             <BrowserRouter>
                 <div>
-                    <Header />
-                    <Route path="/login" exact component={Login} />
-                    <Route path="/signup" exact component={Signup} />
-                    <Route path="/" exact component={EmployeeList} />
-                    <Route path="/new" exact component={CreateEmployee}/>
-                    <Route path="/employee/:id" exact component={EmployeeDetails} />
-                    <Route path="/employee/:id/edit" exact component={EmployeeEdit} />
+                    {loggedIn ? <Header loggedIn={loggedIn} handleLogin={handleLogin}/> : ""}
+                    <Route path="/login" exact>
+                        <Login loggedIn={loggedIn} handleLogin={handleLogin}/>
+                    </Route>
+                    <Route path="/signup" exact>
+                        <Signup loggedIn={loggedIn} handleLogin={handleLogin}/>
+                    </Route>
+                    <Route path="/" exact>
+                        <EmployeeList loggedIn={loggedIn} handleLogin={handleLogin}/>
+                    </Route>
+                    <Route path="/new">
+                        <CreateEmployee loggedIn={loggedIn} handleLogin={handleLogin}/>
+                    </Route>
+                    <Route path="/employee/:id" exact >
+                        <EmployeeDetails loggedIn={loggedIn} handleLogin={handleLogin}/>
+                    </Route>
+                    <Route path="/employee/:id/edit" exact>
+                        <EmployeeEdit loggedIn={loggedIn} handleLogin={handleLogin}/>
+                    </Route>
                 </div>
             </BrowserRouter>
         </div>

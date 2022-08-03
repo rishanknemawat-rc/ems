@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import EmployeeItem from "./EmployeeItem";
 
 
-const EmployeeList = ({ employees }) => {
+const EmployeeList = ({ employees, loggedIn }) => {
+    // console.log(loggedIn);
     const renderedList = employees.map(employee => {
         return (
             <div key={employee.id}>
@@ -24,15 +26,24 @@ const EmployeeList = ({ employees }) => {
 
     return (
         <div>
-            <h1 className="text-center font-weight-bold m-4">EMPLOYEE LIST</h1>
-            {renderedList}
+            {
+                loggedIn ?
+                <div>
+                    <h1 className="text-center font-weight-bold m-4">EMPLOYEE LIST</h1>
+                    {renderedList}
+                </div> :
+                <div className="text-center">
+                    <h3 className="text-center font-weight-bold m-4">Please Login to Continue</h3>
+                    <Link to="/login"><button className="btn btn-outline-dark text-center m-2">Login</button></Link>
+                </div>
+            }
         </div>
     );
 };
 
 const mapStateToProps = (state) => {
-    console.log(state);
-    return { employees: state.employees}
+    // console.log(state);
+    return { employees: state.employees }
 };
 
 export default connect(mapStateToProps)(EmployeeList);

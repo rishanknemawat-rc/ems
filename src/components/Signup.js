@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addUser } from "../action";
+import { useHistory } from "react-router-dom";
 
-const Signup = ({ users, addUser }) => {
+const Signup = ({ users, addUser, handleLogin }) => {
     const [errorMessage, setErrorMessage] = useState({});
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userCreated, setUserCreated] = useState(false);
 
+    const history = useHistory();
     const renderForm = () => {
 
         const handleSubmit = (event) => {
@@ -28,7 +30,7 @@ const Signup = ({ users, addUser }) => {
                 setErrorMessage({
                     name: "password",
                     message: "Password must be between 8 to 15 characters. Must contain special character, " +
-                        "a number, a lowercase character, and an uppercase character"
+                        "a number, a lowercase character, and an uppercase character."
                 });
             else {
                 setUserCreated(true);
@@ -37,6 +39,8 @@ const Signup = ({ users, addUser }) => {
                     password: password
                 };
                 addUser(newUser);
+                handleLogin(true);
+                history.push("/");
             };
         }
 
@@ -51,7 +55,7 @@ const Signup = ({ users, addUser }) => {
                             onChange={e => setEmail(e.target.value)}
                             required
                         />
-                        <p>{errorMessage.name === "email" ? errorMessage.message : ""}</p>
+                        <p className="text-danger">{errorMessage.name === "email" ? errorMessage.message : ""}</p>
                     </div>
                     <div className="col px-md-5">
                         <label className="form-label">Enter Password</label>
@@ -61,7 +65,7 @@ const Signup = ({ users, addUser }) => {
                             onChange={e => setPassword(e.target.value)}
                             required
                         />
-                        <p>{errorMessage.name === "password" ? errorMessage.message : ""}</p>
+                        <p className="text-danger">{errorMessage.name === "password" ? errorMessage.message : ""}</p>
                     </div>
                     <br />
                     <div className="col px-md-5 text-center">

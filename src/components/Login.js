@@ -1,27 +1,34 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
-const Login = ({ users }) => {
+const Login = ({ users, handleLogin }) => {
+
     const [errorMessage, setErrorMessage] = useState({});
     const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
+    const history = useHistory();
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const userData = users.find(user => user.email === email);
 
         if (!userData) {
-            setErrorMessage({ name: "email", message: "Invalid Email!" });
+            setErrorMessage({ name: "email", message: "Email doesn't exist. New User? Signup!" });
         }
         else {
             if (userData.password !== password) {
-                setErrorMessage({ name: "password", message: "Invalid Password!" });
+                setErrorMessage({ name: "password", message: "Invalid Password, Please try again." });
             }
-            else
+            else{
                 setSubmitted(true);
+                handleLogin(true);
+                // console.log(setLoggedIn);
+                history.push("/");
+            }
         }
 
     };
@@ -39,7 +46,7 @@ const Login = ({ users }) => {
                             type="email"
                             name="email"
                             required />
-
+                        <p className="text-danger">{errorMessage.name === "email" ? errorMessage.message : ""}</p>
                     </div>
                     <br />
                     <div className="col px-md-5">
@@ -49,19 +56,13 @@ const Login = ({ users }) => {
                             type="password"
                             name="password"
                             required />
-
+                        <p className="text-danger">{errorMessage.name === "password" ? errorMessage.message : ""}</p>
                     </div>
                     <br />
 
                     <div className="col px-md-5 text-center">
                         <button className="btn btn-outline-secondary" type="submit">Submit</button>
                     </div>
-                    <br />
-                    <br />
-                    <br />
-                    <span className={errorMessage.message ? "alert alert-danger text-center" : "text-center"}>
-                        {errorMessage.message ? `${errorMessage.message} Please try Again.` : ""}
-                    </span>
                 </form>
                 <div className="text-center font-weight-bold ">
                     New User?

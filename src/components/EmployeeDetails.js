@@ -2,8 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const EmployeeDetails = ({ selectedEmployee }) => {
+const EmployeeDetails = ({ selectedEmployee, loggedIn }) => {
     // console.log(selectedEmployee);
+    if(!loggedIn){
+        return (
+            <div>
+                <div className="text-center">
+                    <h3 className="text-center font-weight-bold m-4">Please Login to Continue</h3>
+                    <Link to="/login"><button className="btn btn-outline-dark text-center m-2">Login</button></Link>
+                </div>
+            </div>
+        );
+    }
     if(!selectedEmployee)
         return <div>Please Try Again...</div>
     return (
