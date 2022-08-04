@@ -8,7 +8,7 @@ const EmployeeList = ({ employees, loggedIn }) => {
     // console.log(loggedIn);
     const renderedList = employees.map(employee => {
         return (
-            <div key={employee.id}>
+            <div key={employee.id} className="col-4">
                 <div key={employee.id} className="list-group m-4">
                     <div key={employee.id} className="list-group-item text-center">
                         <div>
@@ -30,7 +30,11 @@ const EmployeeList = ({ employees, loggedIn }) => {
                 loggedIn ?
                 <div>
                     <h1 className="text-center font-weight-bold m-4">EMPLOYEE LIST</h1>
-                    {renderedList}
+                    <div className="conatiner">
+                        <div className="row">
+                            {renderedList}
+                        </div>
+                    </div>
                 </div> :
                 <div className="text-center">
                     <h3 className="text-center font-weight-bold m-4">Please Login to Continue</h3>

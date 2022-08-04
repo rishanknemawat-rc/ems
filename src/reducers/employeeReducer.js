@@ -1,19 +1,34 @@
 const initalEmployees = [
     {
-        name: "emp-1",
+        name: "John",
+        id: 102,
+        period: "3 years"
+    },
+    {
+        name: "Claire",
+        id: 103,
+        period: "2.5 years"
+    },
+    {
+        name: "Emily",
         id: 101,
+        period: "5 years"
+    },
+    {
+        name: "Dylan",
+        id: 104,
+        period: "2 years"
+    },
+    {
+        name: "Emma",
+        id: 105,
         period: "1 year"
     },
     {
-        name: "emp-2",
-        id: 102,
-        period: "1.5 year"
-    },
-    {
-        name: "emp-3",
+        name: "Kraig",
         id: 103,
-        period: "2 year"
-    }
+        period: "3 months"
+    },
 ];
 
 const employeeReducer = (employees = initalEmployees, action) => {

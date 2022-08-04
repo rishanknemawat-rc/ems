@@ -25,7 +25,7 @@ const Signup = ({ users, addUser, handleLogin }) => {
             const password_chars = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/;
             const user = users.find(user => user.email === email);
             if (user)
-                setErrorMessage({name: "email", message: "User Already exists"});
+                setErrorMessage({ name: "email", message: "User Already exists" });
             else if (!password.match(password_chars))
                 setErrorMessage({
                     name: "password",
@@ -45,40 +45,42 @@ const Signup = ({ users, addUser, handleLogin }) => {
         }
 
         return (
-            <div>
-                <form className="form-group" onSubmit={handleSubmit}>
-                    <div className="col px-md-5">
-                        <label className="form-label">Enter Email Address</label>
-                        <input className="form-control"
-                            name="email"
-                            type="email"
-                            onChange={e => setEmail(e.target.value)}
-                            required
-                        />
-                        <p className="text-danger">{errorMessage.name === "email" ? errorMessage.message : ""}</p>
-                    </div>
-                    <div className="col px-md-5">
-                        <label className="form-label">Enter Password</label>
-                        <input className="form-control"
-                            name="password"
-                            type="password"
-                            onChange={e => setPassword(e.target.value)}
-                            required
-                        />
-                        <p className="text-danger">{errorMessage.name === "password" ? errorMessage.message : ""}</p>
-                    </div>
-                    <br />
-                    <div className="col px-md-5 text-center">
-                        <button className="btn btn-outline-secondary" type="submit">Submit</button>
-                    </div>
-                </form>
-                <br />
-                <br />
-                <br />
+            <div className="container">
+                <div className="row">
+                    <div className="col-3"></div>
+                    <form className="form-group col-6" onSubmit={handleSubmit}>
+                        <div className="col px-md-5">
+                            <label className="form-label">Enter Email Address</label>
+                            <input className="form-control"
+                                name="email"
+                                type="email"
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                            />
+                            <p className="text-danger">{errorMessage.name === "email" ? errorMessage.message : ""}</p>
+                        </div>
+                        <br/>
+                        <div className="col px-md-5">
+                            <label className="form-label">Enter Password</label>
+                            <input className="form-control"
+                                name="password"
+                                type="password"
+                                onChange={e => setPassword(e.target.value)}
+                                required
+                            />
+                            <p className="text-danger">{errorMessage.name === "password" ? errorMessage.message : ""}</p>
+                        </div>
+                        <br />
+                        <div className="col px-md-5 text-center">
+                            <button className="btn btn-outline-secondary" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
                 <div className="text-center font-weight-bold">
                     Already a user?
                     <Link to="/login">
-                    <button className="btn btn-outline-secondary m-3"> Login </button>
+                        <button className="btn btn-outline-secondary m-3"> Login </button>
                     </Link>
                 </div>
             </div>
@@ -101,7 +103,7 @@ const Signup = ({ users, addUser, handleLogin }) => {
 };
 
 const mapStateToProps = (state) => {
-    return {users: state.users}
+    return { users: state.users }
 };
 
 export default connect(mapStateToProps, { addUser })(Signup);

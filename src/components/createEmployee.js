@@ -21,36 +21,62 @@ const CreateEmployee = ({ addEmployee, loggedIn }) => {
                 id: value.id,
                 period: value.period
             });
-            console.log(value);
             history.push("/");
+        },
+        validate: values => {
+            const errors = {};
+            if (!values.name) {
+                errors.name = 'Required';
+            }
+            if (
+                !(/^[a-zA-Z]+$/.test(values.name))
+            ) {
+                errors.name = 'Invalid Name. Name should contain only letters';
+            }
+            if (!values.id) {
+                errors.id = "Required"
+            }
+            if (values.id && values.id < 100 && values.id > 999) {
+                errors.id = "Employee ID should be 3 digit number."
+            }
+            if (!values.period) {
+                errors.period = "Required"
+            }
+            return errors;
         }
     });
 
     return (
         <div>
             {loggedIn ?
-                <div className="form-group">
-                    <form onSubmit={formik.handleSubmit}>
-                        <div className=" m-2 text-center font-weight-bold">
-                            <label className="form-label">Enter Employee Name:</label>
-                            <input className="form-control" type="text" name="name" value={formik.values.name} onChange={formik.handleChange} />
-                        </div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-3"></div>
+                        <div className="form-group col-6">
+                            <form onSubmit={formik.handleSubmit}>
+                                <div className=" m-2 text-center font-weight-bold">
+                                    <label className="form-label">Enter Employee Name:</label>
+                                    <input className="form-control" type="text" name="name" value={formik.values.name} onChange={formik.handleChange} />
+                                    {formik.errors.name ? <div className="text-danger">{formik.errors.name}</div> : ""}
+                                </div>
 
-                        <div className=" m-2 text-center font-weight-bold">
-                            <label className="form-label">Enter Employee ID</label>
-                            <input className="form-control" type="number" name="id" value={formik.values.id} onChange={formik.handleChange} />
-                        </div>
+                                <div className=" m-2 text-center font-weight-bold">
+                                    <label className="form-label">Enter Employee ID</label>
+                                    <input className="form-control" type="number" name="id" value={formik.values.id} onChange={formik.handleChange} />
+                                    {formik.errors.id ? <div className="text-danger">{formik.errors.id}</div> : ""}
+                                </div>
 
-                        <div className=" m-2 text-center font-weight-bold">
-                            <label className="form-label">Enter Employee Period</label>
-                            <input className="form-control" type="text" name="period" value={formik.values.period} onChange={formik.handleChange} />
+                                <div className=" m-2 text-center font-weight-bold">
+                                    <label className="form-label">Enter Employee Period</label>
+                                    <input className="form-control" type="text" name="period" value={formik.values.period} onChange={formik.handleChange} />
+                                    {formik.errors.period ? <div className="text-danger">{formik.errors.period}</div> : ""}
+                                </div>
+                                <div className="text-center font-weight-bold">
+                                    <button className="btn btn-outline-secondary text-center m-2" type="submit">Submit</button>
+                                </div>
+                            </form>
                         </div>
-                        <div className="text-center font-weight-bold">
-                            {/* <Link to={formik.setSubmitting === true ? "/" : ""}> */}
-                            <button className="btn btn-outline-secondary text-center m-2" type="submit">Submit</button>
-                            {/* </Link> */}
-                        </div>
-                    </form>
+                    </div>
                 </div> :
                 <div className="text-center">
                     <h3 className="text-center font-weight-bold m-4">Please Login to Continue</h3>

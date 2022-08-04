@@ -23,7 +23,7 @@ const Login = ({ users, handleLogin }) => {
             if (userData.password !== password) {
                 setErrorMessage({ name: "password", message: "Invalid Password, Please try again." });
             }
-            else{
+            else {
                 setSubmitted(true);
                 handleLogin(true);
                 // console.log(setLoggedIn);
@@ -36,34 +36,37 @@ const Login = ({ users, handleLogin }) => {
     const renderForm = () => {
 
         return (
-            <div>
-               
-                <form className="form-group " onSubmit={handleSubmit}>
-                    <div className="col px-md-5">
-                        <label className="form-label"> Email: </label>
-                        <input className="form-control"
-                            onChange={e => setUsername(e.target.value)}
-                            type="email"
-                            name="email"
-                            required />
-                        <p className="text-danger">{errorMessage.name === "email" ? errorMessage.message : ""}</p>
-                    </div>
-                    <br />
-                    <div className="col px-md-5">
-                        <label className="form-label"> Password: </label>
-                        <input className="form-control"
-                            onChange={e => setPassword(e.target.value)}
-                            type="password"
-                            name="password"
-                            required />
-                        <p className="text-danger">{errorMessage.name === "password" ? errorMessage.message : ""}</p>
-                    </div>
-                    <br />
+            <div className="container">
+                <div className="row">
+                    <div className="col-3"></div>
+                    <form className="form-group col-6" onSubmit={handleSubmit}>
+                        <div className="col px-md-5">
+                            <label className="form-label"> User Email: </label>
+                            <input className="form-control"
+                                onChange={e => setUsername(e.target.value)}
+                                type="email"
+                                name="email"
+                                required />
+                            <p className="text-danger">{errorMessage.name === "email" ? errorMessage.message : ""}</p>
+                        </div>
+                        <br />
+                        <div className="col px-md-5">
+                            <label className="form-label"> User Password: </label>
+                            <input className="form-control"
+                                onChange={e => setPassword(e.target.value)}
+                                type="password"
+                                name="password"
+                                required />
+                            <p className="text-danger">{errorMessage.name === "password" ? errorMessage.message : ""}</p>
+                        </div>
+                        <br />
 
-                    <div className="col px-md-5 text-center">
-                        <button className="btn btn-outline-secondary" type="submit">Submit</button>
-                    </div>
-                </form>
+                        <div className="col px-md-5 text-center">
+                            <button className="btn btn-outline-secondary" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
                 <div className="text-center font-weight-bold ">
                     New User?
                     <Link to="/signup">
@@ -88,7 +91,7 @@ const Login = ({ users, handleLogin }) => {
 };
 
 const mapStateToProps = (state) => {
-    return {users: state.users}
+    return { users: state.users }
 };
 
 export default connect(mapStateToProps)(Login);
