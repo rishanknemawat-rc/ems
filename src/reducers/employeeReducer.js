@@ -26,39 +26,38 @@ const initalEmployees = [
     },
     {
         name: "Kraig",
-        id: 103,
+        id: 106,
         period: "3 months"
     },
 ];
 
 const employeeReducer = (employees = initalEmployees, action) => {
 
-    if(action.type === "ADD_EMPLOYEE")
-        return [...employees, action.payload];
+    switch (action.type) {
+        case ("ADD_EMPLOYEE"):
+            return [...employees, action.payload];
 
-    if(action.type === "DELETE_EMPLOYEE"){
-        function getEmp(obj){
-            return obj.id !== action.payload.id;
-        };
-        return employees.filter(getEmp);
-    }
+        case ("DELETE_EMPLOYEE"):
+            function getEmp(obj) {
+                return obj.id !== action.payload.id;
+            };
+            return employees.filter(getEmp);
 
-    if(action.type === "EDIT_EMPLOYEE"){
-        const updatesEmployees = employees.map(emp => {
-            const updatedEmp = emp;
-            if(emp.id === action.payload.id)
-            {
-                updatedEmp.name = action.payload.name
-                updatedEmp.period = action.payload.period;
-            }
+        case ("EDIT_EMPLOYEE"):
+            const updatesEmployees = employees.map(emp => {
+                const updatedEmp = emp;
+                if (emp.id === action.payload.id) {
+                    updatedEmp.name = action.payload.name
+                    updatedEmp.period = action.payload.period;
+                }
 
-            return updatedEmp;
-        });
+                return updatedEmp;
+            });
+            return updatesEmployees;
 
-        return updatesEmployees;
-    }
-
-    return employees;
+        default :   
+            return employees;
+    };
 };
 
 export default employeeReducer;

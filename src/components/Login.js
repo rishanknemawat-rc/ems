@@ -17,16 +17,21 @@ const Login = ({ users, handleLogin }) => {
         const userData = users.find(user => user.email === email);
 
         if (!userData) {
-            setErrorMessage({ name: "email", message: "Email doesn't exist. New User? Signup!" });
+            setErrorMessage({
+                name: "email",
+                message: "Email doesn't exist. New User? Signup!"
+            });
         }
         else {
             if (userData.password !== password) {
-                setErrorMessage({ name: "password", message: "Invalid Password, Please try again." });
+                setErrorMessage({
+                    name: "password",
+                    message: "Invalid Password, Please try again."
+                });
             }
             else {
                 setSubmitted(true);
                 handleLogin(true);
-                // console.log(setLoggedIn);
                 history.push("/");
             }
         }
@@ -39,30 +44,57 @@ const Login = ({ users, handleLogin }) => {
             <div className="container">
                 <div className="row">
                     <div className="col-3"></div>
-                    <form className="form-group col-6" onSubmit={handleSubmit}>
+                    <form
+                        className="form-group col-6"
+                        onSubmit={handleSubmit}
+                    >
                         <div className="col px-md-5">
-                            <label className="form-label"> User Email: </label>
-                            <input className="form-control"
+                            <label className="form-label">
+                                User Email:
+                            </label>
+                            <input
+                                className="form-control"
                                 onChange={e => setUsername(e.target.value)}
                                 type="email"
                                 name="email"
-                                required />
-                            <p className="text-danger">{errorMessage.name === "email" ? errorMessage.message : ""}</p>
+                                required
+                            />
+                            <p className="text-danger">
+                                {errorMessage.name === "email" ?
+                                    errorMessage.message :
+                                    ""}
+                            </p>
                         </div>
+
                         <br />
+
                         <div className="col px-md-5">
-                            <label className="form-label"> User Password: </label>
-                            <input className="form-control"
+                            <label className="form-label">
+                                User Password:
+                            </label>
+                            <input
+                                className="form-control"
                                 onChange={e => setPassword(e.target.value)}
                                 type="password"
                                 name="password"
-                                required />
-                            <p className="text-danger">{errorMessage.name === "password" ? errorMessage.message : ""}</p>
+                                required
+                            />
+                            <p className="text-danger">
+                                {errorMessage.name === "password" ?
+                                    errorMessage.message :
+                                    ""}
+                            </p>
                         </div>
+
                         <br />
 
                         <div className="col px-md-5 text-center">
-                            <button className="btn btn-outline-secondary" type="submit">Submit</button>
+                            <button
+                                className="btn btn-outline-secondary"
+                                type="submit"
+                            >
+                                Submit
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -70,7 +102,9 @@ const Login = ({ users, handleLogin }) => {
                 <div className="text-center font-weight-bold ">
                     New User?
                     <Link to="/signup">
-                        <button className="btn btn-outline-secondary m-3"> Signup </button>
+                        <button className="btn btn-outline-secondary m-3">
+                            Signup
+                        </button>
                     </Link>
                 </div>
             </div>
@@ -79,7 +113,9 @@ const Login = ({ users, handleLogin }) => {
 
     return (
         <div>
-            <h1 className="text-center font-weight-bold m-3"> Login Page </h1>
+            <h1 className="text-center font-weight-bold m-3">
+                Login Page
+            </h1>
             {submitted ?
                 <div className="alert alert-success text-center" role="alert">
                     User Logged In

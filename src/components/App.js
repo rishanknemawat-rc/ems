@@ -22,24 +22,39 @@ const App = () => {
         <div>
             <BrowserRouter>
                 <div>
-                    {loggedIn ? <Header loggedIn={loggedIn} handleLogin={handleLogin}/> : ""}
+                    <Header 
+                        loggedIn={loggedIn} 
+                        handleLogin={handleLogin}
+                    />
                     <Route path="/login" exact>
-                        <Login loggedIn={loggedIn} handleLogin={handleLogin}/>
+                        <Login 
+                            handleLogin={handleLogin}
+                        />
                     </Route>
                     <Route path="/signup" exact>
-                        <Signup loggedIn={loggedIn} handleLogin={handleLogin}/>
+                        <Signup 
+                            handleLogin={handleLogin}
+                        />
                     </Route>
                     <Route path="/" exact>
-                        <EmployeeList loggedIn={loggedIn} handleLogin={handleLogin}/>
+                        <EmployeeList 
+                            loggedIn={loggedIn}
+                        />
                     </Route>
                     <Route path="/new">
-                        <CreateEmployee loggedIn={loggedIn} handleLogin={handleLogin}/>
+                        <CreateEmployee 
+                            loggedIn={loggedIn}
+                        />
                     </Route>
                     <Route path="/employee/:id" exact >
-                        <EmployeeDetails loggedIn={loggedIn} handleLogin={handleLogin}/>
+                        <EmployeeDetails 
+                            loggedIn={loggedIn}
+                        />
                     </Route>
                     <Route path="/employee/:id/edit" exact>
-                        <EmployeeEdit loggedIn={loggedIn} handleLogin={handleLogin}/>
+                        <EmployeeEdit 
+                            loggedIn={loggedIn}
+                        />
                     </Route>
                 </div>
             </BrowserRouter>

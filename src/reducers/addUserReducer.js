@@ -13,7 +13,7 @@ const validUsers = [
     },
 ];
 
-const addUserReducer = (users=validUsers, action) => {
+const addUserReducer = (users = validUsers, action) => {
     if(action.type === "ADD_USER")
         return [...users, action.payload];
     return users;
