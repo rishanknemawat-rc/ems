@@ -27,7 +27,7 @@ const Signup = ({ users, addUser, handleLogin }) => {
                     message: "Password cannot be empty." 
                 });
 
-            const password_chars = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,15}$/;
+            const password_chars = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,16}$/;
             const user = users.find(user => user.email === email);
             if (user)
                 setErrorMessage({ 
@@ -39,7 +39,8 @@ const Signup = ({ users, addUser, handleLogin }) => {
                     name: "password",
                     message: "Password must be between 8 to 15 characters." + 
                                 "Must contain special character, " +
-                                "a number, a lowercase character, and an uppercase character."
+                                "a number, a lowercase character," + 
+                                " and an uppercase character."
                 });
             else {
                 setUserCreated(true);
