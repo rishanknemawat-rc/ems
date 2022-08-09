@@ -41,7 +41,7 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
             if (!values.id) {
                 errors.id = "Required"
             }
-            if (values.id && values.id < 100 && values.id > 999) {
+            if (values.id && (values.id < 100 || values.id > 999)) {
                 errors.id = "Employee ID should be 3 digit number."
             }
             if (!values.period) {
