@@ -1,0 +1,20 @@
+{
+    "extends": "@ringcentral/web-modules-build/src/typescript/tsconfig.json",
+    "compilerOptions": {
+        "module": "esnext",
+        "allowUnusedLabels": false,
+        "allowUnreachableCode": false,
+        "allowJs": true,
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "incremental": true,
+        "jsx": "react",
+        "noImplicitReturns": true,
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true
+    }
+}

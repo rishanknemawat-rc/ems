@@ -2,9 +2,23 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { addUser } from "../action";
+import { User } from "../reducers/addUserReducer";
+import { Users } from "../reducers/addUserReducer";
+
+// interface Props{
+//     users: Users,
+//     addUser: any,
+//     handleLogin:
+// }
 
 const Signup = ({ users, addUser, handleLogin }) => {
-    const [errorMessage, setErrorMessage] = useState({});
+
+    interface ErrorMessage {
+        name?: string,
+        message?: string
+    }
+
+    const [errorMessage, setErrorMessage] = useState<ErrorMessage>({name: "", message: ""});
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userCreated, setUserCreated] = useState(false);

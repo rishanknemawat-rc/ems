@@ -5,7 +5,12 @@ import { useHistory } from "react-router-dom";
 
 const Login = ({ users, handleLogin }) => {
 
-    const [errorMessage, setErrorMessage] = useState({});
+    interface ErrorMessage {
+        name?: string,
+        message?: string
+    }
+
+    const [errorMessage, setErrorMessage] = useState<ErrorMessage>({name: "", message: ""});
     const [email, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [submitted, setSubmitted] = useState(false);

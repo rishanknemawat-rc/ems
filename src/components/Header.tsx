@@ -6,6 +6,7 @@ const Header = ({ loggedIn, handleLogin }) => {
     const handleLogout = () => {
         handleLogin(false);
     };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link to="/" className="nav-item nav-link active m-3">
@@ -42,7 +43,6 @@ const Header = ({ loggedIn, handleLogin }) => {
                         </div>
                     </div>
             }
-
         </nav>
     );
 };

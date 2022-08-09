@@ -14,7 +14,7 @@ const App = () => {
 
     const [loggedIn, setLoggedIn] = useState(false);
 
-    const handleLogin = (event) => {
+    const handleLogin = (event: boolean) => {
         setLoggedIn(event);
     };
 

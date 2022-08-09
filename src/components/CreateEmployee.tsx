@@ -5,6 +5,13 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { addEmployee } from "../action";
+import { Employee } from "../reducers/employeeReducer";
+
+type Error = {
+    name?: string,
+    id?: string,
+    period?: string
+}
 
 const CreateEmployee = ({ addEmployee, loggedIn }) => {
 
@@ -13,10 +20,10 @@ const CreateEmployee = ({ addEmployee, loggedIn }) => {
     const formik = useFormik({
         initialValues: {
             name: "",
-            id: "",
+            id: 0,
             period: ""
         },
-        onSubmit: (value) => {
+        onSubmit: (value: Employee) => {
             addEmployee({
                 name: value.name,
                 id: value.id,
@@ -24,8 +31,8 @@ const CreateEmployee = ({ addEmployee, loggedIn }) => {
             });
             history.push("/");
         },
-        validate: values => {
-            const errors = {};
+        validate: (values: Employee) => {
+            const errors: Error = {};
             if (!values.name) {
                 errors.name = 'Required';
             }

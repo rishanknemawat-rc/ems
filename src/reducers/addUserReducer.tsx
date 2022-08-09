@@ -1,4 +1,7 @@
-const validUsers = [
+import { UserActionTypes } from "../types/actions";
+import { User } from "../types/User";
+
+const validUsers: User[]  = [
     {
         email: "user1@xyz",
         password: "pass1"
@@ -13,7 +16,7 @@ const validUsers = [
     },
 ];
 
-const addUserReducer = (users = validUsers, action) => {
+const addUserReducer = (users = validUsers, action: UserActionTypes): User[] => {
     if(action.type === "ADD_USER")
         return [...users, action.payload];
     return users;

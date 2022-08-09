@@ -1,4 +1,7 @@
-const initalEmployees = [
+import { EmployeeActionTypes } from "../types/actions";
+import { Employee } from "../types/Employee";
+
+const initalEmployees: Employee[] = [
     {
         name: "John",
         id: 102,
@@ -31,17 +34,16 @@ const initalEmployees = [
     },
 ];
 
-const employeeReducer = (employees = initalEmployees, action) => {
+const employeeReducer = (employees = initalEmployees, 
+                        action: EmployeeActionTypes): 
+                        Employee[] => {
 
     switch (action.type) {
         case ("ADD_EMPLOYEE"):
             return [...employees, action.payload];
 
         case ("DELETE_EMPLOYEE"):
-            function getEmp(obj) {
-                return obj.id !== action.payload.id;
-            };
-            return employees.filter(getEmp);
+            return employees.filter(emp => emp.id !== action.payload.id);
 
         case ("EDIT_EMPLOYEE"):
             const updatesEmployees = employees.map(emp => {
