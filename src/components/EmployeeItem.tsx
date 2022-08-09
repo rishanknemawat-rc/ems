@@ -3,16 +3,21 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-import { selectEmployee, deleteEmployee } from "../action";
+import { selectEmployee, deleteEmployee } from "../action/index";
+import { AppActions } from "../types/actions";
+import { Employee } from "../types/Employee";
 
-const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }) => {
+const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }: 
+                        {selectEmployee: (employee: Employee) => AppActions,
+                         employee: Employee,
+                         deleteEmployee: (employee: Employee) => AppActions,}) => {
 
     const history = useHistory();
     const handleDelete = () => {
         deleteEmployee(employee);
     }
 
-    const handleView = (event) => {
+    const handleView = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         history.push(`/employee/${employee.id}`);
     }

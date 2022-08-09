@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { User } from "../types/User";
+import { AppState } from "../reducers/index";
 
-const Login = ({ users, handleLogin }) => {
+const Login = ({ users, handleLogin }: { users: User[], handleLogin: (event: boolean) => void}) => {
 
     interface ErrorMessage {
         name?: string,
@@ -16,7 +18,7 @@ const Login = ({ users, handleLogin }) => {
     const [submitted, setSubmitted] = useState(false);
 
     const history = useHistory();
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
         const userData = users.find(user => user.email === email);
@@ -131,7 +133,11 @@ const Login = ({ users, handleLogin }) => {
     );
 };
 
-const mapStateToProps = (state) => {
+interface LinkStateProps{
+    users: User[];
+};
+
+const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 

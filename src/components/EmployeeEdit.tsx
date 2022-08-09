@@ -4,9 +4,17 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { editEmployee } from "../action";
+import { editEmployee } from "../action/index";
+import { Employee } from "../types/Employee";
+import { AppActions } from "../types/actions";
+import { Error } from "../types/Error";
+import { AppState } from "../reducers/index";
 
-const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }) => {
+const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
+    : { employeeList : Employee[], 
+        selectedEmployee: Employee, 
+        editEmployee: (employee: Employee) => AppActions, 
+        loggedIn: boolean}) => {
 
     const history = useHistory();
     const formik = useFormik({
@@ -15,8 +23,8 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
             id: selectedEmployee.id,
             period: selectedEmployee.period,
         },
-        onSubmit: (value) => {
-            const updatedEmployee = {
+        onSubmit: (value: Employee) => {
+            const updatedEmployee: Employee = {
                 name: value.name,
                 id: value.id,
                 period: value.period
@@ -35,21 +43,21 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
                     + JSON.stringify(value, null, 3));
             }
         },
-        validate: values => {
-            const errors = {};
-            if (!values.name) {
-                errors.name = 'Required';
+        validate: (value: Employee) => {
+            const error: Error = {};
+            if (!value.name) {
+                error.name = 'Required';
             }
             if (
-                !(/^[a-zA-Z]+$/.test(values.name))
+                !(/^[a-zA-Z]+$/.test(value.name))
             ) {
-                errors.name = 'Invalid Name. ' +
+                error.name = 'Invalid Name. ' +
                     'Name should contain only letters';
             }
-            if (!values.period) {
-                errors.period = "Required"
+            if (!value.period) {
+                error.period = "Required"
             }
-            return errors;
+            return error;
         }
     });
     return (
@@ -138,7 +146,12 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
     );
 };
 
-const mapStateToProps = (state) => {
+interface LinkStateProps{
+    employeeList: Employee[],
+    selectedEmployee: Employee | null
+};
+
+const mapStateToProps = (state: AppState): LinkStateProps => {
     return ({
         employeeList: state.employees,
         selectedEmployee: state.selectedEmployee

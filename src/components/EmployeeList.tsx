@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { AppState } from "../reducers/index";
+import { Employee } from "../types/Employee";
 
 import EmployeeItem from "./EmployeeItem";
 
-
-const EmployeeList = ({ employees, loggedIn }) => {
+const EmployeeList = ({ employees, loggedIn }: {employees:Employee[], loggedIn: boolean}) => {
     const renderedList = employees.map(employee => {
         return (
             <div key={employee.id} className="col-4">
@@ -53,7 +54,11 @@ const EmployeeList = ({ employees, loggedIn }) => {
     );
 };
 
-const mapStateToProps = (state) => {
+interface LinkStateProps{
+    employees: Employee[]
+}
+
+const mapStateToProps = (state: AppState): LinkStateProps => {
     return { employees: state.employees }
 };
 

@@ -1,8 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { AppState } from "../reducers/index";
+import { Employee } from "../types/Employee";
 
-const EmployeeDetails = ({ selectedEmployee, loggedIn }) => {
+const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Employee | null, loggedIn: boolean }) => {
     if (!loggedIn) {
         return (
             <div>
@@ -53,7 +55,11 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn }) => {
     );
 };
 
-const mapStateToProps = state => {
+interface LinkStateProps{
+    selectedEmployee: Employee | null
+};
+
+const mapStateToProps = (state: AppState): LinkStateProps => {
     return { selectedEmployee: state.selectedEmployee };
 };
 

@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { addUser } from "../action";
-import { User } from "../reducers/addUserReducer";
-import { Users } from "../reducers/addUserReducer";
+import { addUser } from "../action/index";
 
-// interface Props{
-//     users: Users,
-//     addUser: any,
-//     handleLogin:
-// }
+import { User } from "../types/User";
+import { AppActions } from "../types/actions";
+import { AppState } from "../reducers/index";
 
-const Signup = ({ users, addUser, handleLogin }) => {
+const Signup = ({ users, addUser, handleLogin }: 
+                { users: User[], addUser: (user: User) => AppActions, 
+                handleLogin: (event: boolean) => void}) => {
 
     interface ErrorMessage {
         name?: string,
@@ -26,7 +24,7 @@ const Signup = ({ users, addUser, handleLogin }) => {
     const history = useHistory();
     const renderForm = () => {
 
-        const handleSubmit = event => {
+        const handleSubmit = (event: { preventDefault: () => void; }) => {
             event.preventDefault();
 
             if (!email)
@@ -58,7 +56,7 @@ const Signup = ({ users, addUser, handleLogin }) => {
                 });
             else {
                 setUserCreated(true);
-                const newUser = {
+                const newUser: User = {
                     email: email,
                     password: password
                 };
@@ -72,7 +70,7 @@ const Signup = ({ users, addUser, handleLogin }) => {
             <div className="container">
                 <div className="row">
                     <div className="col-3"></div>
-                    <form className="form-group col-6" onSubmit={handleSubmit}>
+                    <form className="form-group col-6" onSubmit = {handleSubmit}>
                         <div className="col px-md-5">
                             <label className="form-label">
                                 Enter Email Address
@@ -156,7 +154,11 @@ const Signup = ({ users, addUser, handleLogin }) => {
     );
 };
 
-const mapStateToProps = (state) => {
+interface LinkStateProps{
+    users: User[];
+}
+
+const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 

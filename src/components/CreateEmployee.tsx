@@ -4,16 +4,12 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { addEmployee } from "../action";
-import { Employee } from "../reducers/employeeReducer";
+import { addEmployee } from "../action/index";
+import { Employee } from "../types/Employee";
+import { Error } from "../types/Error";
+import { AppActions } from "../types/actions";
 
-type Error = {
-    name?: string,
-    id?: string,
-    period?: string
-}
-
-const CreateEmployee = ({ addEmployee, loggedIn }) => {
+const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Employee) => AppActions, loggedIn: boolean}) => {
 
     let history = useHistory();
 
@@ -24,11 +20,12 @@ const CreateEmployee = ({ addEmployee, loggedIn }) => {
             period: ""
         },
         onSubmit: (value: Employee) => {
-            addEmployee({
+            const newEmployee:Employee = {
                 name: value.name,
                 id: value.id,
                 period: value.period
-            });
+            };
+            addEmployee(newEmployee);
             history.push("/");
         },
         validate: (values: Employee) => {
