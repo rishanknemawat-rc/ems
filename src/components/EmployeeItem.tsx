@@ -24,7 +24,7 @@ const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
     return (
         <div onClick={() => selectEmployee(employee)}>
             <div>
-                <h3>{employee.name}</h3>
+                <h3>{employee.firstname} {employee.lastname}</h3>
             </div>
             <div>
                 <button

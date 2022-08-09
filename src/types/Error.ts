@@ -1,5 +1,8 @@
 export interface Error{
-    name?: string,
+    firstname?: string,
+    lastname?: string,
     id?: string,
+    salary?: string,
+    manager?: string
     period?: string
 }

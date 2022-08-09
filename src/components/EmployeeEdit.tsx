@@ -19,13 +19,19 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
     const history = useHistory();
     const formik = useFormik({
         initialValues: {
-            name: selectedEmployee.name,
+            firstname: selectedEmployee.firstname,
+            lastname: selectedEmployee.lastname,
             id: selectedEmployee.id,
+            salary: selectedEmployee.salary,
+            manager: selectedEmployee.manager,
             period: selectedEmployee.period,
         },
         onSubmit: (value: Employee) => {
             const updatedEmployee: Employee = {
-                name: value.name,
+                firstname: value.firstname,
+                lastname: value.lastname,
+                salary: value.salary,
+                manager: value.manager,
                 id: value.id,
                 period: value.period
             };
@@ -45,14 +51,29 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
         },
         validate: (value: Employee) => {
             const error: Error = {};
-            if (!value.name) {
-                error.name = 'Required';
+            if (!value.firstname) {
+                error.firstname = 'Required';
+            }
+            if (!value.lastname) {
+                error.lastname = 'Required';
             }
             if (
-                !(/^[a-zA-Z]+$/.test(value.name))
+                !(/^[a-zA-Z]+$/.test(value.firstname))
             ) {
-                error.name = 'Invalid Name. ' +
+                error.firstname = 'Invalid first name. ' +
                     'Name should contain only letters';
+            }
+            if (
+                !(/^[a-zA-Z]+$/.test(value.lastname))
+            ) {
+                error.lastname = 'Invalid last name. ' +
+                    'Name should contain only letters';
+            }
+            if (!value.salary) {
+                error.salary = "Required"
+            }
+            if (!value.manager) {
+                error.manager = "Required"
             }
             if (!value.period) {
                 error.period = "Required"
@@ -71,17 +92,17 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
                                 <form onSubmit={formik.handleSubmit}>
                                     <div className=" m-2 text-center font-weight-bold">
                                         <label className="form-label">
-                                            Enter Employee Name:
+                                            First name
                                         </label>
                                         <input
                                             className="form-control"
-                                            type="text" name="name"
-                                            value={formik.values.name}
+                                            type="text" name="firstname"
+                                            value={formik.values.firstname}
                                             onChange={formik.handleChange}
                                         />
-                                        {formik.errors.name ?
+                                        {formik.errors.firstname ?
                                             <div className="text-danger">
-                                                {formik.errors.name}
+                                                {formik.errors.firstname}
                                             </div> :
                                             ""
                                         }
@@ -89,7 +110,25 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
 
                                     <div className=" m-2 text-center font-weight-bold">
                                         <label className="form-label">
-                                            Enter Employee ID
+                                            Last name
+                                        </label>
+                                        <input
+                                            className="form-control"
+                                            type="text" name="lastname"
+                                            value={formik.values.lastname}
+                                            onChange={formik.handleChange}
+                                        />
+                                        {formik.errors.lastname ?
+                                            <div className="text-danger">
+                                                {formik.errors.lastname}
+                                            </div> :
+                                            ""
+                                        }
+                                    </div>
+
+                                    <div className=" m-2 text-center font-weight-bold">
+                                        <label className="form-label">
+                                            Employee ID
                                         </label>
                                         <input
                                             className="form-control"
@@ -103,7 +142,39 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
 
                                     <div className=" m-2 text-center font-weight-bold">
                                         <label className="form-label">
-                                            Enter Employee Period
+                                            Salary
+                                        </label>
+                                        <input
+                                            className="form-control"
+                                            type="number"
+                                            name="salary"
+                                            value={formik.values.salary}
+                                            onChange={formik.handleChange}
+                                        />
+                                    </div>
+
+                                    <div className=" m-2 text-center font-weight-bold">
+                                        <label className="form-label">
+                                            Manager
+                                        </label>
+                                        <input
+                                            className="form-control"
+                                            type="text"
+                                            name="manager"
+                                            value={formik.values.manager}
+                                            onChange={formik.handleChange}
+                                        />
+                                        {formik.errors.manager ?
+                                            <div className="text-danger">
+                                                {formik.errors.manager}
+                                            </div> :
+                                            ""
+                                        }
+                                    </div>
+
+                                    <div className=" m-2 text-center font-weight-bold">
+                                        <label className="form-label">
+                                            Period
                                         </label>
                                         <input
                                             className="form-control"

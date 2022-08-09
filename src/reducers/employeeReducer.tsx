@@ -3,33 +3,51 @@ import { Employee } from "../types/Employee";
 
 const initalEmployees: Employee[] = [
     {
-        name: "John",
+        firstname: "John",
+        lastname: "Lison",
         id: 102,
+        salary: 50000,
+        manager: "Mark",
         period: "3 years"
     },
     {
-        name: "Claire",
+        firstname: "Claire",
+        lastname: "Underwood",
         id: 103,
+        salary: 60000,
+        manager: "Mark",
         period: "2.5 years"
     },
     {
-        name: "Emily",
+        firstname: "Luke",
+        lastname: "Willow",
         id: 101,
+        salary: 20000,
+        manager: "Mark",
         period: "5 years"
     },
     {
-        name: "Dylan",
+        firstname: "Michael",
+        lastname: "Scott",
         id: 104,
+        salary: 80000,
+        manager: "Mark",
         period: "2 years"
     },
     {
-        name: "Emma",
+        firstname: "Rachel",
+        lastname: "Frinster",
         id: 105,
+        salary: 10000,
+        manager: "Mark",
         period: "1 year"
     },
     {
-        name: "Kraig",
+        firstname: "Jake",
+        lastname: "Evster",
         id: 106,
+        salary: 155000,
+        manager: "Mark",
         period: "3 months"
     },
 ];
@@ -49,7 +67,10 @@ const employeeReducer = (employees = initalEmployees,
             const updatesEmployees = employees.map(emp => {
                 const updatedEmp = emp;
                 if (emp.id === action.payload.id) {
-                    updatedEmp.name = action.payload.name
+                    updatedEmp.firstname = action.payload.firstname
+                    updatedEmp.lastname = action.payload.lastname
+                    updatedEmp.salary = action.payload.salary
+                    updatedEmp.manager = action.payload.manager
                     updatedEmp.period = action.payload.period;
                 }
 

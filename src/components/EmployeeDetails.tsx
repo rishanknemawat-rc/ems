@@ -34,7 +34,7 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Em
             <div className="col-4"></div>
             <div className="border border-secondary text-center m-5 p-4 col-4">
                 <p className="font-weight-bold">
-                    Employee Name: {selectedEmployee.name}
+                    Full Name: {selectedEmployee.firstname} {selectedEmployee.lastname}
                 </p>
 
                 <p className="font-weight-bold">
@@ -42,7 +42,15 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Em
                 </p>
 
                 <p className="font-weight-bold">
-                    Employee Period: {selectedEmployee.period}
+                    Salary: {selectedEmployee.salary}
+                </p>
+
+                <p className="font-weight-bold">
+                    Manager: {selectedEmployee.manager}
+                </p>
+
+                <p className="font-weight-bold">
+                    Period: {selectedEmployee.period}
                 </p>
 
                 <Link to="/">

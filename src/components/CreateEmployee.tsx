@@ -15,14 +15,20 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
 
     const formik = useFormik({
         initialValues: {
-            name: "",
+            firstname: "",
+            lastname:"",
             id: 0,
+            salary: 0,
+            manager: "",
             period: ""
         },
         onSubmit: (value: Employee) => {
             const newEmployee:Employee = {
-                name: value.name,
+                firstname: value.firstname,
+                lastname: value.lastname,
                 id: value.id,
+                salary: value.salary,
+                manager: value.manager,
                 period: value.period
             };
             addEmployee(newEmployee);
@@ -30,19 +36,34 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
         },
         validate: (values: Employee) => {
             const errors: Error = {};
-            if (!values.name) {
-                errors.name = 'Required';
+            if (!values.firstname) {
+                errors.firstname = 'Required';
+            }
+            if (!values.lastname) {
+                errors.lastname = 'Required';
             }
             if (
-                !(/^[a-zA-Z]+$/.test(values.name))
+                !(/^[a-zA-Z]+$/.test(values.firstname))
             ) {
-                errors.name = 'Invalid Name. Name should contain only letters';
+                errors.firstname = 'Invalid First Name. Name should contain only letters';
+            }
+            if (
+                !(/^[a-zA-Z]+$/.test(values.lastname))
+            ) {
+                errors.lastname = 'Invalid Last Name. Name should contain only letters';
+            }
+            if (!values.salary) {
+                errors.salary = "Required"
             }
             if (!values.id) {
                 errors.id = "Required"
             }
             if (values.id && (values.id < 100 || values.id > 999)) {
                 errors.id = "Employee ID should be 3 digit number."
+            
+            }
+            if (!values.manager) {
+                errors.manager = "Required"
             }
             if (!values.period) {
                 errors.period = "Required"
@@ -61,26 +82,46 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                             <form onSubmit={formik.handleSubmit}>
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
-                                        Enter Employee Name:
+                                        First Name:
                                     </label>
                                     <input
                                         className="form-control"
                                         type="text"
-                                        name="name"
-                                        value={formik.values.name}
+                                        name="firstname"
+                                        value={formik.values.firstname}
                                         onChange={formik.handleChange}
                                     />
-                                    {formik.errors.name ?
+                                    {formik.errors.firstname ?
                                         <div className="text-danger">
-                                            {formik.errors.name}
+                                            {formik.errors.firstname}
                                         </div> :
                                         ""
                                     }
                                 </div>
-
+                                
+                                <br/>
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
-                                        Enter Employee ID
+                                        Last Name:
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        name="lastname"
+                                        value={formik.values.lastname}
+                                        onChange={formik.handleChange}
+                                    />
+                                    {formik.errors.lastname ?
+                                        <div className="text-danger">
+                                            {formik.errors.lastname}
+                                        </div> :
+                                        ""
+                                    }
+                                </div>
+                                <br/>
+                                <div className=" m-2 text-center font-weight-bold">
+                                    <label className="form-label">
+                                        Employee ID
                                     </label>
                                     <input
                                         className="form-control"
@@ -96,10 +137,47 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
-
+                                <br/>
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
-                                        Enter Employee Period
+                                        Salary
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        type="number"
+                                        name="salary"
+                                        value={formik.values.salary}
+                                        onChange={formik.handleChange}
+                                    />
+                                    {formik.errors.salary ?
+                                        <div className="text-danger">
+                                            {formik.errors.salary}
+                                        </div> :
+                                        ""
+                                    }
+                                </div>
+                                <br/>
+                                <div className=" m-2 text-center font-weight-bold">
+                                    <label className="form-label">
+                                        Manager
+                                    </label>
+                                    <input
+                                        className="form-control"
+                                        type="text" name="manager"
+                                        value={formik.values.manager}
+                                        onChange={formik.handleChange}
+                                    />
+                                    {formik.errors.manager ?
+                                        <div className="text-danger">
+                                            {formik.errors.manager}
+                                        </div> :
+                                        ""
+                                    }
+                                </div>
+                                <br/>
+                                <div className=" m-2 text-center font-weight-bold">
+                                    <label className="form-label">
+                                        Period
                                     </label>
                                     <input
                                         className="form-control"
@@ -114,6 +192,7 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
+                                <br/>
                                 <div className="text-center font-weight-bold">
                                     <button
                                         className="btn btn-outline-secondary text-center m-2"

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { boolean } from "../../node_modules/yup/lib/locale";
 
 const Header = ({ loggedIn, handleLogin }: { loggedIn: boolean, handleLogin: (event: boolean) => void})  => {
 
