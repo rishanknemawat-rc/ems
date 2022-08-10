@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 import { BrowserRouter, Route } from "react-router-dom";
 
 import Login from "./Login";

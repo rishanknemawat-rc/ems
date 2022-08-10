@@ -10,9 +10,9 @@ const EmployeeList = ({ employees, loggedIn }: { employees: Employee[], loggedIn
 
     const [searchInput, setSearchInput] = useState("");
     const [searchResults, setSearchResults] = useState<Employee[]>(employees);
+    const [sort, setSort] = useState("");
 
     useEffect(() => {
-        console.log(searchInput);
         if (searchInput === "")
             setSearchResults(employees);
 
@@ -21,13 +21,22 @@ const EmployeeList = ({ employees, loggedIn }: { employees: Employee[], loggedIn
                 employee.lastname.toLowerCase().includes(searchInput.toLowerCase());
         });
 
-        setSearchResults(filteredResults);
-    }, [searchInput]);
-
-    // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    //     setSearchInput(event.target.value);
-    //     console.log(searchInput);
-    // }
+        if (sort === "firstname")
+            setSearchResults(filteredResults.sort((e1, e2) => {
+                if (e1.firstname.toLowerCase() <= e2.firstname.toLowerCase())
+                    return -1;
+                else return 1;
+            }))
+        else if (sort === "lastname")
+        setSearchResults(filteredResults.sort((e1, e2) => {
+            if (e1.lastname.toLowerCase() <= e2.lastname.toLowerCase())
+                return -1;
+            else return 1;
+        }))
+        else
+            setSearchResults(filteredResults);
+            
+    }, [searchInput, sort]);
 
     const renderedList = searchResults.map(employee => {
         return (
@@ -66,6 +75,31 @@ const EmployeeList = ({ employees, loggedIn }: { employees: Employee[], loggedIn
                                             placeholder="Search Employee"
                                             onChange={(e) => setSearchInput(e.target.value)}
                                         />
+                                    </div>
+                                </div>
+
+                                <div className="col-4">
+                                    <div className="form-outline m-4">
+                                        <div className="dropdown">
+                                            <button className="btn btn-dark dropdown-toggle" 
+                                                    type="button" 
+                                                    id="dropdownMenuButton" 
+                                                    data-toggle="dropdown" 
+                                                    aria-haspopup="true" 
+                                                    aria-expanded="false">
+                                                Sort
+                                            </button>
+                                            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <button className="dropdown-item" 
+                                                        onClick={() => setSort("firstname")} > 
+                                                        First Name 
+                                                </button>
+                                                <button className="dropdown-item"
+                                                        onClick={() => setSort("lastname")} > 
+                                                        Last Name 
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

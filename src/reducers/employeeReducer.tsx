@@ -36,7 +36,7 @@ const initalEmployees: Employee[] = [
     },
     {
         firstname: "Rachel",
-        lastname: "Frinster",
+        lastname: "Waffle",
         id: 105,
         salary: 10000,
         manager: "Mark",
@@ -44,7 +44,7 @@ const initalEmployees: Employee[] = [
     },
     {
         firstname: "Jake",
-        lastname: "Evster",
+        lastname: "Weinstein",
         id: 106,
         salary: 155000,
         manager: "Mark",
