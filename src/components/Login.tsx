@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+
 import { User } from "../types/User";
 import { AppState } from "../reducers/index";
 

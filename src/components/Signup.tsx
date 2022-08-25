@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
+
+import { AppState } from "../reducers/index";
 import { addUser } from "../action/index";
 
 import { User } from "../types/User";
 import { AppActions } from "../types/actions";
-import { AppState } from "../reducers/index";
 
 const Signup = ({ users, addUser, handleLogin }: 
                 { users: User[], addUser: (user: User) => AppActions, 

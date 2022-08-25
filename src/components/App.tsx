@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
 import { BrowserRouter, Route } from "react-router-dom";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+
+import Header from "./Header";
 import Login from "./Login";
 import Signup from "./Signup";
 import EmployeeList from "./EmployeeList";
-import CreateEmployee from "./CreateEmployee";
 import EmployeeDetails from "./EmployeeDetails";
+import CreateEmployee from "./CreateEmployee";
 import EmployeeEdit from "./EmployeeEdit";
-import Header from "./Header";
 
 const App = () => {
-
     const [loggedIn, setLoggedIn] = useState(false);
 
     const handleLogin = (event: boolean) => {

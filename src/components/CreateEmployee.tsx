@@ -1,73 +1,57 @@
 import React from "react";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { addEmployee } from "../action/index";
 import { Employee } from "../types/Employee";
 import { Error } from "../types/Error";
 import { AppActions } from "../types/actions";
 
-const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Employee) => AppActions, loggedIn: boolean}) => {
+const CreateEmployee = ({ addEmployee, loggedIn }: { addEmployee: (employee: Employee) => AppActions, loggedIn: boolean }) => {
 
     let history = useHistory();
 
     const formik = useFormik({
         initialValues: {
             firstname: "",
-            lastname:"",
+            lastname: "",
             id: 0,
             salary: 0,
             manager: "",
             period: ""
         },
         onSubmit: (value: Employee) => {
-            const newEmployee:Employee = {
-                firstname: value.firstname,
-                lastname: value.lastname,
-                id: value.id,
-                salary: value.salary,
-                manager: value.manager,
-                period: value.period
-            };
-            addEmployee(newEmployee);
+            addEmployee(value);
             history.push("/");
         },
         validate: (values: Employee) => {
             const errors: Error = {};
             if (!values.firstname) {
                 errors.firstname = 'Required';
+                if (!(/^[a-zA-Z]+$/.test(values.firstname)))
+                    errors.firstname = 'Invalid First Name. Name should contain only letters';
             }
             if (!values.lastname) {
                 errors.lastname = 'Required';
+                if (!(/^[a-zA-Z]+$/.test(values.lastname)))
+                    errors.lastname = 'Invalid Last Name. Name should contain only letters';
             }
-            if (
-                !(/^[a-zA-Z]+$/.test(values.firstname))
-            ) {
-                errors.firstname = 'Invalid First Name. Name should contain only letters';
-            }
-            if (
-                !(/^[a-zA-Z]+$/.test(values.lastname))
-            ) {
-                errors.lastname = 'Invalid Last Name. Name should contain only letters';
-            }
-            if (!values.salary) {
+            if (!values.salary)
                 errors.salary = "Required"
-            }
+
             if (!values.id) {
                 errors.id = "Required"
+                if (values.id && (values.id < 100 || values.id > 999)) {
+                    errors.id = "Employee ID should be 3 digit number."
+                }
             }
-            if (values.id && (values.id < 100 || values.id > 999)) {
-                errors.id = "Employee ID should be 3 digit number."
-            
-            }
-            if (!values.manager) {
+            if (!values.manager)
                 errors.manager = "Required"
-            }
-            if (!values.period) {
+            
+            if (!values.period) 
                 errors.period = "Required"
-            }
+            
             return errors;
         }
     });
@@ -98,8 +82,8 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
-                                
-                                <br/>
+
+                                <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
                                         Last Name:
@@ -118,7 +102,7 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
-                                <br/>
+                                <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
                                         Employee ID
@@ -137,7 +121,7 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
-                                <br/>
+                                <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
                                         Salary
@@ -156,7 +140,7 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
-                                <br/>
+                                <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
                                         Manager
@@ -174,7 +158,7 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
-                                <br/>
+                                <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
                                         Period
@@ -192,7 +176,7 @@ const CreateEmployee = ({ addEmployee, loggedIn } : { addEmployee: (employee: Em
                                         ""
                                     }
                                 </div>
-                                <br/>
+                                <br />
                                 <div className="text-center font-weight-bold">
                                     <button
                                         className="btn btn-outline-secondary text-center m-2"

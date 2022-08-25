@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { selectEmployee, deleteEmployee } from "../action/index";
+
 import { AppActions } from "../types/actions";
 import { Employee } from "../types/Employee";
 

@@ -9,17 +9,17 @@ const Header = ({ loggedIn, handleLogin }: { loggedIn: boolean, handleLogin: (ev
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/" className="nav-item nav-link active m-3">
-                Home
+            <Link to="/" className="nav-item nav-link active m-1">
+                <button className="btn btn-outline-dark">Home</button>
             </Link>
-            <Link to="/new" className="nav-item nav-link active float-right m-3">
-                Add New Employee
+            <Link to="/new" className="nav-item nav-link active float-right m-1">
+                <button className="btn btn-outline-dark">Add New Employee</button>
             </Link>
             {
                 loggedIn ?
-                    <div className="nav-item nav-link active m-3">
+                    <div className="nav-item nav-link active m-1">
                         <Link to="/login">
-                            <button className="btn btn-outline-dark" onClick={handleLogout}>
+                            <button className="btn btn-outline-dark float-right" onClick={handleLogout}>
                                 Logout
                             </button>
                         </Link>

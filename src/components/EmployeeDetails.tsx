@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
 
@@ -42,7 +43,7 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Em
                 </p>
 
                 <p className="font-weight-bold">
-                    Salary: {selectedEmployee.salary}
+                    Salary(INR): {selectedEmployee.salary}
                 </p>
 
                 <p className="font-weight-bold">
@@ -50,7 +51,7 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Em
                 </p>
 
                 <p className="font-weight-bold">
-                    Period: {selectedEmployee.period}
+                    Period in Company: {selectedEmployee.period}
                 </p>
 
                 <Link to="/">

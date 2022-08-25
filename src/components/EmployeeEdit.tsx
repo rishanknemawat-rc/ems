@@ -1,14 +1,14 @@
 import React from "react";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { editEmployee } from "../action/index";
+import { AppState } from "../reducers/index";
+
 import { Employee } from "../types/Employee";
 import { AppActions } from "../types/actions";
 import { Error } from "../types/Error";
-import { AppState } from "../reducers/index";
 
 const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
     : { employeeList : Employee[], 
@@ -27,21 +27,13 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
             period: selectedEmployee.period,
         },
         onSubmit: (value: Employee) => {
-            const updatedEmployee: Employee = {
-                firstname: value.firstname,
-                lastname: value.lastname,
-                salary: value.salary,
-                manager: value.manager,
-                id: value.id,
-                period: value.period
-            };
 
             const ind = employeeList.findIndex(emp => {
                 return (emp.id === value.id);
             });
 
             if (ind !== -1) {
-                editEmployee(updatedEmployee);
+                editEmployee(value);
                 history.push("/");
             }
             else {
@@ -53,31 +45,28 @@ const EmployeeEdit = ({ employeeList, selectedEmployee, editEmployee, loggedIn }
             const error: Error = {};
             if (!value.firstname) {
                 error.firstname = 'Required';
+                if (!(/^[a-zA-Z]+$/.test(value.firstname))) {
+                    error.firstname = 'Invalid first name. ' +
+                        'Name should contain only letters';
+                }
             }
             if (!value.lastname) {
                 error.lastname = 'Required';
+                if (!(/^[a-zA-Z]+$/.test(value.lastname))) {
+                    error.lastname = 'Invalid last name. ' +
+                        'Name should contain only letters';
+                }
             }
-            if (
-                !(/^[a-zA-Z]+$/.test(value.firstname))
-            ) {
-                error.firstname = 'Invalid first name. ' +
-                    'Name should contain only letters';
-            }
-            if (
-                !(/^[a-zA-Z]+$/.test(value.lastname))
-            ) {
-                error.lastname = 'Invalid last name. ' +
-                    'Name should contain only letters';
-            }
-            if (!value.salary) {
+            
+            if (!value.salary) 
                 error.salary = "Required"
-            }
-            if (!value.manager) {
+
+            if (!value.manager)
                 error.manager = "Required"
-            }
-            if (!value.period) {
+            
+            if (!value.period) 
                 error.period = "Required"
-            }
+            
             return error;
         }
     });

@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { AppState } from "../reducers/index";
-import { Employee } from "../types/Employee";
 
 import EmployeeItem from "./EmployeeItem";
+import { AppState } from "../reducers/index";
+import { Employee } from "../types/Employee";
 
 const EmployeeList = ({ employees, loggedIn }: { employees: Employee[], loggedIn: boolean }) => {
 

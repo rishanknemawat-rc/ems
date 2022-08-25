@@ -46,7 +46,7 @@ const initalEmployees: Employee[] = [
         firstname: "Jake",
         lastname: "Weinstein",
         id: 106,
-        salary: 155000,
+        salary: 15500,
         manager: "Mark",
         period: "3 months"
     },
@@ -71,7 +71,7 @@ const employeeReducer = (employees = initalEmployees,
                     updatedEmp.lastname = action.payload.lastname
                     updatedEmp.salary = action.payload.salary
                     updatedEmp.manager = action.payload.manager
-                    updatedEmp.period = action.payload.period;
+                    updatedEmp.period = action.payload.period
                 }
 
                 return updatedEmp;
