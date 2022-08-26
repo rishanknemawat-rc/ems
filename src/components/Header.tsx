@@ -1,11 +1,23 @@
+import { connect } from "react-redux";
 import React from "react";
 import { Link } from "react-router-dom";
+import { selectEmployee } from "../action/index";
+import { Employee } from "../types/Employee";
+import { AppState } from "../reducers/index";
 
-const Header = ({ loggedIn, handleLogin }: { loggedIn: boolean, handleLogin: (event: boolean) => void})  => {
+const Header = ({ loggedIn, handleLogin, selectEmployee} : 
+    { loggedIn: boolean, 
+        handleLogin: (event: boolean) => void, 
+        selectEmployee: (employee: Employee| null) => AppState
+    })  => {
 
     const handleLogout = () => {
         handleLogin(false);
     };
+
+    const handleSelect = () => {
+        selectEmployee(null);
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -13,7 +25,7 @@ const Header = ({ loggedIn, handleLogin }: { loggedIn: boolean, handleLogin: (ev
                 <button className="btn btn-outline-dark">Home</button>
             </Link>
             <Link to="/new" className="nav-item nav-link active float-right m-1">
-                <button className="btn btn-outline-dark">Add New Employee</button>
+                <button className="btn btn-outline-dark" onClick={handleSelect}>Add New Employee</button>
             </Link>
             {
                 loggedIn ?
@@ -47,4 +59,4 @@ const Header = ({ loggedIn, handleLogin }: { loggedIn: boolean, handleLogin: (ev
     );
 };
 
-export default Header;
+export default connect(null, { selectEmployee })(Header);

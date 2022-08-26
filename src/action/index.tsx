@@ -2,7 +2,7 @@ import { User } from "../types/User";
 import { Employee } from "../types/Employee";
 import { AppActions } from "../types/actions";
 
-export const selectEmployee = (employee: Employee) : AppActions => {
+export const selectEmployee = (employee: Employee | null) : AppActions => {
     return ({
         type: "SELECT_EMPLOYEE",
         payload: employee

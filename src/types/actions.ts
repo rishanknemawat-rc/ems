@@ -9,7 +9,7 @@ export const ADD_USER = "ADD_USER";
 
 export interface SetSelectEmployeeAction {
     type: typeof SELECT_EMPLOYEE;
-    payload: Employee;
+    payload: Employee | null;
 }
 
 export interface SetAddEmployeeAction {

@@ -36,7 +36,7 @@ const EmployeeList = ({ employees, loggedIn }: { employees: Employee[], loggedIn
         else
             setSearchResults(filteredResults);
             
-    }, [searchInput, sort]);
+    }, [searchInput, sort, employees]);
 
     const renderedList = searchResults.map(employee => {
         return (

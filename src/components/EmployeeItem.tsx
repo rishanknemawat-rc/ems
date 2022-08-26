@@ -10,37 +10,41 @@ import { Employee } from "../types/Employee";
 const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }: 
                         {selectEmployee: (employee: Employee) => AppActions,
                          employee: Employee,
-                         deleteEmployee: (employee: Employee) => AppActions,}) => {
+                         deleteEmployee: (employee: Employee) => AppActions}) => {
 
     const history = useHistory();
-    const handleDelete = () => {
-        deleteEmployee(employee);
-    }
 
-    const handleView = (event: { preventDefault: () => void; }) => {
-        event.preventDefault();
+    const handleView = (employee: Employee) => {
+        selectEmployee(employee);
         history.push(`/employee/${employee.id}`);
     }
+
+    const handleEdit = (employee: Employee) => {
+        selectEmployee(employee);
+        history.push(`/employee/${employee.id}/edit`);
+    }
+
+
     return (
-        <div onClick={() => selectEmployee(employee)}>
+        <div>
             <div>
                 <h3>{employee.firstname} {employee.lastname}</h3>
             </div>
             <div>
                 <button
-                    onClick={handleView}
+                    onClick={() => handleView(employee)}
                     className="btn btn-outline-dark m-2"
                 >
                     View
                 </button>
                 <Link to={`/employee/${employee.id}/edit`}>
-                    <button className="btn btn-outline-dark m-2">
+                    <button className="btn btn-outline-dark m-2" onClick={() => handleEdit(employee)}>
                         Edit
                     </button>
                 </Link>
                 <button
                     className="btn btn-outline-dark m-2"
-                    onClick={() => handleDelete()}
+                    onClick={() => deleteEmployee(employee)}
                 >
                     Delete
                 </button>

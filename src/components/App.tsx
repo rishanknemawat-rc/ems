@@ -11,6 +11,8 @@ import EmployeeList from "./EmployeeList";
 import EmployeeDetails from "./EmployeeDetails";
 import CreateEmployee from "./CreateEmployee";
 import EmployeeEdit from "./EmployeeEdit";
+import UpdateEmployee from "./UpdateEmployee";
+import { selectEmployee } from "../action/index";
 
 const App = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -43,7 +45,7 @@ const App = () => {
                         />
                     </Route>
                     <Route path="/new">
-                        <CreateEmployee 
+                        <UpdateEmployee
                             loggedIn={loggedIn}
                         />
                     </Route>
@@ -53,7 +55,7 @@ const App = () => {
                         />
                     </Route>
                     <Route path="/employee/:id/edit" exact>
-                        <EmployeeEdit 
+                        <UpdateEmployee 
                             loggedIn={loggedIn}
                         />
                     </Route>
