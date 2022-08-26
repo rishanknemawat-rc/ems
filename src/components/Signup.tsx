@@ -4,13 +4,17 @@ import { connect } from "react-redux";
 
 import { AppState } from "../reducers/index";
 import { addUser } from "../action/index";
+import { setLogin } from "../action/index";
 
 import { User } from "../types/User";
 import { AppActions } from "../types/actions";
 
-const Signup = ({ users, addUser, handleLogin }: 
-                { users: User[], addUser: (user: User) => AppActions, 
-                handleLogin: (event: boolean) => void}) => {
+const Signup = ({ users, addUser, setLogin }: 
+                { 
+                    users: User[], 
+                    addUser: (user: User) => AppActions, 
+                    setLogin: (loggedIn: boolean) => AppActions
+                }) => {
 
     interface ErrorMessage {
         name?: string,
@@ -62,7 +66,7 @@ const Signup = ({ users, addUser, handleLogin }:
                     password: password
                 };
                 addUser(newUser);
-                handleLogin(true);
+                setLogin(true);
                 history.push("/");
             };
         }
@@ -163,4 +167,4 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 
-export default connect(mapStateToProps, { addUser })(Signup);
+export default connect(mapStateToProps, { addUser, setLogin })(Signup);

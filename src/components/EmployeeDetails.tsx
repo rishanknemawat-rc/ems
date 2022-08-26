@@ -65,11 +65,15 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Em
 };
 
 interface LinkStateProps{
-    selectedEmployee: Employee | null
+    selectedEmployee: Employee | null,
+    loggedIn: boolean
 };
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
-    return { selectedEmployee: state.selectedEmployee };
+    return { 
+        selectedEmployee: state.selectedEmployee,
+        loggedIn: state.loggedIn
+    };
 };
 
 export default connect(mapStateToProps)(EmployeeDetails);

@@ -249,13 +249,15 @@ const UpdateEmployee = ({
 
 interface LinkStateProps{
     employeeList: Employee[],
-    selectedEmployee: Employee | null
+    selectedEmployee: Employee | null,
+    loggedIn: boolean
 };
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
     return ({
         employeeList: state.employees,
-        selectedEmployee: state.selectedEmployee
+        selectedEmployee: state.selectedEmployee,
+        loggedIn: state.loggedIn
     });
 };
 

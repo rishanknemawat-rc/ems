@@ -126,11 +126,12 @@ const EmployeeList = ({ employees, loggedIn }: { employees: Employee[], loggedIn
 };
 
 interface LinkStateProps {
-    employees: Employee[]
+    employees: Employee[],
+    loggedIn: boolean
 }
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
-    return { employees: state.employees }
+    return { employees: state.employees, loggedIn: state.loggedIn }
 };
 
 export default connect(mapStateToProps)(EmployeeList);

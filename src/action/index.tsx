@@ -36,3 +36,10 @@ export const deleteEmployee = (employee: Employee): AppActions  => {
         payload: employee
     });
 };
+
+export const setLogin = (loggedIn: boolean): AppActions => {
+    return ({
+        type: "LOGIN",
+        payload: loggedIn
+    });
+}

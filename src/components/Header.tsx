@@ -1,18 +1,19 @@
 import { connect } from "react-redux";
 import React from "react";
 import { Link } from "react-router-dom";
-import { selectEmployee } from "../action/index";
+
+import { selectEmployee, setLogin } from "../action/index";
 import { Employee } from "../types/Employee";
 import { AppState } from "../reducers/index";
 
-const Header = ({ loggedIn, handleLogin, selectEmployee} : 
+const Header = ({ loggedIn, setLogin, selectEmployee} : 
     { loggedIn: boolean, 
-        handleLogin: (event: boolean) => void, 
+        setLogin: (login: boolean) => void, 
         selectEmployee: (employee: Employee| null) => AppState
     })  => {
 
     const handleLogout = () => {
-        handleLogin(false);
+        setLogin(false);
     };
 
     const handleSelect = () => {
@@ -59,4 +60,12 @@ const Header = ({ loggedIn, handleLogin, selectEmployee} :
     );
 };
 
-export default connect(null, { selectEmployee })(Header);
+interface LinkStateProps {
+    loggedIn: boolean
+}
+
+const mapStateToProps = (state: AppState): LinkStateProps => {
+    return {loggedIn: state.loggedIn};
+}
+
+export default connect(mapStateToProps, { selectEmployee, setLogin })(Header);

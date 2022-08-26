@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { setLogin } from "../action/index";
 import { User } from "../types/User";
 import { AppState } from "../reducers/index";
+import { AppActions } from "../types/actions";
 
-const Login = ({ users, handleLogin }: { users: User[], handleLogin: (event: boolean) => void}) => {
+const Login = ({ users, setLogin }: { users: User[], setLogin: (loggedIn: boolean) => AppActions}) => {
 
     interface ErrorMessage {
         name?: string,
@@ -38,7 +40,7 @@ const Login = ({ users, handleLogin }: { users: User[], handleLogin: (event: boo
             }
             else {
                 setSubmitted(true);
-                handleLogin(true);
+                setLogin(true);
                 history.push("/");
             }
         }
@@ -141,5 +143,5 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, { setLogin })(Login);
 
