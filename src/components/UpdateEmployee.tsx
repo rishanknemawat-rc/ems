@@ -3,8 +3,7 @@ import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
-import { editEmployee, selectEmployee } from "../action/index";
-import { addEmployee } from "../action/index";
+import { editEmployee, selectEmployee, addEmployee } from "../action/index";
 import { AppState } from "../reducers/index";
 
 import { Employee } from "../types/Employee";
@@ -16,13 +15,15 @@ const UpdateEmployee = ({
     employeeList,
     editEmployee,
     addEmployee,
-    loggedIn
+    loggedIn,
+    manager
 }: {
     selectedEmployee: Employee,
     employeeList: Employee[],
     editEmployee: (employee: Employee) => AppActions,
     addEmployee: (employee: Employee) => AppActions,
-    loggedIn: boolean
+    loggedIn: boolean,
+    manager: string
 }) => {
 
     // const location = useLocation();
@@ -33,7 +34,7 @@ const UpdateEmployee = ({
         lastname: selectedEmployee === null? "" : selectedEmployee.lastname,
         id: selectedEmployee === null? 0 : selectedEmployee.id,
         salary: selectedEmployee === null? 0 : selectedEmployee.salary,
-        manager: selectedEmployee === null? "" : selectedEmployee.manager,
+        manager: selectedEmployee === null? manager : selectedEmployee.manager,
         period: selectedEmployee === null? "" : selectedEmployee.period,
     };
     let history = useHistory();
@@ -90,7 +91,7 @@ const UpdateEmployee = ({
             }
             if (!values.manager)
                 errors.manager = "Required"
-            if (values.manager && !(/^[a-zA-Z]+$/.test(values.manager)))
+            if (selectedEmployee!==null && values.manager && !(/^[a-zA-Z]+$/.test(values.manager)))
                 errors.manager = 'Invalid Manager. Manager should contain only letters';
             if (!values.period) 
                 errors.period = "Required"
@@ -194,8 +195,9 @@ const UpdateEmployee = ({
                                         type="text" name="manager"
                                         value={formik.values.manager}
                                         onChange={formik.handleChange}
+                                        disabled={selectedEmployee === null ? true : false}
                                     />
-                                    {formik.errors.manager ?
+                                    {formik.errors.manager && (selectedEmployee !== null) ?
                                         <div className="text-danger">
                                             {formik.errors.manager}
                                         </div> :
@@ -250,14 +252,16 @@ const UpdateEmployee = ({
 interface LinkStateProps{
     employeeList: Employee[],
     selectedEmployee: Employee | null,
-    loggedIn: boolean
+    loggedIn: boolean,
+    manager: string
 };
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
     return ({
         employeeList: state.employees,
         selectedEmployee: state.selectedEmployee,
-        loggedIn: state.loggedIn
+        loggedIn: state.loggedIn,
+        manager: state.manager
     });
 };
 

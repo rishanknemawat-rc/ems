@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
 
-const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Employee | null, loggedIn: boolean }) => {
+const EmployeeDetails = ({ selectedEmployee, loggedIn, manager } : 
+            { selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
     if (!loggedIn) {
         return (
             <div>
@@ -66,13 +67,15 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } : { selectedEmployee: Em
 
 interface LinkStateProps{
     selectedEmployee: Employee | null,
-    loggedIn: boolean
+    loggedIn: boolean,
+    manager: string
 };
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
     return { 
         selectedEmployee: state.selectedEmployee,
-        loggedIn: state.loggedIn
+        loggedIn: state.loggedIn,
+        manager: state.manager
     };
 };
 

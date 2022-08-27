@@ -3,11 +3,11 @@ import { Employee } from "../types/Employee";
 
 const initalEmployees: Employee[] = [
     {
-        firstname: "John",
-        lastname: "Lison",
+        firstname: "Sherlock",
+        lastname: "Homes",
         id: 102,
         salary: 50000,
-        manager: "Mark",
+        manager: "xyz",
         period: "3 years"
     },
     {
@@ -15,39 +15,39 @@ const initalEmployees: Employee[] = [
         lastname: "Underwood",
         id: 103,
         salary: 60000,
-        manager: "Mark",
-        period: "2.5 years"
+        manager: "xyz",
+        period: "12 years"
     },
     {
-        firstname: "John",
-        lastname: "Willow",
+        firstname: "Taylor",
+        lastname: "Swift",
         id: 101,
         salary: 20000,
-        manager: "Mark",
+        manager: "xyz",
         period: "5 years"
     },
     {
-        firstname: "Michael",
-        lastname: "Underwale",
+        firstname: "Micheal",
+        lastname: "Scott",
         id: 104,
         salary: 80000,
-        manager: "Mark",
+        manager: "abc",
         period: "2 years"
     },
     {
-        firstname: "Rachel",
-        lastname: "Waffle",
+        firstname: "Charlie",
+        lastname: "Harper",
         id: 105,
         salary: 10000,
-        manager: "Mark",
+        manager: "abc",
         period: "1 year"
     },
     {
-        firstname: "Jake",
-        lastname: "Weinstein",
+        firstname: "Ted",
+        lastname: "Mosby",
         id: 106,
         salary: 15500,
-        manager: "Mark",
+        manager: "abc",
         period: "3 months"
     },
 ];

@@ -5,15 +5,17 @@ import { connect } from "react-redux";
 import { AppState } from "../reducers/index";
 import { addUser } from "../action/index";
 import { setLogin } from "../action/index";
+import { setManager } from "../action/index";
 
 import { User } from "../types/User";
 import { AppActions } from "../types/actions";
 
-const Signup = ({ users, addUser, setLogin }: 
+const Signup = ({ users, addUser, setLogin, setManager }: 
                 { 
                     users: User[], 
                     addUser: (user: User) => AppActions, 
-                    setLogin: (loggedIn: boolean) => AppActions
+                    setLogin: (loggedIn: boolean) => AppActions,
+                    setManager: (manager: string) => AppActions
                 }) => {
 
     interface ErrorMessage {
@@ -22,7 +24,7 @@ const Signup = ({ users, addUser, setLogin }:
     }
 
     const [errorMessage, setErrorMessage] = useState<ErrorMessage>({name: "", message: ""});
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [userCreated, setUserCreated] = useState(false);
 
@@ -32,24 +34,32 @@ const Signup = ({ users, addUser, setLogin }:
         const handleSubmit = (event: { preventDefault: () => void; }) => {
             event.preventDefault();
 
-            if (!email)
+            const username_chars = /^[a-zA-Z]+$/;
+            const password_chars = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,16}$/;
+            const user = users.find(user => user.username === username);
+            
+            if (!username)
                 setErrorMessage({ 
-                    name: "email", 
-                    message: "Email cannot be empty." 
+                    name: "username", 
+                    message: "Username cannot be empty." 
                 });
 
-            if (!password)
+            else if (!password)
                 setErrorMessage({ 
                     name: "password", 
                     message: "Password cannot be empty." 
                 });
 
-            const password_chars = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,16}$/;
-            const user = users.find(user => user.email === email);
-            if (user)
+            else if(!username.match(username_chars)){
+                setErrorMessage({
+                    name: "username",
+                    message: "Username should contains letters only."
+                })
+            }
+            else if (user)
                 setErrorMessage({ 
-                    name: "email", 
-                    message: "User Already exists" 
+                    name: "username", 
+                    message: "User Already exists." 
                 });
             else if (!password.match(password_chars))
                 setErrorMessage({
@@ -62,11 +72,12 @@ const Signup = ({ users, addUser, setLogin }:
             else {
                 setUserCreated(true);
                 const newUser: User = {
-                    email: email,
+                    username: username,
                     password: password
                 };
                 addUser(newUser);
                 setLogin(true);
+                setManager(username);
                 history.push("/");
             };
         }
@@ -78,17 +89,17 @@ const Signup = ({ users, addUser, setLogin }:
                     <form className="form-group col-6" onSubmit = {handleSubmit}>
                         <div className="col px-md-5">
                             <label className="form-label">
-                                Enter Email Address
+                                Enter Username
                             </label>
                             <input 
                                 className="form-control"
-                                name="email"
-                                type="email"
-                                onChange={e => setEmail(e.target.value)}
+                                name="username"
+                                type="text"
+                                onChange={e => setUsername(e.target.value)}
                                 required
                             />
                             <p className="text-danger">
-                                {errorMessage.name === "email" ? 
+                                {errorMessage.name === "username" ? 
                                 errorMessage.message : 
                                 ""}
                             </p>
@@ -167,4 +178,4 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 
-export default connect(mapStateToProps, { addUser, setLogin })(Signup);
+export default connect(mapStateToProps, { addUser, setLogin, setManager })(Signup);

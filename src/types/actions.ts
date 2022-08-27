@@ -7,6 +7,7 @@ export const EDIT_EMPLOYEE = "EDIT_EMPLOYEE";
 export const DELETE_EMPLOYEE = "DELETE_EMPLOYEE";
 export const ADD_USER = "ADD_USER";
 export const LOGIN = "LOGIN";
+export const SET_MANAGER = "SET_MANAGER";
 
 export interface SetSelectEmployeeAction {
     type: typeof SELECT_EMPLOYEE;
@@ -38,10 +39,15 @@ export interface SetLogin {
     payload: boolean;
 }
 
+export interface SetManager{
+    type: typeof SET_MANAGER,
+    payload: string
+}
+
 export type EmployeeActionTypes = SetSelectEmployeeAction | SetAddEmployeeAction | SetEditEmployeeAction
                                     | SetDeleteEmployeeAction;
 
-export type UserActionTypes = SetAddUserAction | SetLogin;
+export type UserActionTypes = SetAddUserAction | SetLogin | SetManager;
 
 
 export type AppActions = EmployeeActionTypes | UserActionTypes;

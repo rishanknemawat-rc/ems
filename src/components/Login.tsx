@@ -3,11 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { setLogin } from "../action/index";
+import { setManager } from "../action/index";
 import { User } from "../types/User";
 import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
 
-const Login = ({ users, setLogin }: { users: User[], setLogin: (loggedIn: boolean) => AppActions}) => {
+const Login = ({ users, setLogin, setManager }: 
+    { users: User[], setLogin: (loggedIn: boolean) => AppActions, setManager: (manager: string) => AppActions}) => {
 
     interface ErrorMessage {
         name?: string,
@@ -15,7 +17,7 @@ const Login = ({ users, setLogin }: { users: User[], setLogin: (loggedIn: boolea
     }
 
     const [errorMessage, setErrorMessage] = useState<ErrorMessage>({name: "", message: ""});
-    const [email, setUsername] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [submitted, setSubmitted] = useState(false);
 
@@ -23,24 +25,25 @@ const Login = ({ users, setLogin }: { users: User[], setLogin: (loggedIn: boolea
     const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
 
-        const userData = users.find(user => user.email === email);
+        const userData = users.find(user => user.username === username);
 
         if (!userData) {
             setErrorMessage({
-                name: "email",
-                message: "Email doesn't exist. New User? Signup!"
+                name: "username",
+                message: "User doesn't exist. New User? Signup!"
             });
         }
         else {
             if (userData.password !== password) {
                 setErrorMessage({
                     name: "password",
-                    message: "Invalid Password, Please try again."
+                    message: "Invalid Password. Please try again."
                 });
             }
             else {
                 setSubmitted(true);
                 setLogin(true);
+                setManager(username);
                 history.push("/");
             }
         }
@@ -59,17 +62,17 @@ const Login = ({ users, setLogin }: { users: User[], setLogin: (loggedIn: boolea
                     >
                         <div className="col px-md-5">
                             <label className="form-label">
-                                User Email:
+                                Username:
                             </label>
                             <input
                                 className="form-control"
                                 onChange={e => setUsername(e.target.value)}
-                                type="email"
-                                name="email"
+                                type="text"
+                                name="username"
                                 required
                             />
                             <p className="text-danger">
-                                {errorMessage.name === "email" ?
+                                {errorMessage.name === "username" ?
                                     errorMessage.message :
                                     ""}
                             </p>
@@ -79,7 +82,7 @@ const Login = ({ users, setLogin }: { users: User[], setLogin: (loggedIn: boolea
 
                         <div className="col px-md-5">
                             <label className="form-label">
-                                User Password:
+                                Password:
                             </label>
                             <input
                                 className="form-control"
@@ -143,5 +146,5 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 
-export default connect(mapStateToProps, { setLogin })(Login);
+export default connect(mapStateToProps, { setLogin, setManager })(Login);
 

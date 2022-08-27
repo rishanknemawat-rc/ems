@@ -42,8 +42,4 @@ const App = () => {
     );
 };
 
-// const mapStateToProps = (state: AppState) => {
-//     return {loggedIn: state.loggedIn}
-// };
-
 export default App;

@@ -3,16 +3,16 @@ import { User } from "../types/User";
 
 const validUsers: User[]  = [
     {
-        email: "user1@xyz",
-        password: "pass1"
+        username: "abc",
+        password: "abc"
     },
     {
-        email: "user2@xyz",
-        password: "pass2"
+        username: "xyz",
+        password: "xyz"
     },
     {
-        email: "user3@xyz",
-        password: "pass3"
+        username: "user",
+        password: "user"
     },
 ];
 

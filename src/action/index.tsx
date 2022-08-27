@@ -43,3 +43,10 @@ export const setLogin = (loggedIn: boolean): AppActions => {
         payload: loggedIn
     });
 }
+
+export const setManager = (manager: string): AppActions => {
+    return ({
+        type: "SET_MANAGER",
+        payload: manager
+    });
+};

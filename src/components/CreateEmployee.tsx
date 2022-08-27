@@ -7,8 +7,10 @@ import { addEmployee } from "../action/index";
 import { Employee } from "../types/Employee";
 import { Error } from "../types/Error";
 import { AppActions } from "../types/actions";
+import { AppState } from "../reducers/index";
 
-const CreateEmployee = ({ addEmployee, loggedIn }: { addEmployee: (employee: Employee) => AppActions, loggedIn: boolean }) => {
+const CreateEmployee = ({ addEmployee, loggedIn, manager }: 
+    { addEmployee: (employee: Employee) => AppActions, loggedIn: boolean, manager: string }) => {
 
     let history = useHistory();
 
@@ -18,7 +20,7 @@ const CreateEmployee = ({ addEmployee, loggedIn }: { addEmployee: (employee: Emp
             lastname: "",
             id: 0,
             salary: 0,
-            manager: "",
+            manager: manager,
             period: ""
         },
         onSubmit: (value: Employee) => {
@@ -46,8 +48,8 @@ const CreateEmployee = ({ addEmployee, loggedIn }: { addEmployee: (employee: Emp
                     errors.id = "Employee ID should be 3 digit number."
                 }
             }
-            if (!values.manager)
-                errors.manager = "Required"
+            // if (!values.manager)
+            //     errors.manager = "Required"
             
             if (!values.period) 
                 errors.period = "Required"
@@ -140,7 +142,7 @@ const CreateEmployee = ({ addEmployee, loggedIn }: { addEmployee: (employee: Emp
                                         ""
                                     }
                                 </div>
-                                <br />
+                                {/* <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
                                         Manager
@@ -157,7 +159,7 @@ const CreateEmployee = ({ addEmployee, loggedIn }: { addEmployee: (employee: Emp
                                         </div> :
                                         ""
                                     }
-                                </div>
+                                </div> */}
                                 <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
@@ -203,4 +205,8 @@ const CreateEmployee = ({ addEmployee, loggedIn }: { addEmployee: (employee: Emp
     );
 };
 
-export default connect(null, { addEmployee })(CreateEmployee);
+const mapStateToProps = (state: AppState) => {
+    return {manager: state.manager};
+};
+
+export default connect(mapStateToProps, { addEmployee })(CreateEmployee);
