@@ -45,7 +45,7 @@ const Login = ({ users, setLogin, setManager }:
                 setLogin(true);
                 setManager(username);
                 alert('LOGIN SUCCESSFUL!');
-                history.push("/");
+                history.push("/getEmployees");
             }
         }
 

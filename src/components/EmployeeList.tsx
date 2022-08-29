@@ -118,7 +118,7 @@ const EmployeeList = ({ employees, loggedIn, manager }:
                         <h3 className="text-center font-weight-bold m-4">
                             Please Login to Continue
                         </h3>
-                        <Link to="/login">
+                        <Link to="/">
                             <button className="btn btn-outline-dark text-center m-2">
                                 Login
                             </button>

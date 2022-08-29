@@ -53,7 +53,7 @@ const UpdateEmployee = ({
                 if(ind === -1){
                     addEmployee(value);
                     alert('EMPLOYEE CREATED SUCCESSFULLY!');
-                    history.push("/");
+                    history.push("/getEmployees");
                 }
             }
             else{
@@ -62,7 +62,7 @@ const UpdateEmployee = ({
                 if (ind !== -1) {
                     editEmployee(value);
                     alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
-                    history.push("/");
+                    history.push("/getEmployees");
                 }
                 else {
                     alert('NOT A VALID EMPLOYEE!! :-)\n\n'
@@ -235,7 +235,7 @@ const UpdateEmployee = ({
                     <h3 className="text-center font-weight-bold m-4">
                         Please Login to Continue
                     </h3>
-                    <Link to="/login">
+                    <Link to="/">
                         <button className="btn btn-outline-dark text-center m-2">
                             Login
                         </button>

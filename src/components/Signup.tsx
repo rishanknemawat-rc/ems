@@ -76,10 +76,10 @@ const Signup = ({ users, addUser, setLogin, setManager }:
                     password: password
                 };
                 addUser(newUser);
-                setLogin(true);
+                // setLogin(true);
                 setManager(username);
                 alert('USER CREATED SUCCESSFULLY!');
-                history.push("/");
+                history.push("/login");
             };
         }
 
@@ -141,7 +141,7 @@ const Signup = ({ users, addUser, setLogin, setManager }:
 
                 <div className="text-center font-weight-bold">
                     Already a user?
-                    <Link to="/login">
+                    <Link to="/">
                         <button className="btn btn-outline-secondary m-3">
                             Login 
                         </button>

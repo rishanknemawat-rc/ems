@@ -18,22 +18,22 @@ const App = () => {
             <BrowserRouter>
                 <div>
                     <Header/>
-                    <Route path="/login" exact>
+                    <Route path="/" exact>
                         <Login />
                     </Route>
                     <Route path="/signup" exact>
                         <Signup />
                     </Route>
-                    <Route path="/" exact>
+                    <Route path="/getEmployees" exact>
                         <EmployeeList />
                     </Route>
-                    <Route path="/new">
+                    <Route path="/addEmployee">
                         <UpdateEmployee />
                     </Route>
                     <Route path="/employee/:id" exact >
                         <EmployeeDetails />
                     </Route>
-                    <Route path="/employee/:id/edit" exact>
+                    <Route path="/updateEmployee/:id" exact>
                         <UpdateEmployee />
                     </Route>
                 </div>

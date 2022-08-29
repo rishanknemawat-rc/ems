@@ -21,7 +21,7 @@ const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
 
     const handleEdit = (employee: Employee) => {
         selectEmployee(employee);
-        history.push(`/employee/${employee.id}/edit`);
+        history.push(`/updateEmployee/${employee.id}`);
     }
 
     const handleDelete = (employee: Employee) => {
