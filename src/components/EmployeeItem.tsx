@@ -24,6 +24,10 @@ const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
         history.push(`/employee/${employee.id}/edit`);
     }
 
+    const handleDelete = (employee: Employee) => {
+        deleteEmployee(employee);
+        alert("EMPLOYEE DELETED SUCCESSFULLY!");
+    }
 
     return (
         <div>
@@ -44,7 +48,7 @@ const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
                 </Link>
                 <button
                     className="btn btn-outline-dark m-2"
-                    onClick={() => deleteEmployee(employee)}
+                    onClick={() => handleDelete(employee)}
                 >
                     Delete
                 </button>

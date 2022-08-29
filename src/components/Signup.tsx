@@ -78,6 +78,7 @@ const Signup = ({ users, addUser, setLogin, setManager }:
                 addUser(newUser);
                 setLogin(true);
                 setManager(username);
+                alert('USER CREATED SUCCESSFULLY!');
                 history.push("/");
             };
         }

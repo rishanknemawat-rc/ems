@@ -44,6 +44,7 @@ const Login = ({ users, setLogin, setManager }:
                 setSubmitted(true);
                 setLogin(true);
                 setManager(username);
+                alert('LOGIN SUCCESSFUL!');
                 history.push("/");
             }
         }
@@ -130,7 +131,7 @@ const Login = ({ users, setLogin, setManager }:
             </h1>
             {submitted ?
                 <div className="alert alert-success text-center" role="alert">
-                    User Logged In
+                    Login Successful.
                 </div> :
                 renderForm()
             }

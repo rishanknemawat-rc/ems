@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
@@ -52,6 +52,7 @@ const UpdateEmployee = ({
             if(selectedEmployee === null){
                 if(ind === -1){
                     addEmployee(value);
+                    alert('EMPLOYEE CREATED SUCCESSFULLY!');
                     history.push("/");
                 }
             }
@@ -60,6 +61,7 @@ const UpdateEmployee = ({
 
                 if (ind !== -1) {
                     editEmployee(value);
+                    alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
                     history.push("/");
                 }
                 else {
@@ -146,7 +148,7 @@ const UpdateEmployee = ({
                                         className="form-control"
                                         type="number"
                                         name="id"
-                                        value={formik.values.id}
+                                        value={formik.values.id === 0 ? "" : formik.values.id}
                                         onChange={formik.handleChange}
                                         disabled={selectedEmployee === null? false : true}
                                         required
@@ -167,7 +169,7 @@ const UpdateEmployee = ({
                                         className="form-control"
                                         type="number"
                                         name="salary"
-                                        value={formik.values.salary}
+                                        value={formik.values.salary === 0 ? "" : formik.values.salary}
                                         onChange={formik.handleChange}
                                         required
                                     />
