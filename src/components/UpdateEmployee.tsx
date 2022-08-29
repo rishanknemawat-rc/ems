@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
@@ -26,9 +26,6 @@ const UpdateEmployee = ({
     manager: string
 }) => {
 
-    // const location = useLocation();
-    // const {createEmployee} = location.state;
-
     const initialForm: Employee = {
         firstname: selectedEmployee === null? "" : selectedEmployee.firstname,
         lastname: selectedEmployee === null? "" : selectedEmployee.lastname,
@@ -49,15 +46,18 @@ const UpdateEmployee = ({
             period: initialForm.period,
         },
         onSubmit: (value: Employee) => {
-
-            if(selectedEmployee === null)
-                addEmployee(value);
+            const ind = employeeList.findIndex(emp => {
+                return (emp.id === value.id);
+            });
+            if(selectedEmployee === null){
+                if(ind === -1){
+                    addEmployee(value);
+                    history.push("/");
+                }
+            }
             else{
                 selectEmployee(null);
-                const ind = employeeList.findIndex(emp => {
-                    return (emp.id === value.id);
-                });
-                
+
                 if (ind !== -1) {
                     editEmployee(value);
                     history.push("/");
@@ -67,35 +67,24 @@ const UpdateEmployee = ({
                         + JSON.stringify(value, null, 3));
                 }
             }
-            history.push("/");
         },
         validate: (values: Employee) => {
+
+            const ind = employeeList.findIndex(emp => {
+                return (emp.id === values.id);
+            });
+
             const errors: Error = {};
-            if (!values.firstname) {
-                errors.firstname = 'Required';
-            }
-            if (!(/^[a-zA-Z]+$/.test(values.firstname)))
+            if (values.firstname && !(/^[a-zA-Z]+$/.test(values.firstname)))
                     errors.firstname = 'Invalid First Name. Name should contain only letters';
-            if (!values.lastname) {
-                errors.lastname = 'Required';
-            }
             if (values.lastname && !(/^[a-zA-Z]+$/.test(values.lastname)))
                     errors.lastname = 'Invalid Last Name. Name should contain only letters';
-            if (!values.salary)
-                errors.salary = "Required"
-            if (!values.id) {
-                errors.id = "Required"
-            }
-            if (values.id && (values.id < 100 || values.id > 999)) {
+            if (values.id && (values.id < 100 || values.id > 999))
                 errors.id = "Employee ID should be 3 digit number."
-            }
-            if (!values.manager)
-                errors.manager = "Required"
+            if(selectedEmployee===null && ind !== -1)
+                errors.id = "Employee with ID " + values.id + " already exists.";
             if (selectedEmployee!==null && values.manager && !(/^[a-zA-Z]+$/.test(values.manager)))
                 errors.manager = 'Invalid Manager. Manager should contain only letters';
-            if (!values.period) 
-                errors.period = "Required"
-            
             return errors;
         }
     });
@@ -118,8 +107,9 @@ const UpdateEmployee = ({
                                         name="firstname"
                                         value={formik.values.firstname}
                                         onChange={formik.handleChange}
+                                        required
                                     />
-                                    {formik.errors.firstname ?
+                                    {formik.errors.firstname && formik.touched.firstname ?
                                         <div className="text-danger">
                                             {formik.errors.firstname}
                                         </div> :
@@ -138,8 +128,9 @@ const UpdateEmployee = ({
                                         name="lastname"
                                         value={formik.values.lastname}
                                         onChange={formik.handleChange}
+                                        required
                                     />
-                                    {formik.errors.lastname ?
+                                    {formik.errors.lastname && formik.touched.lastname?
                                         <div className="text-danger">
                                             {formik.errors.lastname}
                                         </div> :
@@ -157,9 +148,10 @@ const UpdateEmployee = ({
                                         name="id"
                                         value={formik.values.id}
                                         onChange={formik.handleChange}
-                                        disabled={selectedEmployee === null ? false : true}
+                                        disabled={selectedEmployee === null? false : true}
+                                        required
                                     />
-                                    {formik.errors.id ?
+                                    {formik.errors.id && formik.touched.id?
                                         <div className="text-danger">
                                             {formik.errors.id}
                                         </div> :
@@ -177,8 +169,9 @@ const UpdateEmployee = ({
                                         name="salary"
                                         value={formik.values.salary}
                                         onChange={formik.handleChange}
+                                        required
                                     />
-                                    {formik.errors.salary ?
+                                    {formik.errors.salary && formik.touched.salary ?
                                         <div className="text-danger">
                                             {formik.errors.salary}
                                         </div> :
@@ -196,8 +189,9 @@ const UpdateEmployee = ({
                                         value={formik.values.manager}
                                         onChange={formik.handleChange}
                                         disabled={selectedEmployee === null ? true : false}
+                                        required
                                     />
-                                    {formik.errors.manager && (selectedEmployee !== null) ?
+                                    {formik.errors.manager && (selectedEmployee !== null) && formik.touched.manager?
                                         <div className="text-danger">
                                             {formik.errors.manager}
                                         </div> :
@@ -214,8 +208,9 @@ const UpdateEmployee = ({
                                         type="text" name="period"
                                         value={formik.values.period}
                                         onChange={formik.handleChange}
+                                        required
                                     />
-                                    {formik.errors.period ?
+                                    {formik.errors.period && formik.touched.period ?
                                         <div className="text-danger">
                                             {formik.errors.period}
                                         </div> :
