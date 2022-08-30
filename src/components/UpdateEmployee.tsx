@@ -30,9 +30,8 @@ const UpdateEmployee = ({
         firstname: selectedEmployee === null? "" : selectedEmployee.firstname,
         lastname: selectedEmployee === null? "" : selectedEmployee.lastname,
         id: selectedEmployee === null? 0 : selectedEmployee.id,
-        salary: selectedEmployee === null? 0 : selectedEmployee.salary,
         manager: selectedEmployee === null? manager : selectedEmployee.manager,
-        period: selectedEmployee === null? "" : selectedEmployee.period,
+        department: selectedEmployee === null? "" : selectedEmployee.department,
     };
     let history = useHistory();
 
@@ -41,9 +40,8 @@ const UpdateEmployee = ({
             firstname: initialForm.firstname,
             lastname: initialForm.lastname,
             id: initialForm.id,
-            salary: initialForm.salary,
             manager: initialForm.manager,
-            period: initialForm.period,
+            department: initialForm.department,
         },
         onSubmit: (value: Employee) => {
             const ind = employeeList.findIndex(emp => {
@@ -163,26 +161,6 @@ const UpdateEmployee = ({
                                 <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
-                                        Salary
-                                    </label>
-                                    <input
-                                        className="form-control"
-                                        type="number"
-                                        name="salary"
-                                        value={formik.values.salary === 0 ? "" : formik.values.salary}
-                                        onChange={formik.handleChange}
-                                        required
-                                    />
-                                    {formik.errors.salary && formik.touched.salary ?
-                                        <div className="text-danger">
-                                            {formik.errors.salary}
-                                        </div> :
-                                        ""
-                                    }
-                                </div>
-                                <br />
-                                <div className=" m-2 text-center font-weight-bold">
-                                    <label className="form-label">
                                         Manager
                                     </label>
                                     <input
@@ -203,18 +181,18 @@ const UpdateEmployee = ({
                                 <br />
                                 <div className=" m-2 text-center font-weight-bold">
                                     <label className="form-label">
-                                        Period
+                                        Department
                                     </label>
                                     <input
                                         className="form-control"
-                                        type="text" name="period"
-                                        value={formik.values.period}
+                                        type="text" name="department"
+                                        value={formik.values.department}
                                         onChange={formik.handleChange}
                                         required
                                     />
-                                    {formik.errors.period && formik.touched.period ?
+                                    {formik.errors.department && formik.touched.department ?
                                         <div className="text-danger">
-                                            {formik.errors.period}
+                                            {formik.errors.department}
                                         </div> :
                                         ""
                                     }

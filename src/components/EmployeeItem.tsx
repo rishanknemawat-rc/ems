@@ -1,22 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { selectEmployee, deleteEmployee } from "../action/index";
 
 import { AppActions } from "../types/actions";
 import { Employee } from "../types/Employee";
 
-const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }: 
-                        {selectEmployee: (employee: Employee) => AppActions,
-                         employee: Employee,
-                         deleteEmployee: (employee: Employee) => AppActions}) => {
+const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
+    {
+        selectEmployee: (employee: Employee) => AppActions,
+        employee: Employee,
+        deleteEmployee: (employee: Employee) => AppActions
+    }) => {
 
     const history = useHistory();
 
     const handleView = (employee: Employee) => {
         selectEmployee(employee);
-        history.push(`/employee/${employee.id}`);
+        history.push(`/getEmployee/${employee.id}`);
     }
 
     const handleEdit = (employee: Employee) => {
@@ -41,11 +43,12 @@ const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
                 >
                     View
                 </button>
-                <Link to={`/employee/${employee.id}/edit`}>
-                    <button className="btn btn-outline-dark m-2" onClick={() => handleEdit(employee)}>
-                        Edit
-                    </button>
-                </Link>
+                <button 
+                    className="btn btn-outline-dark m-2" 
+                    onClick={() => handleEdit(employee)}
+                >
+                    Edit
+                </button>
                 <button
                     className="btn btn-outline-dark m-2"
                     onClick={() => handleDelete(employee)}

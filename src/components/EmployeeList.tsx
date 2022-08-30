@@ -14,6 +14,7 @@ const EmployeeList = ({ employees, loggedIn, manager }:
     const [sort, setSort] = useState("");
 
     useEffect(() => {
+
         if (searchInput === "")
             setSearchResults(employees);
 
@@ -57,7 +58,7 @@ const EmployeeList = ({ employees, loggedIn, manager }:
                 </div>
             );
         }
-        return;
+        return null;
     });
 
     return (

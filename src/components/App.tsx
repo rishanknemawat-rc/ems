@@ -5,11 +5,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
 import Header from "./Header";
-import Login from "./Login";
-import Signup from "./Signup";
+import NewSignup from "./newSignup";
 import EmployeeList from "./EmployeeList";
 import EmployeeDetails from "./EmployeeDetails";
 import UpdateEmployee from "./UpdateEmployee";
+import NewLogin from "./newLogin";
 
 const App = () => {
 
@@ -19,10 +19,10 @@ const App = () => {
                 <div>
                     <Header/>
                     <Route path="/" exact>
-                        <Login />
+                        <NewLogin />
                     </Route>
                     <Route path="/signup" exact>
-                        <Signup />
+                        <NewSignup />
                     </Route>
                     <Route path="/getEmployees" exact>
                         <EmployeeList />
@@ -30,7 +30,7 @@ const App = () => {
                     <Route path="/addEmployee">
                         <UpdateEmployee />
                     </Route>
-                    <Route path="/employee/:id" exact >
+                    <Route path="/getEmployee/:id" exact >
                         <EmployeeDetails />
                     </Route>
                     <Route path="/updateEmployee/:id" exact>

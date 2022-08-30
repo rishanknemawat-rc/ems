@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { setLogin } from "../action/index";
-import { setManager } from "../action/index";
-import { User } from "../types/User";
-import { AppState } from "../reducers/index";
-import { AppActions } from "../types/actions";
+import { setLogin } from "../../action/index";
+import { setManager } from "../../action/index";
+import { User } from "../../types/User";
+import { AppState } from "../../reducers/index";
+import { AppActions } from "../../types/actions";
 
 const Login = ({ users, setLogin, setManager }: 
     { users: User[], setLogin: (loggedIn: boolean) => AppActions, setManager: (manager: string) => AppActions}) => {

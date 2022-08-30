@@ -11,8 +11,8 @@ const validUsers: User[]  = [
         password: "xyz"
     },
     {
-        username: "user",
-        password: "user"
+        username: "userabc",
+        password: "userabc"
     },
 ];
 

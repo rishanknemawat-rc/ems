@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
 
-const EmployeeDetails = ({ selectedEmployee, loggedIn, manager } : 
+const EmployeeDetails = ({ selectedEmployee, loggedIn } : 
             { selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
     if (!loggedIn) {
         return (
@@ -30,7 +30,8 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn, manager } :
                 Please Try Again...
             </div>
         );
-
+    else 
+        console.log(selectedEmployee);
     return (
         <div className="row">
             <div className="col-4"></div>
@@ -44,18 +45,14 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn, manager } :
                 </p>
 
                 <p className="font-weight-bold">
-                    Salary(INR): {selectedEmployee.salary}
-                </p>
-
-                <p className="font-weight-bold">
                     Manager: {selectedEmployee.manager}
                 </p>
 
                 <p className="font-weight-bold">
-                    Period in Company: {selectedEmployee.period}
+                    Department: {selectedEmployee.department}
                 </p>
 
-                <Link to="/">
+                <Link to="/getEmployees">
                     <button className="btn btn-outline-dark m-2">
                         Home
                     </button>

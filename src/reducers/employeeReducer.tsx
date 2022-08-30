@@ -6,49 +6,43 @@ const initalEmployees: Employee[] = [
         firstname: "Sherlock",
         lastname: "Homes",
         id: 102,
-        salary: 50000,
         manager: "xyz",
-        period: "3 years"
+        department: "3 years"
     },
     {
         firstname: "Claire",
         lastname: "Underwood",
         id: 103,
-        salary: 60000,
         manager: "xyz",
-        period: "12 years"
+        department: "12 years"
     },
     {
         firstname: "Taylor",
         lastname: "Swift",
         id: 101,
-        salary: 20000,
         manager: "xyz",
-        period: "5 years"
+        department: "5 years"
     },
     {
         firstname: "Micheal",
         lastname: "Scott",
         id: 104,
-        salary: 80000,
         manager: "abc",
-        period: "2 years"
+        department: "2 years"
     },
     {
         firstname: "Charlie",
         lastname: "Harper",
         id: 105,
-        salary: 10000,
         manager: "abc",
-        period: "1 year"
+        department: "1 year"
     },
     {
         firstname: "Ted",
         lastname: "Mosby",
         id: 106,
-        salary: 15500,
         manager: "abc",
-        period: "3 months"
+        department: "3 months"
     },
 ];
 
@@ -69,9 +63,8 @@ const employeeReducer = (employees = initalEmployees,
                 if (emp.id === action.payload.id) {
                     updatedEmp.firstname = action.payload.firstname
                     updatedEmp.lastname = action.payload.lastname
-                    updatedEmp.salary = action.payload.salary
                     updatedEmp.manager = action.payload.manager
-                    updatedEmp.period = action.payload.period
+                    updatedEmp.department = action.payload.department
                 }
 
                 return updatedEmp;
