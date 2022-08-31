@@ -45,7 +45,7 @@ const employeeReducer = (employees = initalEmployees,
             })
             .then((response) => {
                 console.log("Employee DELETED Successfully.", response);
-                console.log(response);
+                alert("EMPLOYEE DELETED SUCCESSFULLY!");
             })
             .catch( error => {
                 if(error.response)
@@ -72,7 +72,7 @@ const employeeReducer = (employees = initalEmployees,
             })
             .then((response) => {
                 console.log("Employee EDITED Successfully.", response);
-                console.log(response);
+                alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
             })
             .catch( error => {
                 if(error.response)

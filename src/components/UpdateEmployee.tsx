@@ -58,7 +58,6 @@ const UpdateEmployee = ({
 
                 if (ind !== -1) {
                     editEmployee(value);
-                    alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
                     history.push("/getEmployees");
                 }
                 else {

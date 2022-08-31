@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { selectEmployee, deleteEmployee } from "../action/index";
+import api from "../api/api";
 
 import { AppActions } from "../types/actions";
 import { Employee } from "../types/Employee";
@@ -16,19 +17,36 @@ const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
 
     const history = useHistory();
 
+    const selectEmployeeById = async (employee: Employee) => {
+        return await api.get(`/getEmployee/${employee.id}`, {
+            headers: {
+                "Authorization" : "Basic cmlzaDpyaXNo"
+            }
+        })
+        .then( response => {
+            selectEmployee(response.data.object);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
     const handleView = (employee: Employee) => {
-        selectEmployee(employee);
-        history.push(`/getEmployee/${employee.id}`);
+
+        selectEmployeeById(employee)
+        .then(
+            history.push(`/getEmployee/${employee.id}`)
+        );
     }
 
     const handleEdit = (employee: Employee) => {
-        selectEmployee(employee);
-        history.push(`/updateEmployee/${employee.id}`);
+        selectEmployeeById(employee)
+        .then(
+            history.push(`/updateEmployee/${employee.id}`)
+        );
     }
 
     const handleDelete = (employee: Employee) => {
         deleteEmployee(employee);
-        alert("EMPLOYEE DELETED SUCCESSFULLY!");
     }
 
     return (
