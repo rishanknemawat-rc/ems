@@ -6,7 +6,7 @@ export const signupAPI = (username: string, password: string) => {
         "password": password
     })
     .then((response: any) => {
-        console.log("Signup Success! HTTP STATUS CODE:", response);
+        console.log("Signup Success!", response);
         alert("User created Successfully.");
     })
     .catch( (error: { response: any; request: any; message: any; }) => {
