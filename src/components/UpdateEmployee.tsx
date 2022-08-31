@@ -53,28 +53,28 @@ const UpdateEmployee = ({
 
                     addEmployeeAPI(value)
                         .then(response => {
+                            addEmployee(value);
                             console.log("ADD_EMPLOYEE_SUCCESS", response);
                             alert("EMPLOYEE ADDED SUCCESSFULLY!");
                             history.push("/getEmployees");
-                            addEmployee(value);
-                            console.log("EMP_LIST", employees);
                         })
                         .catch(error => { console.log(error) });
                 }
             }
             else {
-                selectEmployee(null);
                 if (ind !== -1) {
                     updateEmployeeAPI(value)
                         .then(response => {
-                            console.log("Employee EDITED Successfully.", response);
                             editEmployee(value);
+                            selectEmployee(null);
                             alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
+                            console.log("Employee EDITED Successfully.", response);
                             history.push("/getEmployees");
                         })
                         .catch(error => { console.log(error) });
                 }
                 else {
+                    selectEmployee(null);
                     alert('NOT A VALID EMPLOYEE!! :-)\n\n'
                         + JSON.stringify(value, null, 3));
                 }

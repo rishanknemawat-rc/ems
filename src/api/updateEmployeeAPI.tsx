@@ -15,16 +15,3 @@ export const updateEmployeeAPI = async (employee: Employee) => {
 
     return response.data;
 };
-
-// .then((response: any) => {
-//     console.log("Employee EDITED Successfully.", response);
-//     alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
-// })
-// .catch( (error: { response: any; request: any; message: any; }) => {
-//     if(error.response)
-//         console.log("Respose Failed", error.response);
-//     else if(error.request)
-//         console.log("Request Failed", error.request);
-//     else
-//         console.log("ERRRR...", error.message);
-// });

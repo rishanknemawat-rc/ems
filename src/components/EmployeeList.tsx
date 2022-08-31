@@ -18,7 +18,7 @@ const EmployeeList = ({employees, loggedIn, manager }:
         getEmployeesAPI()
         .then(
             (employees: Employee[]) => {
-                console.log("GET_SUCCESS!!   EMP LIST: ", employees);
+                console.log("Employees in Backend DataBase: ", employees);
                 if (searchInput === "") {
                     setSearchResults(employees);
                 }

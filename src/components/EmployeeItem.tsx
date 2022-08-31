@@ -19,15 +19,23 @@ const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
     const history = useHistory();
 
     const handleView = (employee: Employee) => {
-        // selectEmployeeById(employee);
-        selectEmployee(employee);
-        history.push(`/getEmployee/${employee.id}`);
+        selectEmployeeById(employee)
+        .then(response => {
+            selectEmployee(response.object);
+            console.log("SELECTED_EMP: ", response.object);
+            history.push(`/getEmployee/${employee.id}`);
+        })
+        .catch( error => {console.log(error)});
     }
 
     const handleEdit = (employee: Employee) => {
-        // selectEmployeeById(employee);
-        selectEmployee(employee);
-        history.push(`/updateEmployee/${employee.id}`);
+        selectEmployeeById(employee)
+        .then(response => {
+            selectEmployee(response.object);
+            console.log("SELECTED_EMP: ", response.object);
+            history.push(`/updateEmployee/${employee.id}`);
+        })
+        .catch( error => {console.log(error)});
     }
 
     const handleDelete = (employee: Employee) => {  

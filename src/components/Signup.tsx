@@ -10,6 +10,7 @@ import { User } from "../types/User";
 import { addUser } from "../action/index";
 import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
+import { signupAPI } from "../api/signupAPI";
 
 const Signup = ({ users, addUser }:
     {
@@ -30,8 +31,14 @@ const Signup = ({ users, addUser }:
                         alert("User already exists. Please try again");
                     }
                     else {
-                        addUser(values);
-                        history.push("/");
+                        signupAPI(values.username, values.password)
+                        .then( (response: any) => {
+                            addUser(values);
+                            console.log(response);
+                            alert("SIGNUP Successful!");
+                            history.push("/");
+                        })
+                        .catch( error => {console.log(error)});
                     }
                 }}
                 validationSchema={
@@ -42,7 +49,7 @@ const Signup = ({ users, addUser }:
                             .matches(/^[a-zA-Z]+$/, "username must contain alphabets only."),
                         password: Yup.string()
                             .required("password required")
-                            // .min(6, "password should be atleast 6 characters long.")
+                            .min(3, "password should be atleast 3 characters long.")
                             .max(15, "password should be less than 15 characters long.")
                         // .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,16}$/,
                         //     "Password must contain atleast a lowercase letter, an uppercase letter, and a symbol."),

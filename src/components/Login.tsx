@@ -39,7 +39,8 @@ const Login = ({ users, setManager, setLogin }:
                                 setManager(values.username);
                                 alert("LOGIN_SUCCESSFUL!");
                                 history.push("/getEmployees");
-                            });
+                            })
+                            .catch( error => {console.log(error)});
                     }
                     else if (user) {
                         alert("Invalid password. Please try again.");

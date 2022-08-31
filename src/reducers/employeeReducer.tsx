@@ -1,8 +1,5 @@
 import { EmployeeActionTypes } from "../types/actions";
 import { Employee } from "../types/Employee";
-// import { addEmployeeAPI } from "../api/addEmployeeAPI";
-import { deleteEmployeeAPI } from "../api/deleteEmployeeAPI";
-import { updateEmployeeAPI } from "../api/updateEmployeeAPI";
 
 const initalEmployees: Employee[] = [];
 
