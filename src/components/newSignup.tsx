@@ -7,7 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { User } from "../types/User";
-import { addUser, setManager } from "../action/index";
+import { addUser } from "../action/index";
 import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
 

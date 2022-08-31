@@ -23,21 +23,18 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } :
             </div>
         );
     }
-
     if (!selectedEmployee)
         return (
             <div>
                 Please Try Again...
             </div>
         );
-    else 
-        console.log(selectedEmployee);
     return (
         <div className="row">
             <div className="col-4"></div>
             <div className="border border-secondary text-center m-5 p-4 col-4">
                 <p className="font-weight-bold">
-                    Full Name: {selectedEmployee.firstname} {selectedEmployee.lastname}
+                    Full Name: {selectedEmployee.firstName} {selectedEmployee.lastName}
                 </p>
 
                 <p className="font-weight-bold">

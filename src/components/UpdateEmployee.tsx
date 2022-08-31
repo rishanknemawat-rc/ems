@@ -27,8 +27,8 @@ const UpdateEmployee = ({
 }) => {
 
     const initialForm: Employee = {
-        firstname: selectedEmployee === null? "" : selectedEmployee.firstname,
-        lastname: selectedEmployee === null? "" : selectedEmployee.lastname,
+        firstName: selectedEmployee === null? "" : selectedEmployee.firstName,
+        lastName: selectedEmployee === null? "" : selectedEmployee.lastName,
         id: selectedEmployee === null? 0 : selectedEmployee.id,
         manager: selectedEmployee === null? manager : selectedEmployee.manager,
         department: selectedEmployee === null? "" : selectedEmployee.department,
@@ -37,8 +37,8 @@ const UpdateEmployee = ({
 
     const formik = useFormik({
         initialValues: {
-            firstname: initialForm.firstname,
-            lastname: initialForm.lastname,
+            firstName: initialForm.firstName,
+            lastName: initialForm.lastName,
             id: initialForm.id,
             manager: initialForm.manager,
             department: initialForm.department,
@@ -50,7 +50,6 @@ const UpdateEmployee = ({
             if(selectedEmployee === null){
                 if(ind === -1){
                     addEmployee(value);
-                    alert('EMPLOYEE CREATED SUCCESSFULLY!');
                     history.push("/getEmployees");
                 }
             }
@@ -75,10 +74,10 @@ const UpdateEmployee = ({
             });
 
             const errors: Error = {};
-            if (values.firstname && !(/^[a-zA-Z]+$/.test(values.firstname)))
-                    errors.firstname = 'Invalid First Name. Name should contain only letters';
-            if (values.lastname && !(/^[a-zA-Z]+$/.test(values.lastname)))
-                    errors.lastname = 'Invalid Last Name. Name should contain only letters';
+            if (values.firstName && !(/^[a-zA-Z]+$/.test(values.firstName)))
+                    errors.firstName = 'Invalid First Name. Name should contain only letters';
+            if (values.lastName && !(/^[a-zA-Z]+$/.test(values.lastName)))
+                    errors.lastName = 'Invalid Last Name. Name should contain only letters';
             if (values.id && (values.id < 100 || values.id > 999))
                 errors.id = "Employee ID should be 3 digit number."
             if(selectedEmployee===null && ind !== -1)
@@ -104,14 +103,14 @@ const UpdateEmployee = ({
                                     <input
                                         className="form-control"
                                         type="text"
-                                        name="firstname"
-                                        value={formik.values.firstname}
+                                        name="firstName"
+                                        value={formik.values.firstName}
                                         onChange={formik.handleChange}
                                         required
                                     />
-                                    {formik.errors.firstname && formik.touched.firstname ?
+                                    {formik.errors.firstName && formik.touched.firstName ?
                                         <div className="text-danger">
-                                            {formik.errors.firstname}
+                                            {formik.errors.firstName}
                                         </div> :
                                         ""
                                     }
@@ -125,14 +124,14 @@ const UpdateEmployee = ({
                                     <input
                                         className="form-control"
                                         type="text"
-                                        name="lastname"
-                                        value={formik.values.lastname}
+                                        name="lastName"
+                                        value={formik.values.lastName}
                                         onChange={formik.handleChange}
                                         required
                                     />
-                                    {formik.errors.lastname && formik.touched.lastname?
+                                    {formik.errors.lastName && formik.touched.lastName?
                                         <div className="text-danger">
-                                            {formik.errors.lastname}
+                                            {formik.errors.lastName}
                                         </div> :
                                         ""
                                     }

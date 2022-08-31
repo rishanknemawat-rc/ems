@@ -3,14 +3,15 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 
 
 import { setLogin } from "../action/index";
 import { User } from "../types/User";
-import { addUser, setManager } from "../action/index";
+import { setManager } from "../action/index";
 import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
+import api from "../api/api";
 
 const NewLogin = ({ users, setManager, setLogin }:
     {
@@ -27,9 +28,31 @@ const NewLogin = ({ users, setManager, setLogin }:
                     username: "",
                     password: ""
                 }}
-                onSubmit={(values: User) => {
+                onSubmit={ (values: User) => {
                     const user = users.find(user => user.username === values.username);
                     if (user && user.password === values.password) {
+
+                        api.post("/login", {
+                            "username": values.username,
+                            "password": values.password
+                        },
+                        {
+                            headers: {
+                                "Authorization": "Basic cmlzaDpyaXNo"
+                            }
+                        })
+                        .then( (res) => {
+                            console.log("Login Successful!", res);
+                        })
+                        .catch( error => {
+                            if(error.response)
+                                console.log(error.response);
+                            else if(error.request)
+                                console.log(error.request);
+                            else
+                                console.log(error.message);
+                        });
+
                         setLogin(true);
                         setManager(values.username);
                         alert('LOGIN SUCCESSFUL!');

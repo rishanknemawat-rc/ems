@@ -1,68 +1,92 @@
 import { EmployeeActionTypes } from "../types/actions";
 import { Employee } from "../types/Employee";
+import api from "../api/api";
 
-const initalEmployees: Employee[] = [
-    {
-        firstname: "Sherlock",
-        lastname: "Homes",
-        id: 102,
-        manager: "xyz",
-        department: "3 years"
-    },
-    {
-        firstname: "Claire",
-        lastname: "Underwood",
-        id: 103,
-        manager: "xyz",
-        department: "12 years"
-    },
-    {
-        firstname: "Taylor",
-        lastname: "Swift",
-        id: 101,
-        manager: "xyz",
-        department: "5 years"
-    },
-    {
-        firstname: "Micheal",
-        lastname: "Scott",
-        id: 104,
-        manager: "abc",
-        department: "2 years"
-    },
-    {
-        firstname: "Charlie",
-        lastname: "Harper",
-        id: 105,
-        manager: "abc",
-        department: "1 year"
-    },
-    {
-        firstname: "Ted",
-        lastname: "Mosby",
-        id: 106,
-        manager: "abc",
-        department: "3 months"
-    },
-];
+const initalEmployees: Employee[] = [];
 
 const employeeReducer = (employees = initalEmployees, 
                         action: EmployeeActionTypes): 
                         Employee[] => {
 
     switch (action.type) {
-        case ("ADD_EMPLOYEE"):
+        case ("ADD_EMPLOYEE"):{
+            api.post( "/addEmployee" , 
+            {
+                "id" : action.payload.id,
+                "firstName" : action.payload.firstName,
+                "lastName" : action.payload.lastName,
+                "department" : action.payload.department,
+                "manager" : action.payload.manager
+            },
+            {
+                headers: {
+                    "Content-Type" : "application/json",
+                    "Authorization" : "Basic cmlzaDpyaXNo"
+                },
+            })
+            .then( (response) => {
+                console.log("Employee ADDED Successfully.", response);
+                alert('EMPLOYEE CREATED SUCCESSFULLY!');
+            })
+            .catch( error => {
+                if(error.response)
+                    console.log("Respose Failed", error.response);
+                else if(error.request)
+                    console.log("Request Failed", error.request);
+                else
+                    console.log("ERRRR...", error.message);
+            });
             return [...employees, action.payload];
+        }
 
-        case ("DELETE_EMPLOYEE"):
+        case ("DELETE_EMPLOYEE"):{
+            api.delete(`deleteEmployee/${action.payload.id}`, {
+                headers: { "Authorization": "Basic cmlzaDpyaXNo" },
+            })
+            .then((response) => {
+                console.log("Employee DELETED Successfully.", response);
+                console.log(response);
+            })
+            .catch( error => {
+                if(error.response)
+                    console.log("Respose Failed", error.response);
+                else if(error.request)
+                    console.log("Request Failed", error.request);
+                else
+                    console.log("ERRRR...", error.message);
+            });
             return employees.filter(emp => emp.id !== action.payload.id);
+        }
 
-        case ("EDIT_EMPLOYEE"):
+        case ("EDIT_EMPLOYEE"):{
+            api.put(`updateEmployee/${action.payload.id}`, 
+            {
+                "firstName": action.payload.firstName,
+                "lastName": action.payload.lastName,
+                "id": action.payload.id,
+                "department": action.payload.department,
+                "manager": action.payload.manager,
+            }, 
+            {
+                headers: { "Authorization" : "Basic cmlzaDpyaXNo" }
+            })
+            .then((response) => {
+                console.log("Employee EDITED Successfully.", response);
+                console.log(response);
+            })
+            .catch( error => {
+                if(error.response)
+                    console.log("Respose Failed", error.response);
+                else if(error.request)
+                    console.log("Request Failed", error.request);
+                else
+                    console.log("ERRRR...", error.message);
+            });
             const updatesEmployees = employees.map(emp => {
                 const updatedEmp = emp;
                 if (emp.id === action.payload.id) {
-                    updatedEmp.firstname = action.payload.firstname
-                    updatedEmp.lastname = action.payload.lastname
+                    updatedEmp.firstName = action.payload.firstName
+                    updatedEmp.lastName = action.payload.lastName
                     updatedEmp.manager = action.payload.manager
                     updatedEmp.department = action.payload.department
                 }
@@ -70,6 +94,7 @@ const employeeReducer = (employees = initalEmployees,
                 return updatedEmp;
             });
             return updatesEmployees;
+        }
 
         default :   
             return employees;

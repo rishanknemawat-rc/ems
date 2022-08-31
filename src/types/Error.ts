@@ -1,6 +1,6 @@
 export interface Error{
-    firstname?: string,
-    lastname?: string,
+    firstName?: string,
+    lastName?: string,
     id?: string,
     manager?: string
     department?: string,

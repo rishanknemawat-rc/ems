@@ -5,43 +5,69 @@ import { Link } from "react-router-dom";
 import EmployeeItem from "./EmployeeItem";
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
+import api from "../api/api";
 
-const EmployeeList = ({ employees, loggedIn, manager }: 
-    { employees: Employee[], loggedIn: boolean, manager: string }) => {
+const EmployeeList = ({ loggedIn, manager }:
+    { loggedIn: boolean, manager: string }) => {
 
     const [searchInput, setSearchInput] = useState("");
-    const [searchResults, setSearchResults] = useState<Employee[]>(employees);
+    const [searchResults, setSearchResults] = useState<Employee[]>([]);
     const [sort, setSort] = useState("");
+
+    async function getEmployeesArray() {
+
+        try {
+            const response = await api.get("/getEmployees",
+            {
+                headers: {
+                    Authorization: "Basic cmlzaDpyaXNo"
+                }
+            });
+            console.log("Get Employees successful.", response);
+            console.log("Employees List Array: ", response.data.object);
+            return response.data.object;
+        }
+        catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
 
-        if (searchInput === "")
-            setSearchResults(employees);
+        getEmployeesArray()
+        .then(
+            (employees: Employee[]) => {
+                if (searchInput === "") {
+                    setSearchResults(employees);
+                }
+        
+                const filteredResults = employees.filter(employee => {
+                    return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+                        employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
+                });
+        
+                if (sort === "firstName")
+                    setSearchResults(filteredResults.sort((e1, e2) => {
+                        if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
+                            return -1;
+                        else return 1;
+                    }))
+                else if (sort === "lastName")
+                    setSearchResults(filteredResults.sort((e1, e2) => {
+                        if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
+                            return -1;
+                        else return 1;
+                    }))
+                else
+                    setSearchResults(filteredResults);
+            }
+        )
+        .catch(err => {console.log(err)});
 
-        const filteredResults = employees.filter(employee => {
-            return employee.firstname.toLowerCase().includes(searchInput.toLowerCase()) ||
-                employee.lastname.toLowerCase().includes(searchInput.toLowerCase());
-        });
-
-        if (sort === "firstname")
-            setSearchResults(filteredResults.sort((e1, e2) => {
-                if (e1.firstname.toLowerCase() <= e2.firstname.toLowerCase())
-                    return -1;
-                else return 1;
-            }))
-        else if (sort === "lastname")
-        setSearchResults(filteredResults.sort((e1, e2) => {
-            if (e1.lastname.toLowerCase() <= e2.lastname.toLowerCase())
-                return -1;
-            else return 1;
-        }))
-        else
-            setSearchResults(filteredResults);
-            
-    }, [searchInput, sort, employees]);
+    }, [searchInput, sort]);
 
     const renderedList = searchResults.map(employee => {
-        if(employee.manager === manager){
+        if (employee.manager === manager) {
             return (
                 <div key={employee.id} className="col-4">
                     <div key={employee.id} className="list-group m-4">
@@ -86,22 +112,22 @@ const EmployeeList = ({ employees, loggedIn, manager }:
                                 <div className="col-4">
                                     <div className="form-outline m-4">
                                         <div className="dropdown">
-                                            <button className="btn btn-dark dropdown-toggle" 
-                                                    type="button" 
-                                                    id="dropdownMenuButton" 
-                                                    data-toggle="dropdown" 
-                                                    aria-haspopup="true" 
-                                                    aria-expanded="false">
+                                            <button className="btn btn-dark dropdown-toggle"
+                                                type="button"
+                                                id="dropdownMenuButton"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false">
                                                 Sort
                                             </button>
                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <button className="dropdown-item" 
-                                                        onClick={() => setSort("firstname")} > 
-                                                        First Name 
+                                                <button className="dropdown-item"
+                                                    onClick={() => setSort("firstName")} >
+                                                    First Name
                                                 </button>
                                                 <button className="dropdown-item"
-                                                        onClick={() => setSort("lastname")} > 
-                                                        Last Name 
+                                                    onClick={() => setSort("lastName")} >
+                                                    Last Name
                                                 </button>
                                             </div>
                                         </div>
@@ -141,3 +167,55 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
 };
 
 export default connect(mapStateToProps)(EmployeeList);
+
+
+
+        // const response = api.get("/getEmployees",
+        //     {
+        //         headers: { 
+        //             Authorization: "Basic dHVzaDp0dXNo" 
+        //         }
+        //     })
+        //     .then( (response) => {
+                // console.log("Get Employees successful.", response);
+                // console.log("Employees List Array: ", response.data.object);
+        //         data = response.data.object;
+        //     })
+        //     .catch( error => {
+        //         if(error.response)
+        //             console.log(error.response);
+        //         else if(error.request)
+        //             console.log(error.request);
+        //         else
+        //             console.log(error.message);
+        //         return error;
+        //     });
+
+
+        // ---------------------------------------------------
+
+                
+
+        // if (searchInput === "") {
+        //     setSearchResults(employees);
+        // }
+
+        // const filteredResults = employees.filter(employee => {
+        //     return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+        //         employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
+        // });
+
+        // if (sort === "firstName")
+        //     setSearchResults(filteredResults.sort((e1, e2) => {
+        //         if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
+        //             return -1;
+        //         else return 1;
+        //     }))
+        // else if (sort === "lastName")
+        //     setSearchResults(filteredResults.sort((e1, e2) => {
+        //         if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
+        //             return -1;
+        //         else return 1;
+        //     }))
+        // else
+        //     setSearchResults(filteredResults);

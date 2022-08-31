@@ -34,7 +34,7 @@ const EmployeeItem = ({ selectEmployee, employee, deleteEmployee }:
     return (
         <div>
             <div>
-                <h3>{employee.firstname} {employee.lastname}</h3>
+                <h3>{employee.firstName} {employee.lastName}</h3>
             </div>
             <div>
                 <button
