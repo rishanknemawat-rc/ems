@@ -9,11 +9,12 @@ import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
 import { AppActions } from "../types/actions";
 import { Error } from "../types/Error";
-import { getEmployeesAPI } from "../api/getEmployeesAPI";
+import { addEmployeeAPI } from "../api/addEmployeeAPI";
+import { updateEmployeeAPI } from "../api/updateEmployeeAPI";
 
-const UpdateEmployee = ({ 
+const UpdateEmployee = ({
     employees,
-    selectedEmployee, 
+    selectedEmployee,
     editEmployee,
     addEmployee,
     loggedIn,
@@ -28,11 +29,11 @@ const UpdateEmployee = ({
 }) => {
 
     const initialForm: Employee = {
-        firstName: selectedEmployee === null? "" : selectedEmployee.firstName,
-        lastName: selectedEmployee === null? "" : selectedEmployee.lastName,
-        id: selectedEmployee === null? 0 : selectedEmployee.id,
-        manager: selectedEmployee === null? manager : selectedEmployee.manager,
-        department: selectedEmployee === null? "" : selectedEmployee.department,
+        firstName: selectedEmployee === null ? "" : selectedEmployee.firstName,
+        lastName: selectedEmployee === null ? "" : selectedEmployee.lastName,
+        id: selectedEmployee === null ? 0 : selectedEmployee.id,
+        manager: selectedEmployee === null ? manager : selectedEmployee.manager,
+        department: selectedEmployee === null ? "" : selectedEmployee.department,
     };
     let history = useHistory();
 
@@ -46,72 +47,56 @@ const UpdateEmployee = ({
         },
         onSubmit: (value: Employee) => {
 
-            // getEmployeesAPI()
-            // .then( (employeeList: Employee[]) => {
-            //     const ind = employeeList.findIndex((employee: Employee) => { return (employee.id === value.id); });
-            //     if(selectedEmployee === null){
-            //         if(ind === -1){
-            //             addEmployee(value);
-            //             history.push("/getEmployees");
-            //         }
-            //     }
-            //     else{
-            //         selectEmployee(null);
-            //         if (ind !== -1) {
-            //             editEmployee(value);
-            //             history.push("/getEmployees");
-            //         }
-            //         else {
-            //             alert('NOT A VALID EMPLOYEE!! :-)\n\n'
-            //                 + JSON.stringify(value, null, 3));
-            //         }
-            //     }
-            // });
-
             const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
-                if(selectedEmployee === null){
-                    if(ind === -1){
-                        addEmployee(value);
-                        history.push("/getEmployees");
-                    }
+            if (selectedEmployee === null) {
+                if (ind === -1) {
+
+                    addEmployeeAPI(value)
+                        .then(response => {
+                            console.log("ADD_EMPLOYEE_SUCCESS", response);
+                            alert("EMPLOYEE ADDED SUCCESSFULLY!");
+                            history.push("/getEmployees");
+                            addEmployee(value);
+                            console.log("EMP_LIST", employees);
+                        })
+                        .catch(error => { console.log(error) });
                 }
-                else{
-                    selectEmployee(null);
-                    if (ind !== -1) {
-                        editEmployee(value);
-                        history.push("/getEmployees");
-                    }
-                    else {
-                        alert('NOT A VALID EMPLOYEE!! :-)\n\n'
-                            + JSON.stringify(value, null, 3));
-                    }
+            }
+            else {
+                selectEmployee(null);
+                if (ind !== -1) {
+                    updateEmployeeAPI(value)
+                        .then(response => {
+                            console.log("Employee EDITED Successfully.", response);
+                            editEmployee(value);
+                            alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
+                            history.push("/getEmployees");
+                        })
+                        .catch(error => { console.log(error) });
                 }
+                else {
+                    alert('NOT A VALID EMPLOYEE!! :-)\n\n'
+                        + JSON.stringify(value, null, 3));
+                }
+            }
         },
         validate: (values: Employee) => {
 
             const errors: Error = {};
 
-            // getEmployeesAPI()
-            // .then( (employeeList: Employee[]) => {
-            //     const ind = employeeList.findIndex(employee => {
-            //         return (employee.id === values.id);
-            //     });
-            //     if(selectedEmployee===null && ind !== -1)
-            //         errors.id = "Employee with ID " + values.id + " already exists.";
-            // });
             const ind = employees.findIndex(employee => {
                 return (employee.id === values.id);
             });
 
-            if(selectedEmployee===null && ind !== -1)
+            if (selectedEmployee === null && ind !== -1)
                 errors.id = "Employee with ID " + values.id + " already exists.";
             if (values.firstName && !(/^[a-zA-Z]+$/.test(values.firstName)))
-                    errors.firstName = 'Invalid First Name. Name should contain only letters';
+                errors.firstName = 'Invalid First Name. Name should contain only letters';
             if (values.lastName && !(/^[a-zA-Z]+$/.test(values.lastName)))
-                    errors.lastName = 'Invalid Last Name. Name should contain only letters';
+                errors.lastName = 'Invalid Last Name. Name should contain only letters';
             if (values.id && (values.id < 100 || values.id > 999))
                 errors.id = "Employee ID should be 3 digit number."
-            if (selectedEmployee!==null && values.manager && !(/^[a-zA-Z]+$/.test(values.manager)))
+            if (selectedEmployee !== null && values.manager && !(/^[a-zA-Z]+$/.test(values.manager)))
                 errors.manager = 'Invalid Manager. Manager should contain only letters';
             return errors;
         }
@@ -158,7 +143,7 @@ const UpdateEmployee = ({
                                         onChange={formik.handleChange}
                                         required
                                     />
-                                    {formik.errors.lastName && formik.touched.lastName?
+                                    {formik.errors.lastName && formik.touched.lastName ?
                                         <div className="text-danger">
                                             {formik.errors.lastName}
                                         </div> :
@@ -176,10 +161,10 @@ const UpdateEmployee = ({
                                         name="id"
                                         value={formik.values.id === 0 ? "" : formik.values.id}
                                         onChange={formik.handleChange}
-                                        disabled={selectedEmployee === null? false : true}
+                                        disabled={selectedEmployee === null ? false : true}
                                         required
                                     />
-                                    {formik.errors.id && formik.touched.id?
+                                    {formik.errors.id && formik.touched.id ?
                                         <div className="text-danger">
                                             {formik.errors.id}
                                         </div> :
@@ -199,7 +184,7 @@ const UpdateEmployee = ({
                                         disabled={selectedEmployee === null ? true : false}
                                         required
                                     />
-                                    {formik.errors.manager && (selectedEmployee !== null) && formik.touched.manager?
+                                    {formik.errors.manager && (selectedEmployee !== null) && formik.touched.manager ?
                                         <div className="text-danger">
                                             {formik.errors.manager}
                                         </div> :
@@ -252,7 +237,7 @@ const UpdateEmployee = ({
     );
 };
 
-interface LinkStateProps{
+interface LinkStateProps {
     employees: Employee[],
     selectedEmployee: Employee | null,
     loggedIn: boolean,
@@ -269,3 +254,14 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
 };
 
 export default connect(mapStateToProps, { addEmployee, editEmployee })(UpdateEmployee);
+
+
+
+            // getEmployeesAPI()
+            // .then( (employeeList: Employee[]) => {
+            //     const ind = employeeList.findIndex(employee => {
+            //         return (employee.id === values.id);
+            //     });
+            //     if(selectedEmployee===null && ind !== -1)
+            //         errors.id = "Employee with ID " + values.id + " already exists.";
+            // });

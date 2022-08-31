@@ -37,6 +37,7 @@ const Login = ({ users, setManager, setLogin }:
                                 console.log("Login Successful!", response);
                                 setLogin(true);
                                 setManager(values.username);
+                                alert("LOGIN_SUCCESSFUL!");
                                 history.push("/getEmployees");
                             });
                     }

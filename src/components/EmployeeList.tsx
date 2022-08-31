@@ -15,38 +15,36 @@ const EmployeeList = ({employees, loggedIn, manager }:
     const [sort, setSort] = useState("");
 
     useEffect(() => {
-
         getEmployeesAPI()
         .then(
             (employees: Employee[]) => {
-                console.log("EMP LIST: ", employees);
+                console.log("GET_SUCCESS!!   EMP LIST: ", employees);
+                if (searchInput === "") {
+                    setSearchResults(employees);
+                }
+        
+                const filteredResults = employees.filter(employee => {
+                    return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+                        employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
+                });
+        
+                if (sort === "firstName")
+                    setSearchResults(filteredResults.sort((e1, e2) => {
+                        if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
+                            return -1;
+                        else return 1;
+                    }))
+                else if (sort === "lastName")
+                    setSearchResults(filteredResults.sort((e1, e2) => {
+                        if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
+                            return -1;
+                        else return 1;
+                    }))
+                else
+                    setSearchResults(filteredResults);
             }
         )
         .catch(error => {console.log(error)});
-
-        if (searchInput === "") {
-            setSearchResults(employees);
-        }
-
-        const filteredResults = employees.filter(employee => {
-            return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
-                employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
-        });
-
-        if (sort === "firstName")
-            setSearchResults(filteredResults.sort((e1, e2) => {
-                if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
-                    return -1;
-                else return 1;
-            }))
-        else if (sort === "lastName")
-            setSearchResults(filteredResults.sort((e1, e2) => {
-                if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
-                    return -1;
-                else return 1;
-            }))
-        else
-            setSearchResults(filteredResults);
 
     }, [searchInput, sort, employees]);
 
@@ -226,3 +224,28 @@ export default connect(mapStateToProps)(EmployeeList);
     //         console.error(error);
     //     }
     // };
+
+
+        // if (searchInput === "") {
+        //     setSearchResults(employees);
+        // }
+
+        // const filteredResults = employees.filter(employee => {
+        //     return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+        //         employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
+        // });
+
+        // if (sort === "firstName")
+        //     setSearchResults(filteredResults.sort((e1, e2) => {
+        //         if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
+        //             return -1;
+        //         else return 1;
+        //     }))
+        // else if (sort === "lastName")
+        //     setSearchResults(filteredResults.sort((e1, e2) => {
+        //         if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
+        //             return -1;
+        //         else return 1;
+        //     }))
+        // else
+        //     setSearchResults(filteredResults);
