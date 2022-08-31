@@ -5,20 +5,20 @@ import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Formik, Form, Field } from "formik";
 
-
 import { setLogin } from "../action/index";
 import { User } from "../types/User";
 import { setManager } from "../action/index";
 import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
-import api from "../api/api";
+import { loginAPI } from "../api/loginAPI";
 
-const NewLogin = ({ users, setManager, setLogin }:
+const Login = ({ users, setManager, setLogin }:
     {
         users: User[],
         setManager: (user: string) => AppActions,
         setLogin: (loggedIn: boolean) => AppActions
     }) => {
+
     const history = useHistory();
     return (
         <div>
@@ -28,35 +28,17 @@ const NewLogin = ({ users, setManager, setLogin }:
                     username: "",
                     password: ""
                 }}
-                onSubmit={ (values: User) => {
+                onSubmit={(values: User) => {
                     const user = users.find(user => user.username === values.username);
                     if (user && user.password === values.password) {
 
-                        api.post("/login", {
-                            "username": values.username,
-                            "password": values.password
-                        },
-                        {
-                            headers: {
-                                "Authorization": "Basic cmlzaDpyaXNo"
-                            }
-                        })
-                        .then( (res) => {
-                            console.log("Login Successful!", res);
-                        })
-                        .catch( error => {
-                            if(error.response)
-                                console.log(error.response);
-                            else if(error.request)
-                                console.log(error.request);
-                            else
-                                console.log(error.message);
-                        });
-
-                        setLogin(true);
-                        setManager(values.username);
-                        alert('LOGIN SUCCESSFUL!');
-                        history.push("/getEmployees");
+                        loginAPI(values)
+                            .then(response => {
+                                console.log("Login Successful!", response);
+                                setLogin(true);
+                                setManager(values.username);
+                                history.push("/getEmployees");
+                            });
                     }
                     else if (user) {
                         alert("Invalid password. Please try again.");
@@ -108,4 +90,4 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 
-export default connect(mapStateToProps, { setLogin, setManager })(NewLogin);
+export default connect(mapStateToProps, { setLogin, setManager })(Login);

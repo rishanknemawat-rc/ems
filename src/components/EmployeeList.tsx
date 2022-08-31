@@ -3,68 +3,52 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import EmployeeItem from "./EmployeeItem";
+import { getEmployeesAPI } from "../api/getEmployeesAPI";
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
-import api from "../api/api";
 
-const EmployeeList = ({ loggedIn, manager }:
-    { loggedIn: boolean, manager: string }) => {
+const EmployeeList = ({employees, loggedIn, manager }:
+    { employees: Employee[], loggedIn: boolean, manager: string }) => {
 
     const [searchInput, setSearchInput] = useState("");
     const [searchResults, setSearchResults] = useState<Employee[]>([]);
     const [sort, setSort] = useState("");
 
-    async function getEmployeesArray() {
-
-        try {
-            const response = await api.get("/getEmployees",
-            {
-                headers: {
-                    Authorization: "Basic cmlzaDpyaXNo"
-                }
-            });
-            console.log("Get Employees successful.", response);
-            console.log("Employees List Array: ", response.data.object);
-            return response.data.object;
-        }
-        catch (error) {
-            console.error(error);
-        }
-    };
-
     useEffect(() => {
 
-        getEmployeesArray()
+        getEmployeesAPI()
         .then(
             (employees: Employee[]) => {
-                if (searchInput === "") {
-                    setSearchResults(employees);
-                }
-        
-                const filteredResults = employees.filter(employee => {
-                    return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
-                        employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
-                });
-        
-                if (sort === "firstName")
-                    setSearchResults(filteredResults.sort((e1, e2) => {
-                        if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
-                            return -1;
-                        else return 1;
-                    }))
-                else if (sort === "lastName")
-                    setSearchResults(filteredResults.sort((e1, e2) => {
-                        if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
-                            return -1;
-                        else return 1;
-                    }))
-                else
-                    setSearchResults(filteredResults);
+                console.log("EMP LIST: ", employees);
             }
         )
-        .catch(err => {console.log(err)});
+        .catch(error => {console.log(error)});
 
-    }, [searchInput, sort]);
+        if (searchInput === "") {
+            setSearchResults(employees);
+        }
+
+        const filteredResults = employees.filter(employee => {
+            return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
+                employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
+        });
+
+        if (sort === "firstName")
+            setSearchResults(filteredResults.sort((e1, e2) => {
+                if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
+                    return -1;
+                else return 1;
+            }))
+        else if (sort === "lastName")
+            setSearchResults(filteredResults.sort((e1, e2) => {
+                if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
+                    return -1;
+                else return 1;
+            }))
+        else
+            setSearchResults(filteredResults);
+
+    }, [searchInput, sort, employees]);
 
     const renderedList = searchResults.map(employee => {
         if (employee.manager === manager) {
@@ -163,14 +147,18 @@ interface LinkStateProps {
 }
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
-    return { employees: state.employees, loggedIn: state.loggedIn, manager: state.manager }
+    return { 
+        employees: state.employees, 
+        loggedIn: state.loggedIn, 
+        manager: state.manager 
+    }
 };
 
 export default connect(mapStateToProps)(EmployeeList);
 
 
 
-        // const response = api.get("/getEmployees",
+        // const response = api.get("/getEmployeesAPI",
         //     {
         //         headers: { 
         //             Authorization: "Basic dHVzaDp0dXNo" 
@@ -219,3 +207,22 @@ export default connect(mapStateToProps)(EmployeeList);
         //     }))
         // else
         //     setSearchResults(filteredResults);
+
+
+    // async function getEmployeesAPIArray() {
+
+    //     try {
+    //         const response = await api.get("/getEmployeesAPI",
+    //         {
+    //             headers: {
+    //                 Authorization: "Basic cmlzaDpyaXNo"
+    //             }
+    //         });
+    //         console.log("Get Employees successful.", response);
+    //         console.log("Employees List Array: ", response.data.object);
+    //         return response.data.object;
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // };

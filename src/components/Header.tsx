@@ -12,13 +12,8 @@ const Header = ({ loggedIn, setLogin, selectEmployee} :
         selectEmployee: (employee: Employee| null) => AppState
     })  => {
 
-    const handleLogout = () => {
-        setLogin(false);
-    };
-
-    const handleSelect = () => {
-        selectEmployee(null);
-    }
+    const handleLogout = () => { setLogin(false); };
+    const handleSelect = () => { selectEmployee(null); }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">

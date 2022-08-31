@@ -9,17 +9,18 @@ import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
 import { AppActions } from "../types/actions";
 import { Error } from "../types/Error";
+import { getEmployeesAPI } from "../api/getEmployeesAPI";
 
 const UpdateEmployee = ({ 
+    employees,
     selectedEmployee, 
-    employeeList,
     editEmployee,
     addEmployee,
     loggedIn,
     manager
 }: {
+    employees: Employee[],
     selectedEmployee: Employee,
-    employeeList: Employee[],
     editEmployee: (employee: Employee) => AppActions,
     addEmployee: (employee: Employee) => AppActions,
     loggedIn: boolean,
@@ -44,43 +45,72 @@ const UpdateEmployee = ({
             department: initialForm.department,
         },
         onSubmit: (value: Employee) => {
-            const ind = employeeList.findIndex(emp => {
-                return (emp.id === value.id);
-            });
-            if(selectedEmployee === null){
-                if(ind === -1){
-                    addEmployee(value);
-                    history.push("/getEmployees");
-                }
-            }
-            else{
-                selectEmployee(null);
 
-                if (ind !== -1) {
-                    editEmployee(value);
-                    history.push("/getEmployees");
+            // getEmployeesAPI()
+            // .then( (employeeList: Employee[]) => {
+            //     const ind = employeeList.findIndex((employee: Employee) => { return (employee.id === value.id); });
+            //     if(selectedEmployee === null){
+            //         if(ind === -1){
+            //             addEmployee(value);
+            //             history.push("/getEmployees");
+            //         }
+            //     }
+            //     else{
+            //         selectEmployee(null);
+            //         if (ind !== -1) {
+            //             editEmployee(value);
+            //             history.push("/getEmployees");
+            //         }
+            //         else {
+            //             alert('NOT A VALID EMPLOYEE!! :-)\n\n'
+            //                 + JSON.stringify(value, null, 3));
+            //         }
+            //     }
+            // });
+
+            const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
+                if(selectedEmployee === null){
+                    if(ind === -1){
+                        addEmployee(value);
+                        history.push("/getEmployees");
+                    }
                 }
-                else {
-                    alert('NOT A VALID EMPLOYEE!! :-)\n\n'
-                        + JSON.stringify(value, null, 3));
+                else{
+                    selectEmployee(null);
+                    if (ind !== -1) {
+                        editEmployee(value);
+                        history.push("/getEmployees");
+                    }
+                    else {
+                        alert('NOT A VALID EMPLOYEE!! :-)\n\n'
+                            + JSON.stringify(value, null, 3));
+                    }
                 }
-            }
         },
         validate: (values: Employee) => {
 
-            const ind = employeeList.findIndex(emp => {
-                return (emp.id === values.id);
+            const errors: Error = {};
+
+            // getEmployeesAPI()
+            // .then( (employeeList: Employee[]) => {
+            //     const ind = employeeList.findIndex(employee => {
+            //         return (employee.id === values.id);
+            //     });
+            //     if(selectedEmployee===null && ind !== -1)
+            //         errors.id = "Employee with ID " + values.id + " already exists.";
+            // });
+            const ind = employees.findIndex(employee => {
+                return (employee.id === values.id);
             });
 
-            const errors: Error = {};
+            if(selectedEmployee===null && ind !== -1)
+                errors.id = "Employee with ID " + values.id + " already exists.";
             if (values.firstName && !(/^[a-zA-Z]+$/.test(values.firstName)))
                     errors.firstName = 'Invalid First Name. Name should contain only letters';
             if (values.lastName && !(/^[a-zA-Z]+$/.test(values.lastName)))
                     errors.lastName = 'Invalid Last Name. Name should contain only letters';
             if (values.id && (values.id < 100 || values.id > 999))
                 errors.id = "Employee ID should be 3 digit number."
-            if(selectedEmployee===null && ind !== -1)
-                errors.id = "Employee with ID " + values.id + " already exists.";
             if (selectedEmployee!==null && values.manager && !(/^[a-zA-Z]+$/.test(values.manager)))
                 errors.manager = 'Invalid Manager. Manager should contain only letters';
             return errors;
@@ -223,7 +253,7 @@ const UpdateEmployee = ({
 };
 
 interface LinkStateProps{
-    employeeList: Employee[],
+    employees: Employee[],
     selectedEmployee: Employee | null,
     loggedIn: boolean,
     manager: string
@@ -231,7 +261,7 @@ interface LinkStateProps{
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
     return ({
-        employeeList: state.employees,
+        employees: state.employees,
         selectedEmployee: state.selectedEmployee,
         loggedIn: state.loggedIn,
         manager: state.manager

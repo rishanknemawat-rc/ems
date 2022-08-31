@@ -11,7 +11,7 @@ import { addUser } from "../action/index";
 import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
 
-const NewSignup = ({ users, addUser }:
+const Signup = ({ users, addUser }:
     {
         users: User[],
         addUser: (user: User) => AppActions
@@ -31,7 +31,6 @@ const NewSignup = ({ users, addUser }:
                     }
                     else {
                         addUser(values);
-                        alert("User created Successfully.");
                         history.push("/");
                     }
                 }}
@@ -96,4 +95,4 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
     return { users: state.users }
 };
 
-export default connect(mapStateToProps, { addUser })(NewSignup);
+export default connect(mapStateToProps, { addUser })(Signup);
