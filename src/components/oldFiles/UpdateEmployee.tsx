@@ -3,14 +3,14 @@ import { useFormik } from "formik";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
-import { editEmployee, selectEmployee, addEmployee } from "../action/index";
-import { AppState } from "../reducers/index";
+import { editEmployee, selectEmployee, addEmployee } from "../../action/index";
+import { AppState } from "../../reducers/index";
 
-import { Employee } from "../types/Employee";
-import { AppActions } from "../types/actions";
-import { Error } from "../types/Error";
-import { addEmployeeAPI } from "../api/addEmployeeAPI";
-import { updateEmployeeAPI } from "../api/updateEmployeeAPI";
+import { Employee } from "../../types/Employee";
+import { AppActions } from "../../types/actions";
+import { Error } from "../../types/Error";
+import { addEmployeeAPI } from "../../api/addEmployeeAPI";
+import { updateEmployeeAPI } from "../../api/updateEmployeeAPI";
 
 const UpdateEmployee = ({
     employees,
@@ -254,14 +254,3 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
 };
 
 export default connect(mapStateToProps, { addEmployee, editEmployee })(UpdateEmployee);
-
-
-
-            // getEmployeesAPI()
-            // .then( (employeeList: Employee[]) => {
-            //     const ind = employeeList.findIndex(employee => {
-            //         return (employee.id === values.id);
-            //     });
-            //     if(selectedEmployee===null && ind !== -1)
-            //         errors.id = "Employee with ID " + values.id + " already exists.";
-            // });

@@ -9,7 +9,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 import EmployeeList from "./EmployeeList";
 import EmployeeDetails from "./EmployeeDetails";
-import UpdateEmployee from "./UpdateEmployee";
+import EmployeeForm from "./EmployeeForm";
 
 const App = () => {
 
@@ -28,13 +28,13 @@ const App = () => {
                         <EmployeeList />
                     </Route>
                     <Route path="/addEmployee">
-                        <UpdateEmployee />
+                        <EmployeeForm />
                     </Route>
                     <Route path="/getEmployee/:id" exact >
                         <EmployeeDetails />
                     </Route>
                     <Route path="/updateEmployee/:id" exact>
-                        <UpdateEmployee />
+                        <EmployeeForm />
                     </Route>
                 </div>
             </BrowserRouter>
