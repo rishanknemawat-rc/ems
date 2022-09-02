@@ -45,7 +45,7 @@ const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
     }
 
     return (
-        <div>
+        <div data-testid="employee-item">
             <div> <h3> {employee.firstName} {employee.lastName} </h3> </div>
             <div>
                 <button

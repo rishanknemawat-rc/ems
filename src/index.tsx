@@ -9,7 +9,7 @@ import { reducers } from "./reducers/index";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const container = document.getElementById('root') as HTMLElement | null;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+export const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 let root: Root;
 if(container !== null){

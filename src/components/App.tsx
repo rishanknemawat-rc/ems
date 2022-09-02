@@ -16,7 +16,7 @@ const App = () => {
     return (
         <div>
             <BrowserRouter>
-                <div>
+                <div data-testid="App">
                     <Header/>
                     <Route path="/" exact>
                         <Login />

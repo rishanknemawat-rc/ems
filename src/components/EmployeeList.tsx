@@ -70,7 +70,7 @@ const EmployeeList = ({employees, loggedIn, manager }:
     });
 
     return (
-        <div>
+        <div >
             {
                 loggedIn ?
                     <div>
@@ -123,7 +123,7 @@ const EmployeeList = ({employees, loggedIn, manager }:
                             </div>
                         </div>
                     </div> :
-                    <div className="text-center">
+                    <div className="text-center" data-testid="employees-list">
                         <h3 className="text-center font-weight-bold m-4">
                             Please Login to Continue
                         </h3>

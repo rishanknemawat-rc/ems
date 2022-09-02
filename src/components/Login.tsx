@@ -31,34 +31,26 @@ const Login = ({ setManager, setLogin }:
                     loginAPI(values)
                         .then(response => {
                             setLogin(response.object);
-                            if(!response.object){
+                            if (!response.object) {
                                 alert("Not Valid Email/Password. Login Failed! Please try again.");
                             }
-                            else{
+                            else {
                                 setManager(values.username);
                                 console.log("Login Successful!", response);
                                 alert("LOGIN_SUCCESSFUL!");
                                 history.push("/getEmployees");
                             }
                         })
-                        .catch( error => {
-                                console.log(error);
-                                alert("Not Valid Email/Password. Login Failed! Please try again.");
-                            }
-                        );
-                    // }
-                    // else if (user) {
-                    //     alert("Invalid password. Please try again.");
-                    // }
-                    // else {
-                    //     alert("User does not exist. Please try again.");
-                    // }
+                        .catch(error => {
+                            console.log(error);
+                            alert("Not Valid Email/Password. Login Failed! Please try again.");
+                        });
                 }}
             >
                 <div className="container">
                     <div className="row">
                         <div className="col-3"></div>
-                        <Form className="form-group col-6">
+                        <Form className="form-group col-6" data-testid="login-form">
                             <div className="col px-md-5">
                                 <label htmlFor="username" className="form-label">Username: </label>
                                 <Field id="username" name="username" placeholder="Username" className="form-control" />
@@ -75,7 +67,7 @@ const Login = ({ setManager, setLogin }:
                             </div>
                         </Form>
                     </div>
-                    <div className="text-center font-weight-bold ">
+                    <div className="text-center font-weight-bold " >
                         New User?
                         <Link to="/signup">
                             <button className="btn btn-outline-dark m-3">

@@ -19,7 +19,7 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } :
 
     if (!loggedIn) {
         return (
-            <div>
+            <div data-testid="employee-details">
                 <div className="text-center">
                     <h3 className="text-center font-weight-bold m-4">
                         Please Login to Continue

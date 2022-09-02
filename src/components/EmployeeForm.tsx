@@ -243,7 +243,7 @@ const EmployeeForm = ({
                     </Formik>
                 </div> :
 
-                <div className="text-center">
+                <div className="text-center" data-testid="employee-form-loggedout">
                     <h3 className="text-center font-weight-bold m-4">
                         Please Login to Continue
                     </h3>

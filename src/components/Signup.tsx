@@ -59,7 +59,7 @@ const Signup = ({ users, addUser }:
                 <div className="container">
                     <div className="row">
                         <div className="col-3"></div>
-                        <Form className="form-group col-6">
+                        <Form className="form-group col-6" data-testid="signup-form">
                             <div className="col px-md-5">
                                 <label htmlFor="username" className="form-label">Username: </label>
                                 <Field id="username" name="username" placeholder="Username" className="form-control" />

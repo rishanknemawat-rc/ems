@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { selectEmployee, setLogin } from "../action/index";
 import { Employee } from "../types/Employee";
 import { AppState } from "../reducers/index";
+// import api, { TOKEN } from "../api/baseAPI";
 
 const Header = ({ loggedIn, setLogin, selectEmployee} : 
     { loggedIn: boolean, 
@@ -12,11 +13,24 @@ const Header = ({ loggedIn, setLogin, selectEmployee} :
         selectEmployee: (employee: Employee| null) => AppState
     })  => {
 
-    const handleLogout = () => { setLogin(false); };
+    const handleLogout = async () => { 
+        setLogin(false); 
+        // const response = await api.post("/logout", {
+        //     headers: {"Authorization": TOKEN}
+        // })
+        // .then((response: any) => {
+            
+        //     console.log("LOGOUT_SUCCESS", response);
+        // })
+        // .catch((error: any) => {
+        //     console.log("LOGOUT_ERROR", error);
+        // });
+    };
+
     const handleSelect = () => { selectEmployee(null); }
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light" data-testid="nav-bar">
             <Link to="/getEmployees" className="nav-item nav-link active m-1">
                 <button className="btn btn-outline-dark">Home</button>
             </Link>
