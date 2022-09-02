@@ -41,7 +41,11 @@ const Login = ({ setManager, setLogin }:
                                 history.push("/getEmployees");
                             }
                         })
-                        .catch( error => {console.log(error)});
+                        .catch( error => {
+                                console.log(error);
+                                alert("Not Valid Email/Password. Login Failed! Please try again.");
+                            }
+                        );
                     // }
                     // else if (user) {
                     //     alert("Invalid password. Please try again.");

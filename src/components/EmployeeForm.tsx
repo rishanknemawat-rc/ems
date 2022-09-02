@@ -99,7 +99,7 @@ const EmployeeForm = ({
                                 if (ind === -1) {
                                     addEmployeeAPI(value)
                                         .then(response => {
-                                            addEmployee(value);
+                                            addEmployee(response.object);
                                             console.log("ADD_EMPLOYEE_SUCCESS", response);
                                             alert("EMPLOYEE ADDED SUCCESSFULLY!");
                                             history.push("/getEmployees");
