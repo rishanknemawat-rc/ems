@@ -1,11 +1,9 @@
 import { TOKEN } from "./baseAPI";
-
-import { Employee } from "../types/Employee";
 import api from "./baseAPI";
 
-export const selectEmployeeById = async (employee: Employee) => {
-    const response = await api.get(`/getEmployee/${employee.id}`, {
+export const selectEmployeeById = async (id: number) => {
+    const response = await api.get(`/getEmployee/${id}`, {
         headers: {  "Authorization" : TOKEN }
     });
-    return response.data;
+    return response;
 }

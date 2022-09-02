@@ -8,13 +8,11 @@ import { Formik, Form, Field } from "formik";
 import { setLogin } from "../action/index";
 import { User } from "../types/User";
 import { setManager } from "../action/index";
-import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
 import { loginAPI } from "../api/loginAPI";
 
-const Login = ({ users, setManager, setLogin }:
+const Login = ({ setManager, setLogin }:
     {
-        users: User[],
         setManager: (user: string) => AppActions,
         setLogin: (loggedIn: boolean) => AppActions
     }) => {
@@ -29,25 +27,28 @@ const Login = ({ users, setManager, setLogin }:
                     password: ""
                 }}
                 onSubmit={(values: User) => {
-                    const user = users.find(user => user.username === values.username);
-                    if (user && user.password === values.password) {
 
-                        loginAPI(values)
-                            .then(response => {
-                                console.log("Login Successful!", response);
-                                setLogin(true);
+                    loginAPI(values)
+                        .then(response => {
+                            setLogin(response.object);
+                            if(!response.object){
+                                alert("Not Valid Email/Password. Login Failed! Please try again.");
+                            }
+                            else{
                                 setManager(values.username);
+                                console.log("Login Successful!", response);
                                 alert("LOGIN_SUCCESSFUL!");
                                 history.push("/getEmployees");
-                            })
-                            .catch( error => {console.log(error)});
-                    }
-                    else if (user) {
-                        alert("Invalid password. Please try again.");
-                    }
-                    else {
-                        alert("User does not exist. Please try again.");
-                    }
+                            }
+                        })
+                        .catch( error => {console.log(error)});
+                    // }
+                    // else if (user) {
+                    //     alert("Invalid password. Please try again.");
+                    // }
+                    // else {
+                    //     alert("User does not exist. Please try again.");
+                    // }
                 }}
             >
                 <div className="container">
@@ -84,12 +85,4 @@ const Login = ({ users, setManager, setLogin }:
     );
 };
 
-interface LinkStateProps {
-    users: User[];
-}
-
-const mapStateToProps = (state: AppState): LinkStateProps => {
-    return { users: state.users }
-};
-
-export default connect(mapStateToProps, { setLogin, setManager })(Login);
+export default connect(null, { setLogin, setManager })(Login);

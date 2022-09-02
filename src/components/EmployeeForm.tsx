@@ -97,7 +97,6 @@ const EmployeeForm = ({
                             const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
                             if (selectedEmployee === null) {
                                 if (ind === -1) {
-
                                     addEmployeeAPI(value)
                                         .then(response => {
                                             addEmployee(value);
@@ -105,11 +104,14 @@ const EmployeeForm = ({
                                             alert("EMPLOYEE ADDED SUCCESSFULLY!");
                                             history.push("/getEmployees");
                                         })
-                                        .catch(error => { console.log(error) });
+                                        .catch(error => { 
+                                            alert(error.message);
+                                        });
                                 }
                             }
                             else {
                                 if (ind !== -1) {
+                                    selectEmployee(null);
                                     updateEmployeeAPI(value)
                                         .then(response => {
                                             editEmployee(value);

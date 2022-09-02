@@ -1,12 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
 
+import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
+
 const EmployeeDetails = ({ selectedEmployee, loggedIn } : 
-            { selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
+    { selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
+
+    const params = useParams();
+    selectEmployeeById(params.id)
+    .then(response => {
+        console.log("SELECTED_EMP: ", response.data);
+    })
+    .catch( error => {console.log(error)});
+
     if (!loggedIn) {
         return (
             <div>
@@ -23,12 +33,15 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } :
             </div>
         );
     }
-    if (!selectedEmployee)
+
+    if (!selectedEmployee){
+        alert("Employee with ID " + params.id + " does not exists.");
         return (
-            <div>
-                Please Try Again...
-            </div>
+            <h1>
+                Please Try Again.
+            </h1>
         );
+    }
     return (
         <div className="row">
             <div className="col-4"></div>
@@ -65,10 +78,29 @@ interface LinkStateProps{
 };
 
 const mapStateToProps = (state: AppState): LinkStateProps => {
-    return { 
+    return {
         selectedEmployee: state.selectedEmployee,
         loggedIn: state.loggedIn
     };
 };
 
 export default connect(mapStateToProps)(EmployeeDetails);
+
+
+    // if (!loggedIn) {
+    //     alert("Employee with ID " + params.id + " does not exists.");
+    //     return (
+    //         <div>
+    //             <div className="text-center">
+    //                 <h3 className="text-center font-weight-bold m-4">
+    //                     Please Login to Continue
+    //                 </h3>
+    //                 <Link to="/">
+    //                     <button className="btn btn-outline-dark text-center m-2">
+    //                         Login
+    //                     </button>
+    //                 </Link>
+    //             </div>
+    //         </div>
+    //     );
+    // }

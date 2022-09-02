@@ -19,17 +19,12 @@ const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
     const history = useHistory();
 
     const handleView = (employee: Employee) => {
-        selectEmployeeById(employee)
-        .then(response => {
-            selectEmployee(response.object);
-            console.log("SELECTED_EMP: ", response.object);
-            history.push(`/getEmployee/${employee.id}`);
-        })
-        .catch( error => {console.log(error)});
+        selectEmployee(employee);
+        history.push(`/getEmployee/${employee.id}`);
     }
 
     const handleEdit = (employee: Employee) => {
-        selectEmployeeById(employee)
+        selectEmployeeById(employee.id)
         .then(response => {
             selectEmployee(response.object);
             console.log("SELECTED_EMP: ", response.object);
@@ -76,3 +71,12 @@ const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
 };
 
 export default connect(null, { selectEmployee, deleteEmployee })(EmployeeItem);
+
+
+// selectEmployeeById(employee.id)
+        // .then(response => {
+        //     selectEmployee(response.object);
+        //     console.log("SELECTED_EMP: ", response.object);
+        //     history.push(`/getEmployee/${employee.id}`);
+        // })
+        // .catch( error => {console.log(error)});
