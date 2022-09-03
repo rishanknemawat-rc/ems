@@ -1,6 +1,5 @@
 import { Employee } from "../types/Employee";
-import api from "./baseAPI"
-import { TOKEN } from "./baseAPI";
+import api from "./baseAPI";
 
 export const addEmployeeAPI = async (employee: Employee, token: string) => {
     const response = await api.post("/addEmployee",

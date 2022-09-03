@@ -1,4 +1,3 @@
-// import { TOKEN } from "./baseAPI";
 import api from "./baseAPI";
 
 export const selectEmployeeById = async (id: number, token: string) => {

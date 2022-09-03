@@ -9,8 +9,6 @@ import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
 
 const EmployeeDetails = ({ token, selectedEmployee, loggedIn } : 
     { token: string, selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
-
-    // console.log("inside empdetails ", token);
     const params = useParams();
     selectEmployeeById(params.id, token)
     .then(response => {

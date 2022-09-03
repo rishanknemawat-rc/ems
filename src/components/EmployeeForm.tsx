@@ -9,6 +9,7 @@ import { addEmployee, editEmployee, selectEmployee } from "../action/index";
 import { Employee } from "../types/Employee";
 import { addEmployeeAPI } from "../api/addEmployeeAPI";
 import { updateEmployeeAPI } from "../api/updateEmployeeAPI";
+import { getEmployeeByIdAPI } from "../api/getEmployeeById";
 
 const EmployeeForm = ({
     token,
@@ -53,14 +54,14 @@ const EmployeeForm = ({
 
     function validateID(value: number) {
         let error: string = "";
-        const ind = employees.findIndex(employee => {
-            return (employee.id === value);
-        });
+        // const ind = employees.findIndex(employee => {
+        //     return (employee.id === value);
+        // });
 
-        if (selectedEmployee === null && ind !== -1)
-            error = "Employee with ID " + value + " already exists.";
-
-        else if ((value < 100 || value > 999))
+        // if (selectedEmployee === null && ind !== -1)
+        //     error = "Employee with ID " + value + " already exists.";
+        // else
+         if ((value < 100 || value > 999))
             error = "Employee ID should be 3 digit number."
         return error;
     }
@@ -94,43 +95,89 @@ const EmployeeForm = ({
                             department: initialForm.department,
                         }}
                         onSubmit={(value: Employee) => {
-
-                            const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
-                            if (selectedEmployee === null) {
-                                if (ind === -1) {
-                                    addEmployeeAPI(value, token)
-                                        .then(response => {
-                                            // console.log("token: ", token);
-                                            addEmployee(response.object);
-                                            console.log("ADD_EMPLOYEE_SUCCESS", response);
-                                            alert("EMPLOYEE ADDED SUCCESSFULLY!");
-                                            history.push("/getEmployees");
-                                        })
-                                        .catch(error => { 
-                                            alert(error.message);
-                                        });
-                                }
-                            }
-                            else {
-                                if (ind !== -1) {
-                                    selectEmployee(null);
-                                    updateEmployeeAPI(value, token)
-                                        .then(response => {
-                                            editEmployee(value);
-                                            selectEmployee(null);
-                                            // console.log("TOKEN: ",token);
-                                            alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
-                                            console.log("Employee EDITED Successfully.", response);
-                                            history.push("/getEmployees");
-                                        })
-                                        .catch(error => { console.log(error) });
+                            
+                            getEmployeeByIdAPI(value.id, token)
+                            .then(response => {
+                                console.log(response);
+                                if (selectedEmployee === null) {
+                                    // console.log(response.object);
+                                    if (response.object === null) {
+                                        addEmployeeAPI(value, token)
+                                            .then(response => {
+                                                // console.log("token: ", token);
+                                                addEmployee(response.object);
+                                                console.log("ADD_EMPLOYEE_SUCCESS", response);
+                                                alert("EMPLOYEE ADDED SUCCESSFULLY!");
+                                                history.push("/getEmployees");
+                                            })
+                                            .catch(error => { 
+                                                alert(error.message);
+                                            });
+                                    }
+                                    else{
+                                        alert("Employee with ID " + value.id + " already exists.");
+                                    }
                                 }
                                 else {
-                                    selectEmployee(null);
-                                    alert('NOT A VALID EMPLOYEE!! :-)\n\n'
-                                        + JSON.stringify(value, null, 3));
+                                    if (response.object !== null) {
+                                        selectEmployee(null);
+                                        updateEmployeeAPI(value, token)
+                                            .then(response => {
+                                                editEmployee(value);
+                                                selectEmployee(null);
+                                                alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
+                                                console.log("Employee EDITED Successfully.", response);
+                                                history.push("/getEmployees");
+                                            })
+                                            .catch(error => { console.log(error) });
+                                    }
+                                    else {
+                                        selectEmployee(null);
+                                        alert('EMPLOYEE NOT FOUND!)\n\n'
+                                            + JSON.stringify(value, null, 3));
+                                    }
                                 }
-                            }
+                            })
+                            .catch( error => console.log(error));
+                            // const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
+                            // if (selectedEmployee === null) {
+                            //     if (ind === -1) {
+                            //         addEmployeeAPI(value, token)
+                            //             .then(response => {
+                            //                 // console.log("token: ", token);
+                            //                 addEmployee(response.object);
+                            //                 console.log("ADD_EMPLOYEE_SUCCESS", response);
+                            //                 alert("EMPLOYEE ADDED SUCCESSFULLY!");
+                            //                 history.push("/getEmployees");
+                            //             })
+                            //             .catch(error => { 
+                            //                 alert(error.message);
+                            //             });
+                            //     }
+                            //     else{
+                            //         alert("Employee with ID " + value.id + " already exists.");
+                            //     }
+                            // }
+                            // else {
+                            //     if (ind !== -1) {
+                            //         selectEmployee(null);
+                            //         updateEmployeeAPI(value, token)
+                            //             .then(response => {
+                            //                 editEmployee(value);
+                            //                 selectEmployee(null);
+                            //                 // console.log("TOKEN: ",token);
+                            //                 alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
+                            //                 console.log("Employee EDITED Successfully.", response);
+                            //                 history.push("/getEmployees");
+                            //             })
+                            //             .catch(error => { console.log(error) });
+                            //     }
+                            //     else {
+                            //         selectEmployee(null);
+                            //         alert('NOT A VALID EMPLOYEE!! :-)\n\n'
+                            //             + JSON.stringify(value, null, 3));
+                            //     }
+                            // }
                         }}
                     >
                         {({ errors, touched }) => (
