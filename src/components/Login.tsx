@@ -10,9 +10,11 @@ import { User } from "../types/User";
 import { setManager } from "../action/index";
 import { AppActions } from "../types/actions";
 import { loginAPI } from "../api/loginAPI";
+import { AppState } from "../reducers/index";
 
-const Login = ({ setManager, setLogin }:
+const Login = ({ setToken, setManager, setLogin }:
     {
+        setToken: React.Dispatch<React.SetStateAction<string>>,
         setManager: (user: string) => AppActions,
         setLogin: (loggedIn: boolean) => AppActions
     }) => {
@@ -27,10 +29,11 @@ const Login = ({ setManager, setLogin }:
                     password: ""
                 }}
                 onSubmit={(values: User) => {
-
-                    loginAPI(values)
+                    const token = "Basic "+ window.btoa(values.username+":"+values.password);
+                    loginAPI(values, token)
                         .then(response => {
                             setLogin(response.object);
+                            setToken(token);
                             if (!response.object) {
                                 alert("Not Valid Email/Password. Login Failed! Please try again.");
                             }
@@ -81,4 +84,10 @@ const Login = ({ setManager, setLogin }:
     );
 };
 
-export default connect(null, { setLogin, setManager })(Login);
+const mapStateToProps = (state: AppState, ownProps: any) => {
+    return {
+        setToken: ownProps.setToken
+    };
+}
+
+export default connect(mapStateToProps, { setLogin, setManager })(Login);

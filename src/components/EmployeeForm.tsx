@@ -11,6 +11,7 @@ import { addEmployeeAPI } from "../api/addEmployeeAPI";
 import { updateEmployeeAPI } from "../api/updateEmployeeAPI";
 
 const EmployeeForm = ({
+    token,
     employees,
     selectedEmployee,
     editEmployee,
@@ -18,6 +19,7 @@ const EmployeeForm = ({
     loggedIn,
     manager
 }: {
+    token: string,
     employees: Employee[],
     selectedEmployee: Employee,
     editEmployee: (employee: Employee) => AppActions,
@@ -35,7 +37,6 @@ const EmployeeForm = ({
     };
 
     let history = useHistory();
-
     function validateFirstName(value: string) {
         let error: string = "";
         if (value && !(/^[a-zA-Z]+$/.test(value)))
@@ -97,8 +98,9 @@ const EmployeeForm = ({
                             const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
                             if (selectedEmployee === null) {
                                 if (ind === -1) {
-                                    addEmployeeAPI(value)
+                                    addEmployeeAPI(value, token)
                                         .then(response => {
+                                            // console.log("token: ", token);
                                             addEmployee(response.object);
                                             console.log("ADD_EMPLOYEE_SUCCESS", response);
                                             alert("EMPLOYEE ADDED SUCCESSFULLY!");
@@ -112,10 +114,11 @@ const EmployeeForm = ({
                             else {
                                 if (ind !== -1) {
                                     selectEmployee(null);
-                                    updateEmployeeAPI(value)
+                                    updateEmployeeAPI(value, token)
                                         .then(response => {
                                             editEmployee(value);
                                             selectEmployee(null);
+                                            // console.log("TOKEN: ",token);
                                             alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
                                             console.log("Employee EDITED Successfully.", response);
                                             history.push("/getEmployees");
@@ -259,14 +262,16 @@ const EmployeeForm = ({
 };
 
 interface LinkStateProps {
+    token: string,
     employees: Employee[],
     selectedEmployee: Employee | null,
     loggedIn: boolean,
     manager: string
 };
 
-const mapStateToProps = (state: AppState): LinkStateProps => {
+const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
     return ({
+        token: ownProps.token,
         employees: state.employees,
         selectedEmployee: state.selectedEmployee,
         loggedIn: state.loggedIn,

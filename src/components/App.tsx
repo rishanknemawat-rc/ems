@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,29 +12,29 @@ import EmployeeDetails from "./EmployeeDetails";
 import EmployeeForm from "./EmployeeForm";
 
 const App = () => {
-
+    const [token, setToken] = useState("");
     return (
         <div>
             <BrowserRouter>
                 <div data-testid="App">
-                    <Header/>
+                    <Header token={token}/>
                     <Route path="/" exact>
-                        <Login />
+                        <Login setToken={setToken}/>
                     </Route>
                     <Route path="/signup" exact>
                         <Signup />
                     </Route>
                     <Route path="/getEmployees" exact>
-                        <EmployeeList />
+                        <EmployeeList token={token}/>
                     </Route>
                     <Route path="/addEmployee">
-                        <EmployeeForm />
+                        <EmployeeForm token={token}/>
                     </Route>
                     <Route path="/getEmployee/:id" exact >
-                        <EmployeeDetails />
+                        <EmployeeDetails token={token}/>
                     </Route>
                     <Route path="/updateEmployee/:id" exact>
-                        <EmployeeForm />
+                        <EmployeeForm token={token}/>
                     </Route>
                 </div>
             </BrowserRouter>

@@ -8,9 +8,11 @@ import { deleteEmployeeAPI } from "../api/deleteEmployeeAPI";
 
 import { AppActions } from "../types/actions";
 import { Employee } from "../types/Employee";
+import { AppState } from "../reducers/index";
 
-const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
+const EmployeeItem = ({token, selectEmployee, employee, deleteEmployee }:
     {
+        token: string,
         selectEmployee: (employee: Employee) => AppActions,
         employee: Employee,
         deleteEmployee: (employee: Employee) => AppActions
@@ -24,7 +26,7 @@ const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
     }
 
     const handleEdit = (employee: Employee) => {
-        selectEmployeeById(employee.id)
+        selectEmployeeById(employee.id, token)
         .then(response => {
             console.log(response);
             selectEmployee(response.data.object);
@@ -35,7 +37,7 @@ const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
     }
 
     const handleDelete = (employee: Employee) => {  
-        deleteEmployeeAPI(employee.id)
+        deleteEmployeeAPI(employee.id, token)
             .then( response => {
                 console.log("DELETE_EMP_SUCCESS", response);
                 deleteEmployee(employee);
@@ -71,7 +73,13 @@ const EmployeeItem = ({selectEmployee, employee, deleteEmployee }:
     );
 };
 
-export default connect(null, { selectEmployee, deleteEmployee })(EmployeeItem);
+const mapStateToProps = (state: AppState, ownProps: any) => {
+    return {
+        token: ownProps.token
+    }
+}
+
+export default connect(mapStateToProps, { selectEmployee, deleteEmployee })(EmployeeItem);
 
 
 // selectEmployeeById(employee.id)

@@ -7,17 +7,19 @@ import { getEmployeesAPI } from "../api/getEmployeesAPI";
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
 
-const EmployeeList = ({employees, loggedIn, manager }:
-    { employees: Employee[], loggedIn: boolean, manager: string }) => {
+const EmployeeList = ({token, employees, loggedIn, manager }:
+    { token: string, employees: Employee[], loggedIn: boolean, manager: string }) => {
 
     const [searchInput, setSearchInput] = useState("");
     const [searchResults, setSearchResults] = useState<Employee[]>([]);
     const [sort, setSort] = useState("");
 
     useEffect(() => {
-        getEmployeesAPI()
+        // console.log("token: ", token);
+        getEmployeesAPI(token)
         .then(
             (employees: Employee[]) => {
+                // console.log("token: ", token);
                 console.log("Employees in Backend DataBase: ", employees);
                 if (searchInput === "") {
                     setSearchResults(employees);
@@ -58,6 +60,7 @@ const EmployeeList = ({employees, loggedIn, manager }:
                                 <EmployeeItem
                                     key={employee.id}
                                     employee={employee}
+                                    token = {token}
                                 />
                             </div>
                         </div>
@@ -139,13 +142,15 @@ const EmployeeList = ({employees, loggedIn, manager }:
 };
 
 interface LinkStateProps {
+    token: string
     employees: Employee[],
     loggedIn: boolean,
     manager: string
 }
 
-const mapStateToProps = (state: AppState): LinkStateProps => {
+const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
     return { 
+        token: ownProps.token,
         employees: state.employees, 
         loggedIn: state.loggedIn, 
         manager: state.manager 

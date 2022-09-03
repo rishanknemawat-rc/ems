@@ -7,11 +7,12 @@ import { Employee } from "../types/Employee";
 
 import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
 
-const EmployeeDetails = ({ selectedEmployee, loggedIn } : 
-    { selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
+const EmployeeDetails = ({ token, selectedEmployee, loggedIn } : 
+    { token: string, selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
 
+    // console.log("inside empdetails ", token);
     const params = useParams();
-    selectEmployeeById(params.id)
+    selectEmployeeById(params.id, token)
     .then(response => {
         console.log("SELECTED_EMP: ", response.data);
     })
@@ -73,12 +74,14 @@ const EmployeeDetails = ({ selectedEmployee, loggedIn } :
 };
 
 interface LinkStateProps{
+    token: string,
     selectedEmployee: Employee | null,
     loggedIn: boolean
 };
 
-const mapStateToProps = (state: AppState): LinkStateProps => {
+const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
     return {
+        token: ownProps.token, 
         selectedEmployee: state.selectedEmployee,
         loggedIn: state.loggedIn
     };
