@@ -28,7 +28,6 @@ const EmployeeItem = ({token, selectEmployee, employee, deleteEmployee }:
     const handleEdit = (employee: Employee) => {
         selectEmployeeById(employee.id, token)
         .then(response => {
-            console.log(response);
             selectEmployee(response.data.object);
             console.log("SELECTED_EMP: ", response.data.object);
             history.push(`/updateEmployee/${employee.id}`);

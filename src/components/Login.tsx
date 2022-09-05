@@ -32,14 +32,15 @@ const Login = ({ setToken, setManager, setLogin }:
                     const token = "Basic "+ window.btoa(values.username+":"+values.password);
                     loginAPI(values, token)
                         .then(response => {
-                            setLogin(response.object);
+                            console.log(response);
+                            setLogin(response.data.object);
                             setToken(token);
-                            if (!response.object) {
+                            if (!response.data.object) {
                                 alert("Not Valid Email/Password. Login Failed! Please try again.");
                             }
                             else {
                                 setManager(values.username);
-                                console.log("Login Successful!", response);
+                                console.log("Login Successful!", response.data);
                                 alert("LOGIN_SUCCESSFUL!");
                                 history.push("/getEmployees");
                             }

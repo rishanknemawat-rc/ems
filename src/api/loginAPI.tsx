@@ -8,5 +8,5 @@ export const loginAPI = async ( values: User, token: string ) => {
     },
     { headers: { "Authorization": token } });
 
-    return response.data;
+    return response;
 };

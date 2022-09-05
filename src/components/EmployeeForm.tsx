@@ -82,7 +82,7 @@ const EmployeeForm = ({
     return (
         <div>
             {loggedIn ?
-                <div>
+                <div data-testid="emp-form-login-true">
                     <h2 className="text-center font-weight-bold m-3">
                         {selectedEmployee ? "EDIT EMPLOYEE FORM": "ADD EMPLOYEE FORM"}
                     </h2>

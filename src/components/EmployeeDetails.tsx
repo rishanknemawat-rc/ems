@@ -42,7 +42,7 @@ const EmployeeDetails = ({ token, selectedEmployee, loggedIn } :
         );
     }
     return (
-        <div className="row">
+        <div className="row" data-testid="employee-details-logged-in">
             <div className="col-4"></div>
             <div className="border border-secondary text-center m-5 p-4 col-4">
                 <p className="font-weight-bold">

@@ -19,7 +19,7 @@ const Signup = ({ users, addUser }:
     }) => {
     const history = useHistory();
     return (
-        <div>
+        <div  data-testid="signup-form">
             <h1 className="text-center font-weight-bold m-3">Signup</h1>
             <Formik
                 initialValues={{
@@ -27,19 +27,34 @@ const Signup = ({ users, addUser }:
                     password: ""
                 }}
                 onSubmit={(values: User) => {
-                    if (users.find(user => user.username === values.username)) {
-                        alert("User already exists. Please try again");
-                    }
-                    else {
-                        signupAPI(values.username, values.password)
-                        .then( (response: any) => {
+
+                    signupAPI(values.username, values.password)
+                    .then( (response: any) => {
+                        if(response.data.object === null){
+                            alert("Username already exists. Please try again");
+                        }
+                        else{
                             addUser(values);
                             console.log(response);
                             alert("SIGNUP Successful!");
                             history.push("/");
-                        })
-                        .catch( error => {console.log(error)});
-                    }
+                        }
+                    })
+                    .catch( error => {console.log(error)});
+                    
+                    // if (users.find(user => user.username === values.username)) {
+                    //     alert("User already exists. Please try again");
+                    // }
+                    // else {
+                    //     signupAPI(values.username, values.password)
+                    //     .then( (response: any) => {
+                    //         addUser(values);
+                    //         console.log(response);
+                    //         alert("SIGNUP Successful!");
+                    //         history.push("/");
+                    //     })
+                    //     .catch( error => {console.log(error)});
+                    // }
                 }}
                 validationSchema={
                     Yup.object().shape({
@@ -59,7 +74,7 @@ const Signup = ({ users, addUser }:
                 <div className="container">
                     <div className="row">
                         <div className="col-3"></div>
-                        <Form className="form-group col-6" data-testid="signup-form">
+                        <Form className="form-group col-6">
                             <div className="col px-md-5">
                                 <label htmlFor="username" className="form-label">Username: </label>
                                 <Field id="username" name="username" placeholder="Username" className="form-control" />
