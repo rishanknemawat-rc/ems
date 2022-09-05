@@ -76,7 +76,7 @@ const EmployeeList = ({token, employees, loggedIn, manager }:
         <div >
             {
                 loggedIn ?
-                    <div>
+                    <div data-testid="employees-list">
                         <h1 className="text-center font-weight-bold m-4">
                             EMPLOYEE LIST
                         </h1>
@@ -84,7 +84,7 @@ const EmployeeList = ({token, employees, loggedIn, manager }:
                             <div className="row">
                                 <div className="col-4"></div>
                                 <div className="text-center col-4">
-                                    <div className="form-outline">
+                                    <div className="form-outline" data-testid="search-box">
                                         <input id="search-input"
                                             type="search"
                                             className="form-control m-4"
@@ -96,7 +96,7 @@ const EmployeeList = ({token, employees, loggedIn, manager }:
 
                                 <div className="col-4">
                                     <div className="form-outline m-4">
-                                        <div className="dropdown">
+                                        <div className="dropdown" data-testid="sort-box">
                                             <button className="btn btn-dark dropdown-toggle"
                                                 type="button"
                                                 id="dropdownMenuButton"
@@ -126,7 +126,7 @@ const EmployeeList = ({token, employees, loggedIn, manager }:
                             </div>
                         </div>
                     </div> :
-                    <div className="text-center" data-testid="employees-list">
+                    <div className="text-center" data-testid="employees-list-logout">
                         <h3 className="text-center font-weight-bold m-4">
                             Please Login to Continue
                         </h3>

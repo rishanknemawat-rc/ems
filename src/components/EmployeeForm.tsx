@@ -98,7 +98,7 @@ const EmployeeForm = ({
                             
                             getEmployeeByIdAPI(value.id, token)
                             .then(response => {
-                                console.log(response);
+                                // console.log(response);
                                 if (selectedEmployee === null) {
                                     // console.log(response.object);
                                     if (response.object === null) {
@@ -185,7 +185,7 @@ const EmployeeForm = ({
                                 <div className="row">
                                     <div className="col-3"></div>
                                     <Form className="form-group col-6">
-                                        <div className=" m-2 text-center font-weight-bold">
+                                        <div className=" m-2 text-center font-weight-bold" data-testid="firstName">
                                             <label htmlFor="firstName" className="form-label">
                                                 First Name
                                             </label>
@@ -204,7 +204,7 @@ const EmployeeForm = ({
                                             }
                                         </div> <br />
 
-                                        <div className=" m-2 text-center font-weight-bold">
+                                        <div className=" m-2 text-center font-weight-bold" data-testid="lastName">
                                             <label className="form-label">
                                                 Last Name
                                             </label>
@@ -223,7 +223,7 @@ const EmployeeForm = ({
                                             }
                                         </div> <br />
 
-                                        <div className=" m-2 text-center font-weight-bold">
+                                        <div className=" m-2 text-center font-weight-bold" data-testid="employeeId">
                                             <label className="form-label">
                                                 Employee ID
                                             </label>
@@ -243,7 +243,7 @@ const EmployeeForm = ({
                                             }
                                         </div> <br />
 
-                                        <div className=" m-2 text-center font-weight-bold">
+                                        <div className=" m-2 text-center font-weight-bold" data-testid="manager">
                                             <label className="form-label">
                                                 Manager
                                             </label>
@@ -262,7 +262,7 @@ const EmployeeForm = ({
                                             }
                                         </div> <br />
 
-                                        <div className=" m-2 text-center font-weight-bold">
+                                        <div className=" m-2 text-center font-weight-bold" data-testid="department">
                                             <label className="form-label">
                                                 Department
                                             </label>
@@ -280,7 +280,7 @@ const EmployeeForm = ({
                                             }
                                         </div> <br />
 
-                                        <div className="text-center font-weight-bold">
+                                        <div className="text-center font-weight-bold" data-testid="form-submit">
                                             <button
                                                 className="btn btn-outline-secondary text-center m-2"
                                                 type="submit">

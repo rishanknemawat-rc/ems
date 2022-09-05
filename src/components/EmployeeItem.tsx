@@ -47,7 +47,7 @@ const EmployeeItem = ({token, selectEmployee, employee, deleteEmployee }:
 
     return (
         <div data-testid="employee-item">
-            <div> <h3> {employee.firstName} {employee.lastName} </h3> </div>
+            <div data-testid="fullName"> <h3> {employee.firstName} {employee.lastName} </h3> </div>
             <div>
                 <button
                     onClick={() => handleView(employee)}

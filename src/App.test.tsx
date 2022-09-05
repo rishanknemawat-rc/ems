@@ -16,6 +16,7 @@ import EmployeeItem from './components/EmployeeItem';
 import EmployeeList from './components/EmployeeList';
 import { Employee } from './types/Employee';
 
+const employee: Employee = {firstName: "rishank", lastName: "nemawat", id: 101, manager: "abc", department: "abcd"};
 
 function renderWithRedux(component: any, { initialState, store = createStore(reducers, initialState) } = {} ){
     return {
@@ -23,7 +24,7 @@ function renderWithRedux(component: any, { initialState, store = createStore(red
     }
 }
 
-// <App />
+// Renders <App />
 test('Renders App page', () => {
     renderWithRedux(<App />);
     const app = screen.getByTestId('App');
@@ -89,7 +90,7 @@ test('Login Form - Signup Button Option', () => {
     expect(login).toBeInTheDocument();
 });
 
-// <Header />
+// TESTS FOR NAVIGATION BAR - <Header />
 test('Renders Navigation Bar', () => {
     renderWithRedux(<Header />);
     const navbar = screen.getByTestId('nav-bar');
@@ -143,13 +144,60 @@ test('Navigation Bar - No Signup button when loggedin', () => {
     const signup = screen.queryByRole("button", {name: "Signup"});
     expect(signup).not.toBeInTheDocument();
 });
-const employee: Employee = {firstName: "rishank", lastName: "nemawat", id: 101, manager: "abc", department: "abcd"};
 
-// <EmployeeForm />
+// TESTS FOR EMPLOYEE FORM
 test('Renders Employee Form when logged-in', () => {
     renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true}});
     const empForm = screen.getByTestId('emp-form-login-true');
     expect(empForm).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - EDIT FORM HEADING', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true, selectedEmployee: employee}});
+    const editFormHeading = screen.getByText('EDIT EMPLOYEE FORM');
+    expect(editFormHeading).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - ADD EMPLOYEE FORM HEADING', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true, selectedEmployee: null}});
+    const addFormHeading = screen.getByText('ADD EMPLOYEE FORM');
+    expect(addFormHeading).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - First Name Field', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true}});
+    const firstName = screen.getByTestId('firstName');
+    expect(firstName).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - last Name Field', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true}});
+    const lastName = screen.getByTestId('lastName');
+    expect(lastName).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - Employee ID Field', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true}});
+    const employeeID = screen.getByTestId('employeeId');
+    expect(employeeID).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - Manager Field', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true}});
+    const manager = screen.getByTestId('manager');
+    expect(manager).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - Department Field', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true}});
+    const department = screen.getByTestId('department');
+    expect(department).toBeInTheDocument();
+});
+
+test('Renders Employee Form (LoggedIn) - Submit button', () => {
+    renderWithRedux(<EmployeeForm />, {initialState: {loggedIn: true}});
+    const submit = screen.getByRole("button",{name: "Submit"});
+    expect(submit).toBeInTheDocument();
 });
 
 test('Renders Employee Form when logged out', () => {
@@ -158,10 +206,17 @@ test('Renders Employee Form when logged out', () => {
     expect(empForm).toBeInTheDocument();
 });
 
-// <EmployeeDetails />
+
+// TESTS FOR EMPLOYEE DETAILS - <EmployeeDetails />
 test('Renders Employee Details when logged in and employee is selected', () => {
     renderWithRedux(<EmployeeDetails />, {initialState: {loggedIn: true, selectedEmployee: {employee}}});
     const empDetails = screen.getByTestId('employee-details-logged-in');
+    expect(empDetails).toBeInTheDocument();
+});
+
+test('Renders Employee Details when logged in and employee is not selected', () => {
+    renderWithRedux(<EmployeeDetails />, {initialState: {loggedIn: true, selectedEmployee: null}});
+    const empDetails = screen.getByText('Please Try Again.');
     expect(empDetails).toBeInTheDocument();
 });
 
@@ -172,10 +227,28 @@ test('Renders Employee Details when logged out', () => {
 });
 
 // <EmployeeList />
-test('Renders Employees List', () => {
+test('Renders Employees list when loggedIn', () => {
+    renderWithRedux(<EmployeeList />, {initialState: {loggedIn: true}});
+    const employeesList = screen.getByTestId('employees-list');
+    expect(employeesList).toBeInTheDocument();
+});
+
+test('Employees list - Search Box', () => {
+    renderWithRedux(<EmployeeList />, {initialState: {loggedIn: true}});
+    const searchBox = screen.getByTestId('search-box');
+    expect(searchBox).toBeInTheDocument();
+});
+
+test('Employees list - Sort Box', () => {
+    renderWithRedux(<EmployeeList />, {initialState: {loggedIn: true}});
+    const sortBox = screen.getByTestId('sort-box');
+    expect(sortBox).toBeInTheDocument();
+});
+
+test('Renders Employees List -  login form when logged-out', () => {
     renderWithRedux(<EmployeeList />);
-    const empList = screen.getByTestId('employees-list');
-    expect(empList).toBeInTheDocument();
+    const login = screen.getByTestId('employees-list-logout');
+    expect(login).toBeInTheDocument();
 });
 
 // <EmployeeItem />
@@ -183,6 +256,30 @@ test('Renders Employee Item', () => {
     renderWithRedux(<EmployeeItem employee={employee}/>);
     const empForm = screen.getByTestId('employee-item');
     expect(empForm).toBeInTheDocument();
+});
+
+test('Employee Item - Full Name', () => {
+    renderWithRedux(<EmployeeItem employee={employee}/>);
+    const fullName = screen.getByTestId('fullName');
+    expect(fullName).toBeInTheDocument();
+});
+
+test('Employee Item - View button', () => {
+    renderWithRedux(<EmployeeItem employee={employee}/>);
+    const viewButton = screen.getByRole("button", {name: "View"});
+    expect(viewButton).toBeInTheDocument();
+});
+
+test('Employee Item - Edit button', () => {
+    renderWithRedux(<EmployeeItem employee={employee}/>);
+    const editButton = screen.getByRole("button", {name: "Edit"});
+    expect(editButton).toBeInTheDocument();
+});
+
+test('Employee Item - Delete button', () => {
+    renderWithRedux(<EmployeeItem employee={employee}/>);
+    const deleteButton = screen.getByRole("button", {name: "Delete"});
+    expect(deleteButton).toBeInTheDocument();
 });
 
 
