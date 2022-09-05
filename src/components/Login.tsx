@@ -21,7 +21,7 @@ const Login = ({ setToken, setManager, setLogin }:
 
     const history = useHistory();
     return (
-        <div>
+        <div data-testid="login-form">
             <h1 className="text-center font-weight-bold m-3">Login</h1>
             <Formik
                 initialValues={{
@@ -47,31 +47,31 @@ const Login = ({ setToken, setManager, setLogin }:
                         })
                         .catch(error => {
                             console.log(error);
-                            alert("Not Valid Email/Password. Login Failed! Please try again.");
+                            alert("Not Valid Email/Password. Authentication Failed! Please try again.");
                         });
                 }}
             >
                 <div className="container">
                     <div className="row">
                         <div className="col-3"></div>
-                        <Form className="form-group col-6" data-testid="login-form">
-                            <div className="col px-md-5">
+                        <Form className="form-group col-6" >
+                            <div className="col px-md-5" data-testid="login-username">
                                 <label htmlFor="username" className="form-label">Username: </label>
                                 <Field id="username" name="username" placeholder="Username" className="form-control" />
                             </div>
                             <br />
 
-                            <div className="col px-md-5">
+                            <div className="col px-md-5" data-testid="login-password">
                                 <label htmlFor="password" className="form-label">Password: </label>
                                 <Field id="password" name="password" placeholder="Password" type="password" className="form-control" />
                             </div>
                             <br />
-                            <div className="col px-md-5 text-center">
+                            <div className="col px-md-5 text-center" data-testid="login-submit-button">
                                 <button type="submit" className="btn btn-outline-dark">Submit</button>
                             </div>
                         </Form>
                     </div>
-                    <div className="text-center font-weight-bold " >
+                    <div className="text-center font-weight-bold " data-testid="signup-button-option">
                         New User?
                         <Link to="/signup">
                             <button className="btn btn-outline-dark m-3">

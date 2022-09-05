@@ -5,26 +5,30 @@ import { Link } from "react-router-dom";
 import { selectEmployee, setLogin } from "../action/index";
 import { Employee } from "../types/Employee";
 import { AppState } from "../reducers/index";
-// import api, { TOKEN } from "../api/baseAPI";
+import api from "../api/baseAPI";
 
-const Header = ({ loggedIn, setLogin, selectEmployee} : 
-    { loggedIn: boolean, 
+const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee} : 
+    { 
+        token: string,
+        setToken: React.Dispatch<React.SetStateAction<string>>,
+        loggedIn: boolean, 
         setLogin: (login: boolean) => void, 
         selectEmployee: (employee: Employee| null) => AppState
     })  => {
 
     const handleLogout = async () => { 
-        setLogin(false); 
-        // const response = await api.post("/logout", {
-        //     headers: {"Authorization": TOKEN}
-        // })
-        // .then((response: any) => {
-            
-        //     console.log("LOGOUT_SUCCESS", response);
-        // })
-        // .catch((error: any) => {
-        //     console.log("LOGOUT_ERROR", error);
-        // });
+        
+        await api.post("/logout", {
+            headers: {"Authorization": token}
+        })
+        .then((response: any) => {
+            setLogin(false);
+            setToken("");
+            console.log("LOGOUT_SUCCESS", response);
+        })
+        .catch((error: any) => {
+            console.log("LOGOUT_ERROR", error);
+        });
     };
 
     const handleSelect = () => { selectEmployee(null); }
@@ -70,11 +74,17 @@ const Header = ({ loggedIn, setLogin, selectEmployee} :
 };
 
 interface LinkStateProps {
-    loggedIn: boolean
+    loggedIn: boolean,
+    token: string,
+    setToken: React.Dispatch<React.SetStateAction<string>>
 }
 
-const mapStateToProps = (state: AppState): LinkStateProps => {
-    return {loggedIn: state.loggedIn};
+const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
+    return {
+        loggedIn: state.loggedIn,
+        token: ownProps.token,
+        setToken: ownProps.setToken
+    };
 }
 
 export default connect(mapStateToProps, { selectEmployee, setLogin })(Header);

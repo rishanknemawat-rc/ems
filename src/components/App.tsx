@@ -17,7 +17,7 @@ const App = () => {
         <div>
             <BrowserRouter>
                 <div data-testid="App">
-                    <Header token={token}/>
+                    <Header token={token} setToken={setToken} />
                     <Route path="/" exact>
                         <Login setToken={setToken}/>
                     </Route>

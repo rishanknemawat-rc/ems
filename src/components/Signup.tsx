@@ -59,13 +59,13 @@ const Signup = ({ users, addUser }:
                 validationSchema={
                     Yup.object().shape({
                         username: Yup.string()
-                            .required("username required")
-                            .max(15, "username should be less than 15 characters long.")
-                            .matches(/^[a-zA-Z]+$/, "username must contain alphabets only."),
+                            .required("Username required")
+                            .max(15, "Username should be less than 15 characters long.")
+                            .matches(/^[a-zA-Z]+$/, "Username must contain lowercase and uppercase alphabets only."),
                         password: Yup.string()
-                            .required("password required")
-                            .min(3, "password should be atleast 3 characters long.")
-                            .max(15, "password should be less than 15 characters long.")
+                            .required("Password required")
+                            .min(3, "Password should be atleast 3 characters long.")
+                            .max(15, "Password should be less than 15 characters long.")
                         // .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,16}$/,
                         //     "Password must contain atleast a lowercase letter, an uppercase letter, and a symbol."),
                     })
@@ -75,7 +75,7 @@ const Signup = ({ users, addUser }:
                     <div className="row">
                         <div className="col-3"></div>
                         <Form className="form-group col-6">
-                            <div className="col px-md-5">
+                            <div className="col px-md-5" data-testid="signup-username">
                                 <label htmlFor="username" className="form-label">Username: </label>
                                 <Field id="username" name="username" placeholder="Username" className="form-control" />
                                 <div className="text-danger"><ErrorMessage name="username" /></div>
@@ -83,19 +83,20 @@ const Signup = ({ users, addUser }:
                             </div>
                             <br />
 
-                            <div className="col px-md-5">
+                            <div className="col px-md-5" data-testid="signup-password">
                                 <label htmlFor="password" className="form-label">Password: </label>
                                 <Field id="password" name="password" placeholder="Password" type="password" className="form-control" />
                                 <div className="text-danger"><ErrorMessage name="password" /></div>
                             </div>
                             <br />
-                            <div className="col px-md-5 text-center">
+
+                            <div className="col px-md-5 text-center" data-testid="signup-submit-button">
                                 <button type="submit" className="btn btn-outline-dark">Submit</button>
                             </div>
                         </Form>
                     </div>
 
-                    <div className="text-center font-weight-bold ">
+                    <div className="text-center font-weight-bold" data-testid="login-option">
                         Already a User?
                         <Link to="/">
                             <button className="btn btn-outline-secondary m-3">

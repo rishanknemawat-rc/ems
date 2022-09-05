@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom'
 import { Provider } from 'react-redux';
 import { BrowserRouter } from "react-router-dom";
 import { createStore } from "redux";
-import { reducers } from './reducers/index';
+import '@testing-library/jest-dom'
 
+import { reducers } from './reducers/index';
 import App from './components/App';
 import Header from './components/Header';
 import Signup from './components/Signup';
@@ -31,17 +31,61 @@ test('Renders App page', () => {
 });
 
 
-// <Signup />
+// TESTS FOR SIGNUP PAGE
 test('Renders Signup Form', () => {
     renderWithRedux(<Signup />);
     const signup = screen.getByTestId('signup-form');
     expect(signup).toBeInTheDocument();
 });
 
-// <Login />
+test('Signup Form - Username field', () => {
+    renderWithRedux(<Signup />);
+    const signup = screen.getByTestId("signup-username");
+    expect(signup).toBeInTheDocument();
+});
+
+test('Signup Form - Password field', () => {
+    renderWithRedux(<Signup />);
+    const signup = screen.getByTestId("signup-password");
+    expect(signup).toBeInTheDocument();
+});
+
+test('Signup Form - Submit Button', () => {
+    renderWithRedux(<Signup />);
+    const signup = screen.getByTestId("signup-submit-button");
+    expect(signup).toBeInTheDocument();
+});
+
+test('Signup Form - Login Button Option', () => {
+    renderWithRedux(<Signup />);
+    const signup = screen.getByTestId("login-option");
+    expect(signup).toBeInTheDocument();
+});
+
+// TESTS FOR LOGIN PAGE
 test('Renders login Form', () => {
     renderWithRedux(<Login />);
     const login = screen.getByTestId('login-form');
+    expect(login).toBeInTheDocument();
+});
+test('login Form - username field', () => {
+    renderWithRedux(<Login />);
+    const login = screen.getByTestId('login-username');
+    expect(login).toBeInTheDocument();
+});
+test('login Form - password field', () => {
+    renderWithRedux(<Login />);
+    const login = screen.getByTestId('login-password');
+    expect(login).toBeInTheDocument();
+});
+test('login Form - Login Submit Button', () => {
+    renderWithRedux(<Login />);
+    const login = screen.getByTestId('login-submit-button');
+    expect(login).toBeInTheDocument();
+});
+test('Login Form - Signup Button Option', () => {
+    renderWithRedux(<Login />);
+    const login = screen.getByTestId('signup-button-option');
     expect(login).toBeInTheDocument();
 });
 
@@ -52,6 +96,53 @@ test('Renders Navigation Bar', () => {
     expect(navbar).toBeInTheDocument();
 });
 
+test('Navigation Bar - Home button', () => {
+    renderWithRedux(<Header />);
+    const Home = screen.getByRole("button", {name: "Home"});
+    expect(Home).toBeInTheDocument();
+});
+
+test('Navigation Bar - Add Employee button', () => {
+    renderWithRedux(<Header />);
+    const addEmployee = screen.getByRole("button", {name: "Add New Employee"});
+    expect(addEmployee).toBeInTheDocument();
+});
+
+test('Navigation Bar - Login button when logout', () => {
+    renderWithRedux(<Header />, {initialState: {loggedIn: false}});
+    const login = screen.getByRole("button", {name: "Login"});
+    expect(login).toBeInTheDocument();
+});
+
+test('Navigation Bar - Signup button when logout', () => {
+    renderWithRedux(<Header />, {initialState: {loggedIn: false}});
+    const signup = screen.getByRole("button", {name: "Signup"});
+    expect(signup).toBeInTheDocument();
+});
+
+test('Navigation Bar - Logout button when loggedin', () => {
+    renderWithRedux(<Header />, {initialState: {loggedIn: true}});
+    const logout = screen.getByRole("button", {name: "Logout"});
+    expect(logout).toBeInTheDocument();
+});
+
+test('Navigation Bar - No Logout button when logged-out', () => {
+    renderWithRedux(<Header />, {initialState: {loggedIn: false}});
+    const logout = screen.queryByRole("button", {name: "Logout"});
+    expect(logout).not.toBeInTheDocument();
+});
+
+test('Navigation Bar - No Login button when loggedin', () => {
+    renderWithRedux(<Header />, {initialState: {loggedIn: true}});
+    const login = screen.queryByRole("button", {name: "Login"});
+    expect(login).not.toBeInTheDocument();
+});
+
+test('Navigation Bar - No Signup button when loggedin', () => {
+    renderWithRedux(<Header />, {initialState: {loggedIn: true}});
+    const signup = screen.queryByRole("button", {name: "Signup"});
+    expect(signup).not.toBeInTheDocument();
+});
 const employee: Employee = {firstName: "rishank", lastName: "nemawat", id: 101, manager: "abc", department: "abcd"};
 
 // <EmployeeForm />
