@@ -2,13 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { selectEmployee, deleteEmployee } from "../action/index";
-import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
-import { deleteEmployeeAPI } from "../api/deleteEmployeeAPI";
-
 import { AppActions } from "../types/actions";
 import { Employee } from "../types/Employee";
+import { selectEmployee, deleteEmployee } from "../action/index";
 import { AppState } from "../reducers/index";
+import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
+import { deleteEmployeeAPI } from "../api/deleteEmployeeAPI";
 
 const EmployeeItem = ({ token, selectEmployee, employee, deleteEmployee }:
     {
@@ -72,19 +71,6 @@ const EmployeeItem = ({ token, selectEmployee, employee, deleteEmployee }:
     );
 };
 
-const mapStateToProps = (state: AppState, ownProps: any) => {
-    return {
-        token: ownProps.token
-    }
-}
+const mapStateToProps = (state: AppState, ownProps: any) => { return { token: ownProps.token } }
 
 export default connect(mapStateToProps, { selectEmployee, deleteEmployee })(EmployeeItem);
-
-
-// selectEmployeeById(employee.id)
-        // .then(response => {
-        //     selectEmployee(response.object);
-        //     console.log("SELECTED_EMP: ", response.object);
-        //     history.push(`/getEmployee/${employee.id}`);
-        // })
-        // .catch( error => {console.log(error)});

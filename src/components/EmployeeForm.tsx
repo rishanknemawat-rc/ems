@@ -13,7 +13,6 @@ import { getEmployeeByIdAPI } from "../api/getEmployeeById";
 
 const EmployeeForm = ({
     token,
-    employees,
     selectedEmployee,
     editEmployee,
     addEmployee,
@@ -21,7 +20,6 @@ const EmployeeForm = ({
     manager
 }: {
     token: string,
-    employees: Employee[],
     selectedEmployee: Employee,
     editEmployee: (employee: Employee) => AppActions,
     addEmployee: (employee: Employee) => AppActions,
@@ -91,25 +89,18 @@ const EmployeeForm = ({
 
                             getEmployeeByIdAPI(value.id, token)
                                 .then(response => {
-                                    // console.log(response);
                                     if (selectedEmployee === null) {
-                                        // console.log(response.object);
                                         if (response.object === null) {
                                             addEmployeeAPI(value, token)
                                                 .then(response => {
-                                                    // console.log("token: ", token);
                                                     addEmployee(response.object);
                                                     console.log("ADD_EMPLOYEE_SUCCESS", response);
                                                     alert("EMPLOYEE ADDED SUCCESSFULLY!");
                                                     history.push("/getEmployees");
                                                 })
-                                                .catch(error => {
-                                                    alert(error.message);
-                                                });
+                                                .catch(error => { alert(error.message); });
                                         }
-                                        else {
-                                            alert("Employee with ID " + value.id + " already exists.");
-                                        }
+                                        else { alert("Employee with ID " + value.id + " already exists."); }
                                     }
                                     else {
                                         if (response.object !== null) {
@@ -127,53 +118,14 @@ const EmployeeForm = ({
                                         else {
                                             selectEmployee(null);
                                             alert('EMPLOYEE NOT FOUND!)\n\n'
-                                                + JSON.stringify(value, null, 3));
+                                            + JSON.stringify(value, null, 3));
                                         }
                                     }
                                 })
                                 .catch(error => console.log(error));
-                            // const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
-                            // if (selectedEmployee === null) {
-                            //     if (ind === -1) {
-                            //         addEmployeeAPI(value, token)
-                            //             .then(response => {
-                            //                 // console.log("token: ", token);
-                            //                 addEmployee(response.object);
-                            //                 console.log("ADD_EMPLOYEE_SUCCESS", response);
-                            //                 alert("EMPLOYEE ADDED SUCCESSFULLY!");
-                            //                 history.push("/getEmployees");
-                            //             })
-                            //             .catch(error => { 
-                            //                 alert(error.message);
-                            //             });
-                            //     }
-                            //     else{
-                            //         alert("Employee with ID " + value.id + " already exists.");
-                            //     }
-                            // }
-                            // else {
-                            //     if (ind !== -1) {
-                            //         selectEmployee(null);
-                            //         updateEmployeeAPI(value, token)
-                            //             .then(response => {
-                            //                 editEmployee(value);
-                            //                 selectEmployee(null);
-                            //                 // console.log("TOKEN: ",token);
-                            //                 alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
-                            //                 console.log("Employee EDITED Successfully.", response);
-                            //                 history.push("/getEmployees");
-                            //             })
-                            //             .catch(error => { console.log(error) });
-                            //     }
-                            //     else {
-                            //         selectEmployee(null);
-                            //         alert('NOT A VALID EMPLOYEE!! :-)\n\n'
-                            //             + JSON.stringify(value, null, 3));
-                            //     }
-                            // }
                         }}
                     >
-                        {({ errors, touched }) => (
+                        {({ errors, touched }: {errors: any, touched: any}) => (
                             <div className="container">
                                 <div className="row">
                                     <div className="col-3"></div>
@@ -192,8 +144,7 @@ const EmployeeForm = ({
                                             {errors.firstName && touched.firstName ?
                                                 <div className="text-danger">
                                                     {errors.firstName}
-                                                </div> :
-                                                ""
+                                                </div> : ""
                                             }
                                         </div> <br />
 
@@ -211,8 +162,7 @@ const EmployeeForm = ({
                                             {errors.lastName && touched.lastName ?
                                                 <div className="text-danger">
                                                     {errors.lastName}
-                                                </div> :
-                                                ""
+                                                </div> : ""
                                             }
                                         </div> <br />
 
@@ -231,8 +181,7 @@ const EmployeeForm = ({
                                             {errors.id && touched.id ?
                                                 <div className="text-danger">
                                                     {errors.id}
-                                                </div> :
-                                                ""
+                                                </div> : ""
                                             }
                                         </div> <br />
 
@@ -250,8 +199,7 @@ const EmployeeForm = ({
                                             {errors.manager && touched.manager ?
                                                 <div className="text-danger">
                                                     {errors.manager}
-                                                </div> :
-                                                ""
+                                                </div> : ""
                                             }
                                         </div> <br />
 
@@ -268,8 +216,7 @@ const EmployeeForm = ({
                                             {errors.department && touched.department ?
                                                 <div className="text-danger">
                                                     {errors.department}
-                                                </div> :
-                                                ""
+                                                </div> : ""
                                             }
                                         </div> <br />
 
@@ -303,7 +250,6 @@ const EmployeeForm = ({
 
 interface LinkStateProps {
     token: string,
-    employees: Employee[],
     selectedEmployee: Employee | null,
     loggedIn: boolean,
     manager: string
@@ -312,7 +258,6 @@ interface LinkStateProps {
 const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
     return ({
         token: ownProps.token,
-        employees: state.employees,
         selectedEmployee: state.selectedEmployee,
         loggedIn: state.loggedIn,
         manager: state.manager

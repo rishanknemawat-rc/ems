@@ -7,9 +7,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { User } from "../types/User";
+import { AppActions } from "../types/actions";
 import { addUser } from "../action/index";
 import { AppState } from "../reducers/index";
-import { AppActions } from "../types/actions";
 import { signupAPI } from "../api/signupAPI";
 
 const Signup = ({ users, addUser }:
@@ -41,20 +41,6 @@ const Signup = ({ users, addUser }:
                             }
                         })
                         .catch(error => { console.log(error) });
-
-                    // if (users.find(user => user.username === values.username)) {
-                    //     alert("User already exists. Please try again");
-                    // }
-                    // else {
-                    //     signupAPI(values.username, values.password)
-                    //     .then( (response: any) => {
-                    //         addUser(values);
-                    //         console.log(response);
-                    //         alert("SIGNUP Successful!");
-                    //         history.push("/");
-                    //     })
-                    //     .catch( error => {console.log(error)});
-                    // }
                 }}
                 validationSchema={
                     Yup.object().shape({

@@ -5,12 +5,12 @@ import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Formik, Form, Field } from "formik";
 
-import { setLogin } from "../action/index";
 import { User } from "../types/User";
-import { setManager } from "../action/index";
 import { AppActions } from "../types/actions";
-import { loginAPI } from "../api/loginAPI";
+import { setLogin } from "../action/index";
+import { setManager } from "../action/index";
 import { AppState } from "../reducers/index";
+import { loginAPI } from "../api/loginAPI";
 
 const Login = ({ setToken, setManager, setLogin }:
     {
@@ -32,7 +32,7 @@ const Login = ({ setToken, setManager, setLogin }:
                     const token = "Basic " + window.btoa(values.username + ":" + values.password);
                     loginAPI(values, token)
                         .then(response => {
-                            console.log(response);
+                            // console.log(response);
                             setLogin(response.data.object);
                             setToken(token);
                             if (!response.data.object) {
@@ -46,7 +46,7 @@ const Login = ({ setToken, setManager, setLogin }:
                             }
                         })
                         .catch(error => {
-                            console.log(error);
+                            console.log("Authentication Failed. ", error);
                             alert("Not Valid Email/Password. Authentication Failed! Please try again.");
                         });
                 }}
@@ -86,9 +86,7 @@ const Login = ({ setToken, setManager, setLogin }:
 };
 
 const mapStateToProps = (state: AppState, ownProps: any) => {
-    return {
-        setToken: ownProps.setToken
-    };
+    return { setToken: ownProps.setToken };
 }
 
 export default connect(mapStateToProps, { setLogin, setManager })(Login);

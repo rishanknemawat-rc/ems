@@ -2,8 +2,8 @@ import { connect } from "react-redux";
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { selectEmployee, setLogin } from "../action/index";
 import { Employee } from "../types/Employee";
+import { selectEmployee, setLogin } from "../action/index";
 import { AppState } from "../reducers/index";
 import api from "../api/baseAPI";
 
@@ -21,14 +21,14 @@ const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee }:
         await api.post("/logout", {
             headers: { "Authorization": token }
         })
-            .then((response: any) => {
-                setLogin(false);
-                setToken("");
-                console.log("LOGOUT_SUCCESS", response);
-            })
-            .catch((error: any) => {
-                console.log("LOGOUT_ERROR", error);
-            });
+        .then((response: any) => {
+            setLogin(false);
+            setToken("");
+            console.log("LOGOUT_SUCCESS", response);
+        })
+        .catch((error: any) => {
+            console.log("LOGOUT_ERROR", error);
+        });
     };
 
     const handleSelect = () => { selectEmployee(null); }

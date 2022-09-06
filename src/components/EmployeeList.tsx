@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import EmployeeItem from "./EmployeeItem";
-import { getEmployeesAPI } from "../api/getEmployeesAPI";
 import { AppState } from "../reducers/index";
 import { Employee } from "../types/Employee";
+import { getEmployeesAPI } from "../api/getEmployeesAPI";
 
 const EmployeeList = ({token, employees, loggedIn, manager }:
     { token: string, employees: Employee[], loggedIn: boolean, manager: string }) => {
@@ -15,15 +15,12 @@ const EmployeeList = ({token, employees, loggedIn, manager }:
     const [sort, setSort] = useState("");
 
     useEffect(() => {
-        // console.log("token: ", token);
         getEmployeesAPI(token)
         .then(
             (employees: Employee[]) => {
-                // console.log("token: ", token);
                 console.log("Employees in Backend DataBase: ", employees);
-                if (searchInput === "") {
+                if (searchInput === "")
                     setSearchResults(employees);
-                }
         
                 const filteredResults = employees.filter(employee => {
                     return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
@@ -48,7 +45,7 @@ const EmployeeList = ({token, employees, loggedIn, manager }:
         )
         .catch(error => {console.log(error)});
 
-    }, [searchInput, sort, employees]);
+    }, [searchInput, sort, employees, token]);
 
     const renderedList = searchResults.map(employee => {
         if (employee.manager === manager) {
@@ -158,99 +155,3 @@ const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
 };
 
 export default connect(mapStateToProps)(EmployeeList);
-
-
-
-        // const response = api.get("/getEmployeesAPI",
-        //     {
-        //         headers: { 
-        //             Authorization: "Basic dHVzaDp0dXNo" 
-        //         }
-        //     })
-        //     .then( (response) => {
-                // console.log("Get Employees successful.", response);
-                // console.log("Employees List Array: ", response.data.object);
-        //         data = response.data.object;
-        //     })
-        //     .catch( error => {
-        //         if(error.response)
-        //             console.log(error.response);
-        //         else if(error.request)
-        //             console.log(error.request);
-        //         else
-        //             console.log(error.message);
-        //         return error;
-        //     });
-
-
-        // ---------------------------------------------------
-
-                
-
-        // if (searchInput === "") {
-        //     setSearchResults(employees);
-        // }
-
-        // const filteredResults = employees.filter(employee => {
-        //     return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
-        //         employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
-        // });
-
-        // if (sort === "firstName")
-        //     setSearchResults(filteredResults.sort((e1, e2) => {
-        //         if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
-        //             return -1;
-        //         else return 1;
-        //     }))
-        // else if (sort === "lastName")
-        //     setSearchResults(filteredResults.sort((e1, e2) => {
-        //         if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
-        //             return -1;
-        //         else return 1;
-        //     }))
-        // else
-        //     setSearchResults(filteredResults);
-
-
-    // async function getEmployeesAPIArray() {
-
-    //     try {
-    //         const response = await api.get("/getEmployeesAPI",
-    //         {
-    //             headers: {
-    //                 Authorization: "Basic cmlzaDpyaXNo"
-    //             }
-    //         });
-    //         console.log("Get Employees successful.", response);
-    //         console.log("Employees List Array: ", response.data.object);
-    //         return response.data.object;
-    //     }
-    //     catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-
-        // if (searchInput === "") {
-        //     setSearchResults(employees);
-        // }
-
-        // const filteredResults = employees.filter(employee => {
-        //     return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
-        //         employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
-        // });
-
-        // if (sort === "firstName")
-        //     setSearchResults(filteredResults.sort((e1, e2) => {
-        //         if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
-        //             return -1;
-        //         else return 1;
-        //     }))
-        // else if (sort === "lastName")
-        //     setSearchResults(filteredResults.sort((e1, e2) => {
-        //         if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
-        //             return -1;
-        //         else return 1;
-        //     }))
-        // else
-        //     setSearchResults(filteredResults);
