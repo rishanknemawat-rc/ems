@@ -19,22 +19,22 @@ const App = () => {
                 <div data-testid="App">
                     <Header token={token} setToken={setToken} />
                     <Route path="/" exact>
-                        <Login setToken={setToken}/>
+                        <Login setToken={setToken} />
                     </Route>
                     <Route path="/signup" exact>
                         <Signup />
                     </Route>
                     <Route path="/getEmployees" exact>
-                        <EmployeeList token={token}/>
+                        <EmployeeList token={token} />
                     </Route>
                     <Route path="/addEmployee">
-                        <EmployeeForm token={token}/>
+                        <EmployeeForm token={token} />
                     </Route>
                     <Route path="/getEmployee/:id" exact >
-                        <EmployeeDetails token={token}/>
+                        <EmployeeDetails token={token} />
                     </Route>
                     <Route path="/updateEmployee/:id" exact>
-                        <EmployeeForm token={token}/>
+                        <EmployeeForm token={token} />
                     </Route>
                 </div>
             </BrowserRouter>

@@ -19,7 +19,7 @@ const Signup = ({ users, addUser }:
     }) => {
     const history = useHistory();
     return (
-        <div  data-testid="signup-form">
+        <div data-testid="signup-form">
             <h1 className="text-center font-weight-bold m-3">Signup</h1>
             <Formik
                 initialValues={{
@@ -29,19 +29,19 @@ const Signup = ({ users, addUser }:
                 onSubmit={(values: User) => {
 
                     signupAPI(values.username, values.password)
-                    .then( (response: any) => {
-                        if(response.data.object === null){
-                            alert("Username already exists. Please try again");
-                        }
-                        else{
-                            addUser(values);
-                            console.log(response);
-                            alert("SIGNUP Successful!");
-                            history.push("/");
-                        }
-                    })
-                    .catch( error => {console.log(error)});
-                    
+                        .then((response: any) => {
+                            if (response.data.object === null) {
+                                alert("Username already exists. Please try again");
+                            }
+                            else {
+                                addUser(values);
+                                console.log(response);
+                                alert("SIGNUP Successful!");
+                                history.push("/");
+                            }
+                        })
+                        .catch(error => { console.log(error) });
+
                     // if (users.find(user => user.username === values.username)) {
                     //     alert("User already exists. Please try again");
                     // }

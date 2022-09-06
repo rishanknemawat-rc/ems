@@ -10,44 +10,46 @@ export const LOGIN = "LOGIN";
 export const SET_MANAGER = "SET_MANAGER";
 
 export interface SetSelectEmployeeAction {
-    type: typeof SELECT_EMPLOYEE;
-    payload: Employee | null;
+  type: typeof SELECT_EMPLOYEE;
+  payload: Employee | null;
 }
 
 export interface SetAddEmployeeAction {
-    type: typeof ADD_EMPLOYEE;
-    payload: Employee;
+  type: typeof ADD_EMPLOYEE;
+  payload: Employee;
 }
 
 export interface SetEditEmployeeAction {
-    type: typeof EDIT_EMPLOYEE;
-    payload: Employee;
+  type: typeof EDIT_EMPLOYEE;
+  payload: Employee;
 }
 
 export interface SetDeleteEmployeeAction {
-    type: typeof DELETE_EMPLOYEE;
-    payload: Employee;
+  type: typeof DELETE_EMPLOYEE;
+  payload: Employee;
 }
 
 export interface SetAddUserAction {
-    type: typeof ADD_USER;
-    payload: User;
+  type: typeof ADD_USER;
+  payload: User;
 }
 
 export interface SetLogin {
-    type: typeof LOGIN;
-    payload: boolean;
+  type: typeof LOGIN;
+  payload: boolean;
 }
 
-export interface SetManager{
-    type: typeof SET_MANAGER,
-    payload: string
+export interface SetManager {
+  type: typeof SET_MANAGER;
+  payload: string;
 }
 
-export type EmployeeActionTypes = SetSelectEmployeeAction | SetAddEmployeeAction | SetEditEmployeeAction
-                                    | SetDeleteEmployeeAction;
+export type EmployeeActionTypes =
+  | SetSelectEmployeeAction
+  | SetAddEmployeeAction
+  | SetEditEmployeeAction
+  | SetDeleteEmployeeAction;
 
 export type UserActionTypes = SetAddUserAction | SetLogin | SetManager;
-
 
 export type AppActions = EmployeeActionTypes | UserActionTypes;

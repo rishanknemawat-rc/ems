@@ -7,14 +7,18 @@ import { Employee } from "../types/Employee";
 
 import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
 
-const EmployeeDetails = ({ token, selectedEmployee, loggedIn } : 
-    { token: string, selectedEmployee: Employee | null, loggedIn: boolean, manager: string }) => {
+const EmployeeDetails = ({ token, selectedEmployee, loggedIn }:
+    {
+        token: string, selectedEmployee: Employee | null,
+        loggedIn: boolean, manager: string
+    }) => {
+
     const params = useParams();
     selectEmployeeById(params.id, token)
-    .then(response => {
-        console.log("SELECTED_EMP: ", response.data);
-    })
-    .catch( error => {console.log(error)});
+        .then(response => {
+            console.log("SELECTED_EMP: ", response.data);
+        })
+        .catch(error => { console.log(error) });
 
     if (!loggedIn) {
         return (
@@ -33,7 +37,7 @@ const EmployeeDetails = ({ token, selectedEmployee, loggedIn } :
         );
     }
 
-    if (!selectedEmployee){
+    if (!selectedEmployee) {
         alert("Employee with ID " + params.id + " does not exists.");
         return (
             <h1>
@@ -71,7 +75,7 @@ const EmployeeDetails = ({ token, selectedEmployee, loggedIn } :
     );
 };
 
-interface LinkStateProps{
+interface LinkStateProps {
     token: string,
     selectedEmployee: Employee | null,
     loggedIn: boolean
@@ -79,7 +83,7 @@ interface LinkStateProps{
 
 const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
     return {
-        token: ownProps.token, 
+        token: ownProps.token,
         selectedEmployee: state.selectedEmployee,
         loggedIn: state.loggedIn
     };

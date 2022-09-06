@@ -12,7 +12,7 @@ const container = document.getElementById('root') as HTMLElement | null;
 export const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 
 let root: Root;
-if(container !== null){
+if (container !== null) {
     root = createRoot(container);
 
     root.render(

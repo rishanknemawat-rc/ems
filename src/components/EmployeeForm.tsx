@@ -54,14 +54,7 @@ const EmployeeForm = ({
 
     function validateID(value: number) {
         let error: string = "";
-        // const ind = employees.findIndex(employee => {
-        //     return (employee.id === value);
-        // });
-
-        // if (selectedEmployee === null && ind !== -1)
-        //     error = "Employee with ID " + value + " already exists.";
-        // else
-         if ((value < 100 || value > 999))
+        if ((value < 100 || value > 999))
             error = "Employee ID should be 3 digit number."
         return error;
     }
@@ -84,7 +77,7 @@ const EmployeeForm = ({
             {loggedIn ?
                 <div data-testid="emp-form-login-true">
                     <h2 className="text-center font-weight-bold m-3">
-                        {selectedEmployee ? "EDIT EMPLOYEE FORM": "ADD EMPLOYEE FORM"}
+                        {selectedEmployee ? "EDIT EMPLOYEE FORM" : "ADD EMPLOYEE FORM"}
                     </h2>
                     <Formik
                         initialValues={{
@@ -95,50 +88,50 @@ const EmployeeForm = ({
                             department: initialForm.department,
                         }}
                         onSubmit={(value: Employee) => {
-                            
+
                             getEmployeeByIdAPI(value.id, token)
-                            .then(response => {
-                                // console.log(response);
-                                if (selectedEmployee === null) {
-                                    // console.log(response.object);
-                                    if (response.object === null) {
-                                        addEmployeeAPI(value, token)
-                                            .then(response => {
-                                                // console.log("token: ", token);
-                                                addEmployee(response.object);
-                                                console.log("ADD_EMPLOYEE_SUCCESS", response);
-                                                alert("EMPLOYEE ADDED SUCCESSFULLY!");
-                                                history.push("/getEmployees");
-                                            })
-                                            .catch(error => { 
-                                                alert(error.message);
-                                            });
-                                    }
-                                    else{
-                                        alert("Employee with ID " + value.id + " already exists.");
-                                    }
-                                }
-                                else {
-                                    if (response.object !== null) {
-                                        selectEmployee(null);
-                                        updateEmployeeAPI(value, token)
-                                            .then(response => {
-                                                editEmployee(value);
-                                                selectEmployee(null);
-                                                alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
-                                                console.log("Employee EDITED Successfully.", response);
-                                                history.push("/getEmployees");
-                                            })
-                                            .catch(error => { console.log(error) });
+                                .then(response => {
+                                    // console.log(response);
+                                    if (selectedEmployee === null) {
+                                        // console.log(response.object);
+                                        if (response.object === null) {
+                                            addEmployeeAPI(value, token)
+                                                .then(response => {
+                                                    // console.log("token: ", token);
+                                                    addEmployee(response.object);
+                                                    console.log("ADD_EMPLOYEE_SUCCESS", response);
+                                                    alert("EMPLOYEE ADDED SUCCESSFULLY!");
+                                                    history.push("/getEmployees");
+                                                })
+                                                .catch(error => {
+                                                    alert(error.message);
+                                                });
+                                        }
+                                        else {
+                                            alert("Employee with ID " + value.id + " already exists.");
+                                        }
                                     }
                                     else {
-                                        selectEmployee(null);
-                                        alert('EMPLOYEE NOT FOUND!)\n\n'
-                                            + JSON.stringify(value, null, 3));
+                                        if (response.object !== null) {
+                                            selectEmployee(null);
+                                            updateEmployeeAPI(value, token)
+                                                .then(response => {
+                                                    editEmployee(value);
+                                                    selectEmployee(null);
+                                                    alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
+                                                    console.log("Employee EDITED Successfully.", response);
+                                                    history.push("/getEmployees");
+                                                })
+                                                .catch(error => { console.log(error) });
+                                        }
+                                        else {
+                                            selectEmployee(null);
+                                            alert('EMPLOYEE NOT FOUND!)\n\n'
+                                                + JSON.stringify(value, null, 3));
+                                        }
                                     }
-                                }
-                            })
-                            .catch( error => console.log(error));
+                                })
+                                .catch(error => console.log(error));
                             // const ind = employees.findIndex((employee: Employee) => { return (employee.id === value.id); });
                             // if (selectedEmployee === null) {
                             //     if (ind === -1) {
@@ -269,7 +262,7 @@ const EmployeeForm = ({
                                             <Field
                                                 className="form-control"
                                                 type="text" name="department"
-                                                validate = {validateDepartment}
+                                                validate={validateDepartment}
                                                 required
                                             />
                                             {errors.department && touched.department ?

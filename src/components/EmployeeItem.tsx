@@ -10,7 +10,7 @@ import { AppActions } from "../types/actions";
 import { Employee } from "../types/Employee";
 import { AppState } from "../reducers/index";
 
-const EmployeeItem = ({token, selectEmployee, employee, deleteEmployee }:
+const EmployeeItem = ({ token, selectEmployee, employee, deleteEmployee }:
     {
         token: string,
         selectEmployee: (employee: Employee) => AppActions,
@@ -27,22 +27,22 @@ const EmployeeItem = ({token, selectEmployee, employee, deleteEmployee }:
 
     const handleEdit = (employee: Employee) => {
         selectEmployeeById(employee.id, token)
-        .then(response => {
-            selectEmployee(response.data.object);
-            console.log("SELECTED_EMP: ", response.data.object);
-            history.push(`/updateEmployee/${employee.id}`);
-        })
-        .catch( error => {console.log(error)});
+            .then(response => {
+                selectEmployee(response.data.object);
+                console.log("SELECTED_EMP: ", response.data.object);
+                history.push(`/updateEmployee/${employee.id}`);
+            })
+            .catch(error => { console.log(error) });
     }
 
-    const handleDelete = (employee: Employee) => {  
+    const handleDelete = (employee: Employee) => {
         deleteEmployeeAPI(employee.id, token)
-            .then( response => {
+            .then(response => {
                 console.log("DELETE_EMP_SUCCESS", response);
                 deleteEmployee(employee);
                 alert("EMPLOYEE DELETED SUCCESSFULLY!");
-            } )
-            .catch( error  => { console.log(error) });
+            })
+            .catch(error => { console.log(error) });
     }
 
     return (
@@ -55,8 +55,8 @@ const EmployeeItem = ({token, selectEmployee, employee, deleteEmployee }:
                     View
                 </button>
 
-                <button 
-                    className="btn btn-outline-dark m-2" 
+                <button
+                    className="btn btn-outline-dark m-2"
                     onClick={() => handleEdit(employee)}>
                     Edit
                 </button>

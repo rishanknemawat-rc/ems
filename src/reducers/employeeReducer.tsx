@@ -3,20 +3,20 @@ import { Employee } from "../types/Employee";
 
 const initalEmployees: Employee[] = [];
 
-const employeeReducer = (employees = initalEmployees, 
-                        action: EmployeeActionTypes): 
-                        Employee[] => {
+const employeeReducer = (employees = initalEmployees,
+    action: EmployeeActionTypes):
+    Employee[] => {
 
     switch (action.type) {
-        case ("ADD_EMPLOYEE"):{
+        case ("ADD_EMPLOYEE"): {
             return [...employees, action.payload];
         }
 
-        case ("DELETE_EMPLOYEE"):{
+        case ("DELETE_EMPLOYEE"): {
             return employees.filter(emp => emp.id !== action.payload.id);
         }
 
-        case ("EDIT_EMPLOYEE"):{
+        case ("EDIT_EMPLOYEE"): {
 
             const updatesEmployees = employees.map(emp => {
                 const updatedEmp = emp;
@@ -31,7 +31,7 @@ const employeeReducer = (employees = initalEmployees,
 
             return updatesEmployees;
         }
-        default :   
+        default:
             return employees;
     };
 };

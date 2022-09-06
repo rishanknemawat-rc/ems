@@ -7,28 +7,28 @@ import { Employee } from "../types/Employee";
 import { AppState } from "../reducers/index";
 import api from "../api/baseAPI";
 
-const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee} : 
-    { 
+const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee }:
+    {
         token: string,
         setToken: React.Dispatch<React.SetStateAction<string>>,
-        loggedIn: boolean, 
-        setLogin: (login: boolean) => void, 
-        selectEmployee: (employee: Employee| null) => AppState
-    })  => {
+        loggedIn: boolean,
+        setLogin: (login: boolean) => void,
+        selectEmployee: (employee: Employee | null) => AppState
+    }) => {
 
-    const handleLogout = async () => { 
-        
+    const handleLogout = async () => {
+
         await api.post("/logout", {
-            headers: {"Authorization": token}
+            headers: { "Authorization": token }
         })
-        .then((response: any) => {
-            setLogin(false);
-            setToken("");
-            console.log("LOGOUT_SUCCESS", response);
-        })
-        .catch((error: any) => {
-            console.log("LOGOUT_ERROR", error);
-        });
+            .then((response: any) => {
+                setLogin(false);
+                setToken("");
+                console.log("LOGOUT_SUCCESS", response);
+            })
+            .catch((error: any) => {
+                console.log("LOGOUT_ERROR", error);
+            });
     };
 
     const handleSelect = () => { selectEmployee(null); }

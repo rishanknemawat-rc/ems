@@ -29,7 +29,7 @@ const Login = ({ setToken, setManager, setLogin }:
                     password: ""
                 }}
                 onSubmit={(values: User) => {
-                    const token = "Basic "+ window.btoa(values.username+":"+values.password);
+                    const token = "Basic " + window.btoa(values.username + ":" + values.password);
                     loginAPI(values, token)
                         .then(response => {
                             console.log(response);
