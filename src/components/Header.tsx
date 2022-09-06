@@ -21,18 +21,23 @@ const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee }:
         await api.post("/logout", {
             headers: { "Authorization": token }
         })
-        .then((response: any) => {
-            setLogin(false);
-            setToken("");
-            console.log("LOGOUT_SUCCESS", response);
-        })
-        .catch((error: any) => {
-            console.log("LOGOUT_ERROR", error);
-        });
+            .then((response: any) => {
+                setLogin(false);
+                setToken("");
+                console.log("LOGOUT_SUCCESS", response);
+            })
+            .catch((error: any) => {
+                console.log("LOGOUT_ERROR", error);
+            });
     };
 
     const handleSelect = () => { selectEmployee(null); }
 
+
+    console.log(loggedIn);
+    if(!loggedIn)
+        return null;
+    else 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light" data-testid="nav-bar">
             <Link to="/getEmployees" className="nav-item nav-link active m-1">
@@ -41,34 +46,13 @@ const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee }:
             <Link to="/addEmployee" className="nav-item nav-link active float-right m-1">
                 <button className="btn btn-outline-dark" onClick={handleSelect}>Add New Employee</button>
             </Link>
-            {
-                loggedIn ?
-                    <div className="nav-item nav-link active m-1">
-                        <Link to="/">
-                            <button className="btn btn-outline-dark float-right" onClick={handleLogout}>
-                                Logout
-                            </button>
-                        </Link>
-                    </div> :
-                    <div className="nav-item nav-link active m-3">
-                        <div className="row">
-                            <div className="col-4">
-                                <Link to="/" className="item nav-link active float-right m-3">
-                                    <button className="btn btn-outline-dark" type="submit">
-                                        Login
-                                    </button>
-                                </Link>
-                            </div>
-                            <div className="col-4">
-                                <Link to="/signup" className="item nav-link active float-right m-3">
-                                    <button className="btn btn-outline-dark" type="submit">
-                                        Signup
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-            }
+            <div className="nav-item nav-link active m-1">
+                <Link to="/">
+                    <button className="btn btn-outline-dark float-right" onClick={handleLogout}>
+                        Logout
+                    </button>
+                </Link>
+            </div>
         </nav>
     );
 };

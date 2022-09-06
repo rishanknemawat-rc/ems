@@ -1,5 +1,6 @@
-import { Employee } from "../types/Employee";
 import api from "./baseAPI";
+import { Employee } from "../types/Employee";
+
 export const updateEmployeeAPI = async (employee: Employee, token: string) => {
     const response = await api.put(`updateEmployee/${employee.id}`, {
             "firstName": employee.firstName,

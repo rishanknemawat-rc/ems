@@ -32,7 +32,6 @@ const Login = ({ setToken, setManager, setLogin }:
                     const token = "Basic " + window.btoa(values.username + ":" + values.password);
                     loginAPI(values, token)
                         .then(response => {
-                            // console.log(response);
                             setLogin(response.data.object);
                             setToken(token);
                             if (!response.data.object) {
