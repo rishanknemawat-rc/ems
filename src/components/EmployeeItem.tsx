@@ -46,8 +46,7 @@ const EmployeeItem = ({ serialNumber, token, selectEmployee, employee, deleteEmp
     }
 
     return (
-        <tbody>
-            <tr>
+            <tr key={employee.id}>
                 <th scope="row">{serialNumber}</th>
                 <td>{employee.firstName}</td>
                 <td>{employee.lastName}</td>
@@ -76,7 +75,6 @@ const EmployeeItem = ({ serialNumber, token, selectEmployee, employee, deleteEmp
                     </button>
                 </td>
             </tr>
-        </tbody>
     );
 };
 

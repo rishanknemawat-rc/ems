@@ -120,7 +120,8 @@ const EmployeeList = ({
                                     <th scope="col">Delete</th>
                                 </tr>
                             </thead>
-                            {renderedList}
+                            <tbody>{renderedList}</tbody>
+                            
                         </table>
                     </div>
                 </div>
