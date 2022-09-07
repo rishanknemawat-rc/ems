@@ -12,7 +12,7 @@ import Signup from './components/Signup';
 import Login from "./components/App";
 import EmployeeForm from './components/EmployeeForm';
 import EmployeeDetails from './components/EmployeeDetails';
-import EmployeeItem from './components/EmployeeItem';
+import EmployeeItem from './components/oldFiles/EmployeeItem';
 import EmployeeList from './components/EmployeeList';
 import { Employee } from './types/Employee';
 
@@ -227,29 +227,29 @@ test('Renders Employee Details when logged out', () => {
 });
 
 // <EmployeeList />
-test('Renders Employees list when loggedIn', () => {
-    renderWithRedux(<EmployeeList />, { initialState: { loggedIn: true } });
-    const employeesList = screen.getByTestId('employees-list');
-    expect(employeesList).toBeInTheDocument();
-});
+// test('Renders Employees list when loggedIn', () => {
+//     renderWithRedux(<EmployeeList />, { initialState: { loggedIn: true } });
+//     const employeesList = screen.getByTestId('employees-list');
+//     expect(employeesList).toBeInTheDocument();
+// });
 
-test('Employees list - Search Box', () => {
-    renderWithRedux(<EmployeeList />, { initialState: { loggedIn: true } });
-    const searchBox = screen.getByTestId('search-box');
-    expect(searchBox).toBeInTheDocument();
-});
+// test('Employees list - Search Box', () => {
+//     renderWithRedux(<EmployeeList />, { initialState: { loggedIn: true } });
+//     const searchBox = screen.getByTestId('search-box');
+//     expect(searchBox).toBeInTheDocument();
+// });
 
-test('Employees list - Sort Box', () => {
-    renderWithRedux(<EmployeeList />, { initialState: { loggedIn: true } });
-    const sortBox = screen.getByTestId('sort-box');
-    expect(sortBox).toBeInTheDocument();
-});
+// test('Employees list - Sort Box', () => {
+//     renderWithRedux(<EmployeeList />, { initialState: { loggedIn: true } });
+//     const sortBox = screen.getByTestId('sort-box');
+//     expect(sortBox).toBeInTheDocument();
+// });
 
-test('Renders Employees List -  login form when logged-out', () => {
-    renderWithRedux(<EmployeeList />);
-    const login = screen.getByTestId('employees-list-logout');
-    expect(login).toBeInTheDocument();
-});
+// test('Renders Employees List -  login form when logged-out', () => {
+//     renderWithRedux(<EmployeeList />);
+//     const login = screen.getByTestId('employees-list-logout');
+//     expect(login).toBeInTheDocument();
+// });
 
 // <EmployeeItem />
 test('Renders Employee Item', () => {

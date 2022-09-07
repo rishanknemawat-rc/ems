@@ -9,8 +9,9 @@ import { AppState } from "../reducers/index";
 import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
 import { deleteEmployeeAPI } from "../api/deleteEmployeeAPI";
 
-const EmployeeItem = ({ token, selectEmployee, employee, deleteEmployee }:
+const EmployeeItem = ({ serialNumber, token, selectEmployee, employee, deleteEmployee }:
     {
+        serialNumber: number,
         token: string,
         selectEmployee: (employee: Employee) => AppActions,
         employee: Employee,
@@ -45,29 +46,37 @@ const EmployeeItem = ({ token, selectEmployee, employee, deleteEmployee }:
     }
 
     return (
-        <div data-testid="employee-item">
-            <div data-testid="fullName"> <h3> {employee.firstName} {employee.lastName} </h3> </div>
-            <div>
-                <button
-                    onClick={() => handleView(employee)}
-                    className="btn btn-outline-dark m-2">
-                    View
-                </button>
-
-                <button
-                    className="btn btn-outline-dark m-2"
-                    onClick={() => handleEdit(employee)}>
-                    Edit
-                </button>
-
-                <button
-                    className="btn btn-outline-dark m-2"
-                    onClick={() => handleDelete(employee)}>
-                    Delete
-                </button>
-
-            </div>
-        </div>
+        <tbody>
+            <tr>
+                <th scope="row">{serialNumber}</th>
+                <td>{employee.firstName}</td>
+                <td>{employee.lastName}</td>
+                <td>{employee.id}</td>
+                <td>{employee.department}</td>
+                <td>{employee.manager}</td>
+                <td>                    
+                    <button
+                        onClick={() => handleView(employee)}
+                        className="btn btn-outline-dark ">
+                        View
+                    </button>
+                </td>
+                <td>
+                    <button
+                        className="btn btn-outline-dark"
+                        onClick={() => handleEdit(employee)}>
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button
+                        className="btn btn-outline-dark"
+                        onClick={() => handleDelete(employee)}>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
     );
 };
 
