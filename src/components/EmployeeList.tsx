@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import SearchBox from "./SearchBox";
-import { AppState } from "../reducers/index";
-import { Employee } from "../types/Employee";
-import { getEmployeesAPI } from "../api/getEmployeesAPI";
 import Pagination from "./Pagination";
-
-import { selectEmployee, deleteEmployee } from "../action/index";
-import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
-import { deleteEmployeeAPI } from "../api/deleteEmployeeAPI";
 import EmployeeItem from "./EmployeeItem";
+
+import { Employee } from "../types/Employee";
+import { selectEmployee, deleteEmployee } from "../action/index";
+import { AppState } from "../reducers/index";
+import { getEmployeesAPI } from "../api/getEmployeesAPI";
 
 const EmployeeList = ({
     token,
@@ -108,7 +106,7 @@ const EmployeeList = ({
                         />
                     </div>
                     <div>
-                        <table id="employeesList" className="table table-striped table-bordered table-sm m-1 dataTable" cellSpacing="0" width="100%">
+                        <table id="employeesList" className="table table-striped table-bordered table-hover table-sm m-1 text-center" cellSpacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th scope="col">Sr. No.</th>
@@ -123,7 +121,6 @@ const EmployeeList = ({
                                 </tr>
                             </thead>
                             {renderedList}
-                            
                         </table>
                     </div>
                 </div>

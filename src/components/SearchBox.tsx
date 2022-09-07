@@ -63,7 +63,7 @@ const SearchBox = ({
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sort">Sort</label>
                                     <Field as="select" id="sort" className="form-control" defaultValue="none" name="sort">
-                                        <option value="none">Select</option>
+                                        <option value="none">None</option>
                                         <option value="firstName">FirstName</option>
                                         <option value="lastName">LastName</option>
                                         <option value="employeeId">EmployeeId</option>
@@ -73,7 +73,7 @@ const SearchBox = ({
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sortBy">Sort By</label>
                                     <Field as="select" id="sortBy" className="form-control" defaultValue="none" name="sortBy">
-                                        <option value="none">Select</option>
+                                        <option value="none">None</option>
                                         <option value="ascending">Ascending</option>
                                         <option value="descending">Descending</option>
                                     </Field>
