@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 
 import SearchBox from "./SearchBox";
 import Pagination from "./Pagination";
-import EmployeeItem from "./EmployeeItem";
 
 import { Employee } from "../types/Employee";
-import { selectEmployee, deleteEmployee } from "../action/index";
 import { AppState } from "../reducers/index";
 import { getEmployeesAPI } from "../api/getEmployeesAPI";
+import EmployeeTable from "./EmployeeTable";
 
 const EmployeeList = ({
     token,
@@ -43,10 +42,11 @@ const EmployeeList = ({
         // )
         // .catch(error => {console.log(error)});
 
-        getEmployeesAPI(token)
-            .then((employees: Employee[]) => {
-                console.log("Employees in Backend DataBase: ", employees);
-                setSearchResults(employees);
+        getEmployeesAPI(token, searchFirstName, searchLastName, searchId, searchDepartment, sort, sortType, pageNumber, pageLimit)
+            .then((response: any) => {
+                console.log("Employees in Backend DataBase: ", response.content);
+                setTotalCount(response.totalPages);
+                setSearchResults(response.content);
             })
             .catch((error) => {
                 console.log(error);
@@ -64,22 +64,6 @@ const EmployeeList = ({
         token,
     ]);
 
-    let serialNumber = 0;
-    const renderedList = searchResults.map((employee) => {
-        if (employee.manager === manager) {
-            serialNumber += 1;
-            return (
-                <EmployeeItem 
-                    serialNumber={serialNumber}
-                    selectedEmployee={selectEmployee}
-                    deleteEmployee={deleteEmployee}
-                    token={token}
-                    employee={employee}
-                />
-            );
-        }
-        return null;
-    });
 
     return (
         <div>
@@ -106,23 +90,7 @@ const EmployeeList = ({
                         />
                     </div>
                     <div>
-                        <table id="employeesList" className="table table-striped table-bordered table-hover table-sm m-1 text-center" cellSpacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Sr. No.</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Employee ID</th>
-                                    <th scope="col">Department</th>
-                                    <th scope="col">Manager</th>
-                                    <th scope="col">View</th>
-                                    <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>{renderedList}</tbody>
-                            
-                        </table>
+                        <EmployeeTable employees={searchResults} token={token} />
                     </div>
                 </div>
             ) : (
@@ -158,6 +126,24 @@ const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
 };
 
 export default connect(mapStateToProps)(EmployeeList);
+
+    // let serialNumber = 0;
+    // const renderedList = searchResults.map((employee) => {
+    //     if (employee.manager === manager) {
+    //         serialNumber += 1;
+    //         return (
+    //             <EmployeeItem 
+    //                 serialNumber={serialNumber}
+    //                 selectedEmployee={selectEmployee}
+    //                 deleteEmployee={deleteEmployee}
+    //                 token={token}
+    //                 employee={employee}
+    //             />
+    //         );
+    //     }
+    //     return null;
+    // });
+    // console.log("search results", searchResults);
 
 // import React, { useEffect, useState } from "react";
 // import { connect } from "react-redux";

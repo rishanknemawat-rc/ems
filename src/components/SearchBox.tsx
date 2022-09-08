@@ -62,7 +62,7 @@ const SearchBox = ({
                                 </div>
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sort">Sort</label>
-                                    <Field as="select" id="sort" className="form-control" defaultValue="none" name="sort">
+                                    <Field as="select" id="sort" className="form-control" defaultValue="None" name="sort">
                                         <option value="none">None</option>
                                         <option value="firstName">FirstName</option>
                                         <option value="lastName">LastName</option>
