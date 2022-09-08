@@ -58,7 +58,13 @@ const SearchBox = ({
                             <div className="form-row">
                                 <div className="form-group col-md-4">
                                     <label htmlFor="department">Department</label>
-                                    <Field type="text" className="form-control" id="department" name="department"/>
+                                    <Field as="select" type="text" className="form-control" id="department" defaultValue="IT" name="department">
+                                        <option value="IT">IT</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="HR">HR</option>
+                                        <option value="Payroll">Payroll</option>
+                                        <option value="Administration">Administration</option>
+                                    </Field>
                                 </div>
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sort">Sort</label>

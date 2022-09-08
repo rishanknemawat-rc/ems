@@ -32,9 +32,6 @@ const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee }:
     };
 
     const handleSelect = () => { selectEmployee(null); }
-
-
-    console.log(loggedIn);
     if(!loggedIn)
         return null;
     else 

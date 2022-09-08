@@ -90,7 +90,8 @@ const EmployeeForm = ({
                             getEmployeeByIdAPI(value.id, token)
                                 .then(response => {
                                     if (selectedEmployee === null) {
-                                        if (response.object === null) {
+                                        if (response.data.data === null) {
+                                            
                                             addEmployeeAPI(value, token)
                                                 .then(response => {
                                                     addEmployee(response.object);
@@ -103,12 +104,12 @@ const EmployeeForm = ({
                                         else { alert("Employee with ID " + value.id + " already exists."); }
                                     }
                                     else {
-                                        if (response.object !== null) {
+                                        if (response.data.data) {
                                             selectEmployee(null);
                                             updateEmployeeAPI(value, token)
                                                 .then(response => {
+                                                    console.log("updateEmployee", value);
                                                     editEmployee(value);
-                                                    selectEmployee(null);
                                                     alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
                                                     console.log("Employee EDITED Successfully.", response);
                                                     history.push("/getEmployees");
@@ -207,12 +208,19 @@ const EmployeeForm = ({
                                             <label className="form-label">
                                                 Department
                                             </label>
-                                            <Field
+                                            <Field as="select"
+                                                id="department"
                                                 className="form-control"
                                                 type="text" name="department"
                                                 validate={validateDepartment}
                                                 required
-                                            />
+                                            >
+                                                    <option value="IT">IT</option>
+                                                    <option value="Finance">Finance</option>
+                                                    <option value="HR">HR</option>
+                                                    <option value="Payroll">Payroll</option>
+                                                    <option value="Administration">Administration</option>
+                                                </Field>
                                             {errors.department && touched.department ?
                                                 <div className="text-danger">
                                                     {errors.department}

@@ -32,7 +32,8 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
     const handleEdit = (employee: Employee) => {
         selectEmployeeById(employee.id, token)
             .then(response => {
-                selectEmployee(response.data.object);
+                console.log(response);
+                selectEmployee(response.data.data);
                 console.log("SELECTED_EMP: ", response.data.object);
                 history.push(`/updateEmployee/${employee.id}`);
             })
@@ -90,8 +91,8 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
                         <th scope="col" onClick={() => applySorting("firstName")}>First Name</th>
                         <th scope="col" onClick={() => applySorting("lastName")}>Last Name</th>
                         <th scope="col" onClick={() => applySorting("id")}>Employee ID</th>
-                        <th scope="col" onClick={() => applySorting("department")}>Department</th>
-                        <th scope="col" onClick={() => applySorting("manager")}>Manager</th>
+                        <th scope="col" onClick={() => applySorting("department")}>Manager</th>
+                        <th scope="col" onClick={() => applySorting("manager")}>Department</th>
                         <th scope="col" >View</th>
                         <th scope="col" >Edit</th>
                         <th scope="col" >Delete</th>

@@ -42,13 +42,16 @@ const EmployeeList = ({
         // )
         // .catch(error => {console.log(error)});
 
-        getEmployeesAPI(token, searchFirstName, searchLastName, searchId, searchDepartment, sort, sortType, pageNumber, pageLimit)
+        getEmployeesAPI(token, searchFirstName, searchLastName, searchId, searchDepartment, sort, sortType, currentPage, pageLimit)
             .then((response: any) => {
-                console.log("Employees in Backend DataBase: ", response.content);
-                setTotalCount(response.totalPages);
-                setSearchResults(response.content);
+                console.log("current page: ",currentPage);
+                console.log("getEmployees", response);
+                // console.log("Employees in Backend DataBase: ", response.data.data.content);
+                setTotalCount(response.data.data.totalPages);
+                setSearchResults(response.data.data.content);
             })
             .catch((error) => {
+                // console.log("Why error!!");
                 console.log(error);
             });
     }, [

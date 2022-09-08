@@ -32,9 +32,10 @@ const Login = ({ setToken, setManager, setLogin }:
                     const token = "Basic " + window.btoa(values.username + ":" + values.password);
                     loginAPI(values, token)
                         .then(response => {
-                            setLogin(response.data.object);
+                            console.log(response);
+                            setLogin(response.data.data);
                             setToken(token);
-                            if (!response.data.object) {
+                            if (!response.data.data) {
                                 alert("Not Valid Email/Password. Login Failed! Please try again.");
                             }
                             else {

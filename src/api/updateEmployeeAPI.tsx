@@ -11,5 +11,5 @@ export const updateEmployeeAPI = async (employee: Employee, token: string) => {
         },
         { headers: { "Authorization": token } });
 
-    return response.data;
+    return response;
 };
