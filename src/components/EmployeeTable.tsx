@@ -25,16 +25,16 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
 
     const handleView = (employee: Employee) => {
         selectEmployee(employee);
-        console.log(employee);
+        // console.log(employee);
         history.push(`/getEmployee/${employee.id}`);
     }
 
     const handleEdit = (employee: Employee) => {
         selectEmployeeById(employee.id, token)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 selectEmployee(response.data.data);
-                console.log("SELECTED_EMP: ", response.data.object);
+                // console.log("SELECTED_EMP: ", response.data.object);
                 history.push(`/updateEmployee/${employee.id}`);
             })
             .catch(error => { console.log(error) });
@@ -43,7 +43,7 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
     const handleDelete = (employee: Employee) => {
         deleteEmployeeAPI(employee.id, token)
             .then(response => {
-                console.log("DELETE_EMP_SUCCESS", response);
+                // console.log("DELETE_EMP_SUCCESS", response);
                 deleteEmployee(employee);
                 alert("EMPLOYEE DELETED SUCCESSFULLY!");
             })
@@ -56,7 +56,7 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
     }, [employees]);
 
     useEffect(() => {
-        console.log("current Employees", currentEmployees);
+        // console.log("current Employees", currentEmployees);
         const currentEmployeesCopy = [...currentEmployees];
 
         const sortedCurrentUsers = currentEmployeesCopy.sort((a, b) => {

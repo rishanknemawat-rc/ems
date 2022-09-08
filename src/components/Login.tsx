@@ -32,7 +32,6 @@ const Login = ({ setToken, setManager, setLogin }:
                     const token = "Basic " + window.btoa(values.username + ":" + values.password);
                     loginAPI(values, token)
                         .then(response => {
-                            console.log(response);
                             setLogin(response.data.data);
                             setToken(token);
                             if (!response.data.data) {
@@ -40,7 +39,7 @@ const Login = ({ setToken, setManager, setLogin }:
                             }
                             else {
                                 setManager(values.username);
-                                console.log("Login Successful!", response.data);
+                                // console.log("Login Successful!", response.data);
                                 alert("LOGIN_SUCCESSFUL!");
                                 history.push("/getEmployees");
                             }

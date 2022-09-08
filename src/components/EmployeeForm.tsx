@@ -95,7 +95,7 @@ const EmployeeForm = ({
                                             addEmployeeAPI(value, token)
                                                 .then(response => {
                                                     addEmployee(response.object);
-                                                    console.log("ADD_EMPLOYEE_SUCCESS", response);
+                                                    // console.log("ADD_EMPLOYEE_SUCCESS", response);
                                                     alert("EMPLOYEE ADDED SUCCESSFULLY!");
                                                     history.push("/getEmployees");
                                                 })
@@ -108,10 +108,10 @@ const EmployeeForm = ({
                                             selectEmployee(null);
                                             updateEmployeeAPI(value, token)
                                                 .then(response => {
-                                                    console.log("updateEmployee", value);
+                                                    // console.log("updateEmployee", value);
                                                     editEmployee(value);
                                                     alert('EMPLOYEE DETAILS UPDATED SUCCESSFULLY!');
-                                                    console.log("Employee EDITED Successfully.", response);
+                                                    // console.log("Employee EDITED Successfully.", response);
                                                     history.push("/getEmployees");
                                                 })
                                                 .catch(error => { console.log(error) });

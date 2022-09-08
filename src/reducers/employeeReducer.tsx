@@ -20,7 +20,9 @@ const employeeReducer = (employees = initalEmployees,
 
             const updatesEmployees = employees.map(emp => {
                 let updatedEmp = emp;
-                if (emp.id === action.payload.id) {
+                // console.log("emp:", emp);
+                // console.log("action: ", action.payload);
+                if (emp && emp.id === action.payload.id) {
                     updatedEmp.firstName = action.payload.firstName
                     updatedEmp.lastName = action.payload.lastName
                     updatedEmp.manager = action.payload.manager

@@ -14,7 +14,9 @@ const EmployeeDetails = ({ token, selectedEmployee, loggedIn }: {
 
     const params = useParams();
     selectEmployeeById(params.id, token)
-        .then(response => { console.log("SELECTED EMPLOYEE: ", response.data); })
+        .then(response => { 
+            // console.log("SELECTED EMPLOYEE: ", response.data); 
+        })
         .catch(error => { console.log(error) });
 
     if (!loggedIn) {
