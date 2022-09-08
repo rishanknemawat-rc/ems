@@ -60,7 +60,6 @@ const EmployeeTable = ({ pageLimit, currentPage, employees, token, selectEmploye
     useEffect(() => {
         // console.log("current Employees", currentEmployees);
         const currentEmployeesCopy = [...currentEmployees];
-
         const sortedCurrentUsers = currentEmployeesCopy.sort((a, b) => {
             if (sorting.key === "firstName" || sorting.key === "lastName" ||
                 sorting.key === "department" || sorting.key === "manager")
@@ -72,12 +71,7 @@ const EmployeeTable = ({ pageLimit, currentPage, employees, token, selectEmploye
                     return 0;
                 }
             else if (sorting.key === "id"){
-                if(a < b)
-                    return -1;
-                else if(a > b)
-                    return 1;
-                else
-                    return 0;
+                return a[sorting.key] - b[sorting.key];
             }
             else
                 return 0;
