@@ -219,6 +219,9 @@ const EmployeeForm = ({
                                                     <option value="Finance">Finance</option>
                                                     <option value="HR">HR</option>
                                                     <option value="Payroll">Payroll</option>
+                                                    <option value="Sales">Sales</option>
+                                                    <option value="QA">QA</option>
+                                                    <option value="Logistics">Logistics</option>
                                                     <option value="Administration">Administration</option>
                                                 </Field>
                                             {errors.department && touched.department ?

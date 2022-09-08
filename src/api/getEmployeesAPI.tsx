@@ -11,13 +11,6 @@ export const getEmployeesAPI = async (
     currentPage: number, 
     pageLimit: number ) => {
 
-        const payload = {
-            // sortField: sort || '',
-            // sortDirection: sortType || '',
-            pageNumber: currentPage || '',
-            pageSize: pageLimit || '',
-        }
-
         const apiRequest = `getEmployees?pageNumber=${currentPage}&pageSize=${pageLimit}&sortField=${sort}&sortDirection=${sortType}`;
         
         const response = await api.get(apiRequest,

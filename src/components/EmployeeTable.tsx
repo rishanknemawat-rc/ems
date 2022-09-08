@@ -60,13 +60,23 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
         const currentEmployeesCopy = [...currentEmployees];
 
         const sortedCurrentUsers = currentEmployeesCopy.sort((a, b) => {
-            if (sorting.key === "firstName" ||
-                sorting.key === "lastName" ||
-                sorting.key === "department" ||
-                sorting.key === "manager")
-                return a[sorting.key].localeCompare(b[sorting.key]);
-            else if (sorting.key === "id")
-                return a < b ? 1 : -1;
+            if (sorting.key === "firstName" || sorting.key === "lastName" ||
+                sorting.key === "department" || sorting.key === "manager")
+                {
+                    if(a[sorting.key].toLowerCase() < b[sorting.key].toLowerCase())
+                        return -1;
+                    else if(a[sorting.key].toLowerCase() > b[sorting.key].toLowerCase())
+                        return 1;
+                    return 0;
+                }
+            else if (sorting.key === "id"){
+                if(a < b)
+                    return -1;
+                else if(a > b)
+                    return 1;
+                else
+                    return 0;
+            }
             else
                 return 0;
         });
@@ -91,8 +101,8 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
                         <th scope="col" onClick={() => applySorting("firstName")}>First Name</th>
                         <th scope="col" onClick={() => applySorting("lastName")}>Last Name</th>
                         <th scope="col" onClick={() => applySorting("id")}>Employee ID</th>
-                        <th scope="col" onClick={() => applySorting("department")}>Manager</th>
-                        <th scope="col" onClick={() => applySorting("manager")}>Department</th>
+                        <th scope="col" >Manager</th>
+                        <th scope="col" onClick={() => applySorting("department")}>Department</th>
                         <th scope="col" >View</th>
                         <th scope="col" >Edit</th>
                         <th scope="col" >Delete</th>

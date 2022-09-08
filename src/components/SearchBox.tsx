@@ -58,17 +58,20 @@ const SearchBox = ({
                             <div className="form-row">
                                 <div className="form-group col-md-4">
                                     <label htmlFor="department">Department</label>
-                                    <Field as="select" type="text" className="form-control" id="department" defaultValue="IT" name="department">
+                                    <Field as="select" type="text" className="form-control" id="department" name="department">
                                         <option value="IT">IT</option>
                                         <option value="Finance">Finance</option>
                                         <option value="HR">HR</option>
                                         <option value="Payroll">Payroll</option>
+                                        <option value="Sales">Sales</option>
+                                        <option value="QA">QA</option>
+                                        <option value="Logistics">Logistics</option>
                                         <option value="Administration">Administration</option>
                                     </Field>
                                 </div>
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sort">Sort</label>
-                                    <Field as="select" id="sort" className="form-control" defaultValue="None" name="sort">
+                                    <Field as="select" id="sort" className="form-control" name="sort">
                                         <option value="none">None</option>
                                         <option value="firstName">FirstName</option>
                                         <option value="lastName">LastName</option>
@@ -78,10 +81,10 @@ const SearchBox = ({
                                 </div>
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sortBy">Sort By</label>
-                                    <Field as="select" id="sortBy" className="form-control" defaultValue="none" name="sortBy">
+                                    <Field as="select" id="sortBy" className="form-control" name="sortBy">
                                         <option value="none">None</option>
-                                        <option value="ascending">Ascending</option>
-                                        <option value="descending">Descending</option>
+                                        <option value="asc">Ascending</option>
+                                        <option value="des">Descending</option>
                                     </Field>
                                 </div>
                             </div>
