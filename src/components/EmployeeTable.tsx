@@ -9,8 +9,10 @@ import { AppState } from "../reducers/index";
 import { selectEmployeeById } from "../api/selectEmployeeByIdAPI";
 import { deleteEmployeeAPI } from "../api/deleteEmployeeAPI";
 
-const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
+const EmployeeTable = ({ pageLimit, currentPage, employees, token, selectEmployee, deleteEmployee }:
     {
+        pageLimit: number,
+        currentPage: number,
         employees: Employee[],
         token: string,
         selectEmployee: (employee: Employee | null) => AppActions,
@@ -98,7 +100,9 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
                 <thead>
                     <tr>
                         <th scope="col">Sr. No.</th>
-                        <th scope="col" onClick={() => applySorting("firstName")}>First Name</th>
+                        <th scope="col" onClick={() => applySorting("firstName")}>
+                            First Name
+                        </th>
                         <th scope="col" onClick={() => applySorting("lastName")}>Last Name</th>
                         <th scope="col" onClick={() => applySorting("id")}>Employee ID</th>
                         <th scope="col" >Manager</th>
@@ -111,7 +115,7 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
                 <tbody>
                     {currentEmployees.map((employee, index) => (
                         <tr key={employee.id}>
-                            <td className="text-text text-sm p-2">{index + 1}</td>
+                            <td className="text-text text-sm p-2">{(index+1) + ((currentPage-1)*pageLimit)}</td>
                             <td className="text-text text-sm p-2">{employee.firstName}</td>
                             <td className="text-text text-sm p-2">{employee.lastName}</td>
                             <td className="text-text text-sm p-2">{employee.id}</td>
@@ -148,6 +152,8 @@ const EmployeeTable = ({ employees, token, selectEmployee, deleteEmployee }:
 
 const mapStateToProps = (state: AppState, ownProps: any) => {
     return {
+        pageLimit: ownProps.pageLimit,
+        currentPage: ownProps.currentPage,
         token: ownProps.token,
         employees: ownProps.employees
     }

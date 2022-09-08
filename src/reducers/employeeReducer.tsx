@@ -13,7 +13,7 @@ const employeeReducer = (employees = initalEmployees,
         }
 
         case ("DELETE_EMPLOYEE"): {
-            return employees.filter(emp => emp.id !== action.payload.id);
+            return employees.filter( emp => (emp && emp.id !== action.payload.id));
         }
 
         case ("EDIT_EMPLOYEE"): {

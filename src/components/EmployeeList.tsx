@@ -81,7 +81,7 @@ const EmployeeList = ({
                         />
                     </div>
                     <div>
-                        <EmployeeTable employees={searchResults} token={token} />
+                        <EmployeeTable employees={searchResults} token={token} currentPage={currentPage} pageLimit={pageLimit}/>
                     </div>
                 </div>
             ) : (
