@@ -11,7 +11,7 @@ const Pagination = ({ currentPage, setCurrentPage, setPageLimit, pageLimit, tota
 
     const totalPages = Math.ceil(totalCount/pageLimit);
     const pagesToDisplay = [...Array(totalPages + 1).keys()].slice(1); // Array from 1 to N
-
+    // console.log("pages: ", pagesToDisplay);
     const handlePreviousPage = () => {
         if(currentPage !== 1)
             setCurrentPage(currentPage-1);
