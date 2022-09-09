@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { Formik, Form, Field } from "formik";
-import ReactDropDownAutoComplete from "react-dropdown-autocomplete";
 
 import { AppState } from "../reducers/index";
 import { AppActions } from "../types/actions";
@@ -13,6 +12,7 @@ import { updateEmployeeAPI } from "../api/updateEmployeeAPI";
 import { getEmployeeByIdAPI } from "../api/getEmployeeById";
 
 const EmployeeForm = ({
+    employees,
     token,
     selectedEmployee,
     editEmployee,
@@ -20,6 +20,7 @@ const EmployeeForm = ({
     loggedIn,
     manager
 }: {
+    employees: Employee[],
     token: string,
     selectedEmployee: Employee,
     editEmployee: (employee: Employee) => AppActions,
@@ -67,6 +68,8 @@ const EmployeeForm = ({
 
     function validateDepartment(value: string) {
         let error: string = "";
+        if(value==="")
+            error =  'Department not Selected. Please Select';
         if (value && !(/^[a-zA-Z]+$/.test(value)))
             error = 'Invalid Department. Department should contain only letters';
         return error;
@@ -185,8 +188,7 @@ const EmployeeForm = ({
                                                 </div> : ""
                                             }
                                         </div> <br />
-
-                                        <div className=" m-2 text-center font-weight-bold" data-testid="manager">
+                                        {/* <div className=" m-2 text-center font-weight-bold" data-testid="manager">
                                             <label className="form-label">
                                                 Manager
                                             </label>
@@ -197,6 +199,28 @@ const EmployeeForm = ({
                                                 disabled={selectedEmployee === null ? true : false}
                                                 required
                                             />
+                                            {errors.manager && touched.manager ?
+                                                <div className="text-danger">
+                                                    {errors.manager}
+                                                </div> : ""
+                                            }
+                                        </div> <br /> */}
+                                        <div className=" m-2 text-center font-weight-bold" data-testid="manager">
+                                            <label className="form-label">
+                                                Manager
+                                            </label>
+                                            <Field as="select"
+                                                id="manager"
+                                                className="form-control"
+                                                type="text" name="manager"
+                                                validate={validateManager}
+                                                disabled={selectedEmployee === null ? true : false}
+                                                required
+                                            >
+                                                <option value="rish">rish</option>
+                                                <option value="tush">tush</option>
+                                                <option value="abcd">abcd</option>
+                                            </Field>
                                             {errors.manager && touched.manager ?
                                                 <div className="text-danger">
                                                     {errors.manager}
@@ -215,6 +239,7 @@ const EmployeeForm = ({
                                                 validate={validateDepartment}
                                                 required
                                             >
+                                                    <option value="">Select Department</option>
                                                     <option value="IT">IT</option>
                                                     <option value="Finance">Finance</option>
                                                     <option value="HR">HR</option>
@@ -264,6 +289,7 @@ interface LinkStateProps {
     selectedEmployee: Employee | null,
     loggedIn: boolean,
     manager: string
+    employees: Employee[]
 };
 
 const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
@@ -271,7 +297,8 @@ const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
         token: ownProps.token,
         selectedEmployee: state.selectedEmployee,
         loggedIn: state.loggedIn,
-        manager: state.manager
+        manager: state.manager,
+        employees: state.employees
     })
 }
 
