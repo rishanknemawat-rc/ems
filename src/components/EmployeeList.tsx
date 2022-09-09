@@ -33,7 +33,9 @@ const EmployeeList = ({
     const [totalCount, setTotalCount] = useState(0);
 
     useEffect(() => {
-        getEmployeesAPI(token, searchFirstName, searchLastName, searchId, searchDepartment, sort, sortType, currentPage, pageLimit)
+        getEmployeesAPI(token, searchFirstName, searchLastName, 
+                        searchId, searchDepartment, sort, 
+                        sortType, currentPage, pageLimit)
             .then((response: any) => {
                 // console.log("current page: ",currentPage);
                 // console.log("getEmployees", response);

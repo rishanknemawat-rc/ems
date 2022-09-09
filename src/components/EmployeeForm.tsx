@@ -86,7 +86,6 @@ const EmployeeForm = ({
                             department: initialForm.department,
                         }}
                         onSubmit={(value: Employee) => {
-
                             getEmployeeByIdAPI(value.id, token)
                                 .then(response => {
                                     if (selectedEmployee === null) {

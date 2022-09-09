@@ -8,10 +8,11 @@ const Pagination = ({ currentPage, setCurrentPage, setPageLimit, pageLimit, tota
         pageLimit: number,
         totalCount: number
     }) => {
-
-    // const totalPages = Math.ceil(totalCount/pageLimit);
+    
     const pagesToDisplay = [...Array(totalCount + 1).keys()].slice(1); // Array from 0 to N-1
     // console.log("pages: ", pagesToDisplay);
+    // const totalPages = Math.ceil(totalCount/pageLimit);
+
     const handlePreviousPage = () => {
         if(currentPage !== 1)
             setCurrentPage(currentPage-1);
@@ -52,7 +53,7 @@ const Pagination = ({ currentPage, setCurrentPage, setPageLimit, pageLimit, tota
                         </li>
                         {pagesToDisplay.map((page: number) => (
                             <li key={page} className={`page-item ${currentPage === page ? "active" : ""}`}> 
-                                <button className="page-link" onClick={e => setCurrentPage(page)}>{page}</button>
+                                <button className="page-link" onClick={() => setCurrentPage(page)}>{page}</button>
                             </li>
                         ))}
                         <li className="page-item">
