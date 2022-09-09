@@ -6,9 +6,11 @@ import { Employee } from "../types/Employee";
 import { selectEmployee, setLogin } from "../action/index";
 import { AppState } from "../reducers/index";
 import api from "../api/baseAPI";
+import { stringify } from "querystring";
 
-const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee }:
+const Header = ({ manager, token, setToken, loggedIn, setLogin, selectEmployee }:
     {
+        manager: string,
         token: string,
         setToken: React.Dispatch<React.SetStateAction<string>>,
         loggedIn: boolean,
@@ -55,6 +57,7 @@ const Header = ({ token, setToken, loggedIn, setLogin, selectEmployee }:
 };
 
 interface LinkStateProps {
+    manager: string,
     loggedIn: boolean,
     token: string,
     setToken: React.Dispatch<React.SetStateAction<string>>
@@ -62,6 +65,7 @@ interface LinkStateProps {
 
 const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
     return {
+        manager: state.manager,
         loggedIn: state.loggedIn,
         token: ownProps.token,
         setToken: ownProps.setToken

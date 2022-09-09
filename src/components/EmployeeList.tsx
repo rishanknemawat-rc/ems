@@ -15,22 +15,58 @@ const EmployeeList = ({
     employees,
     loggedIn,
     manager,
+    searchFirstName, 
+    searchLastName, 
+    searchId, 
+    searchDepartment, 
+    sort, 
+    sortType, 
+    currentPage, 
+    pageLimit,
+    totalCount,
+    setSearchFirstName,
+    setSearchLastName,
+    setSearchId,
+    setSearchDepartment,
+    setSort,
+    setSortType,
+    setCurrentPage,
+    setPageLimit,
+    setTotalCount
 }: {
     token: string;
     employees: Employee[];
     loggedIn: boolean;
     manager: string;
+    searchFirstName: string, 
+    searchLastName: string, 
+    searchId: number, 
+    searchDepartment: string, 
+    sort: string, 
+    sortType: string, 
+    currentPage: number, 
+    pageLimit: number,
+    totalCount: number,
+    setSearchFirstName: React.Dispatch<React.SetStateAction<string>>,
+    setSearchLastName: React.Dispatch<React.SetStateAction<string>>,
+    setSearchId: React.Dispatch<React.SetStateAction<number>>,
+    setSearchDepartment: React.Dispatch<React.SetStateAction<string>>,
+    setSort: React.Dispatch<React.SetStateAction<string>>,
+    setSortType: React.Dispatch<React.SetStateAction<string>>,
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+    setPageLimit: React.Dispatch<React.SetStateAction<number>>,
+    setTotalCount: React.Dispatch<React.SetStateAction<number>>
 }) => {
-    const [searchFirstName, setSearchFirstName] = useState("");
-    const [searchLastName, setSearchLastName] = useState("");
-    const [searchId, setSearchId] = useState(0);
-    const [searchDepartment, setSearchDepartment] = useState("");
-    const [sort, setSort] = useState("");
-    const [sortType, setSortType] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageLimit, setPageLimit] = useState(5);
+    // const [searchFirstName, setSearchFirstName] = useState("");
+    // const [searchLastName, setSearchLastName] = useState("");
+    // const [searchId, setSearchId] = useState(0);
+    // const [searchDepartment, setSearchDepartment] = useState("");
+    // const [sort, setSort] = useState("");
+    // const [sortType, setSortType] = useState("");
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [pageLimit, setPageLimit] = useState(5);
+    // const [totalCount, setTotalCount] = useState(0);
     const [searchResults, setSearchResults] = useState<Employee[]>([]);
-    const [totalCount, setTotalCount] = useState(0);
 
     useEffect(() => {
         getEmployeesAPI(token, searchFirstName, searchLastName, 
@@ -109,6 +145,24 @@ interface LinkStateProps {
     employees: Employee[];
     loggedIn: boolean;
     manager: string;
+    searchFirstName: string, 
+    searchLastName: string, 
+    searchId: number, 
+    searchDepartment: string, 
+    sort: string, 
+    sortType: string, 
+    currentPage: number, 
+    pageLimit: number,
+    totalCount: number,
+    setSearchFirstName: React.Dispatch<React.SetStateAction<string>>,
+    setSearchLastName: React.Dispatch<React.SetStateAction<string>>,
+    setSearchId: React.Dispatch<React.SetStateAction<number>>,
+    setSearchDepartment: React.Dispatch<React.SetStateAction<string>>,
+    setSort: React.Dispatch<React.SetStateAction<string>>,
+    setSortType: React.Dispatch<React.SetStateAction<string>>,
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+    setPageLimit: React.Dispatch<React.SetStateAction<number>>,
+    setTotalCount: React.Dispatch<React.SetStateAction<number>>
 }
 
 const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
@@ -117,183 +171,25 @@ const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
         employees: state.employees,
         loggedIn: state.loggedIn,
         manager: state.manager,
+        searchFirstName: ownProps.searchFirstName, 
+        searchLastName: ownProps.searchLastName, 
+        searchId: ownProps.searchId,
+        searchDepartment: ownProps.searchDepartment,
+        sort: ownProps.sort,
+        sortType: ownProps.sortType,
+        currentPage: ownProps.currentPage,
+        pageLimit: ownProps.pageLimit,
+        totalCount: ownProps.totalCount,
+        setSearchFirstName: ownProps.setSearchFirstName,
+        setSearchLastName: ownProps.setSearchLastName,
+        setSearchId: ownProps.setSearchId,
+        setSearchDepartment: ownProps.setSearchDepartment,
+        setSort: ownProps.setSort,
+        setSortType: ownProps.setSortType,
+        setCurrentPage: ownProps.setCurrentPage,
+        setPageLimit: ownProps.setPageLimit,
+        setTotalCount: ownProps.setTotalCount,
     };
 };
 
 export default connect(mapStateToProps)(EmployeeList);
-
-    // let serialNumber = 0;
-    // const renderedList = searchResults.map((employee) => {
-    //     if (employee.manager === manager) {
-    //         serialNumber += 1;
-    //         return (
-    //             <EmployeeItem 
-    //                 serialNumber={serialNumber}
-    //                 selectedEmployee={selectEmployee}
-    //                 deleteEmployee={deleteEmployee}
-    //                 token={token}
-    //                 employee={employee}
-    //             />
-    //         );
-    //     }
-    //     return null;
-    // });
-    // console.log("search results", searchResults);
-
-// import React, { useEffect, useState } from "react";
-// import { connect } from "react-redux";
-// import { Link } from "react-router-dom";
-
-// import EmployeeItem from "./EmployeeItem";
-// import { AppState } from "../reducers/index";
-// import { Employee } from "../types/Employee";
-// import { getEmployeesAPI } from "../api/getEmployeesAPI";
-
-// const EmployeeList = ({token, employees, loggedIn, manager }:
-//     { token: string, employees: Employee[], loggedIn: boolean, manager: string }) => {
-
-//     const [searchInput, setSearchInput] = useState("");
-//     const [searchResults, setSearchResults] = useState<Employee[]>([]);
-//     const [sort, setSort] = useState("");
-
-//     useEffect(() => {
-//         getEmployeesAPI(token)
-//         .then(
-//             (employees: Employee[]) => {
-//                 console.log("Employees in Backend DataBase: ", employees);
-//                 if (searchInput === "")
-//                     setSearchResults(employees);
-
-//                 const filteredResults = employees.filter(employee => {
-//                     return employee.firstName.toLowerCase().includes(searchInput.toLowerCase()) ||
-//                         employee.lastName.toLowerCase().includes(searchInput.toLowerCase());
-//                 });
-
-//                 if (sort === "firstName")
-//                     setSearchResults(filteredResults.sort((e1, e2) => {
-//                         if (e1.firstName.toLowerCase() <= e2.firstName.toLowerCase())
-//                             return -1;
-//                         else return 1;
-//                     }))
-//                 else if (sort === "lastName")
-//                     setSearchResults(filteredResults.sort((e1, e2) => {
-//                         if (e1.lastName.toLowerCase() <= e2.lastName.toLowerCase())
-//                             return -1;
-//                         else return 1;
-//                     }))
-//                 else
-//                     setSearchResults(filteredResults);
-//             }
-//         )
-//         .catch(error => {console.log(error)});
-
-//     }, [searchInput, sort, employees, token]);
-
-//     const renderedList = searchResults.map(employee => {
-//         if (employee.manager === manager) {
-//             return (
-//                 <div key={employee.id} className="col-4">
-//                     <div key={employee.id} className="list-group m-4">
-//                         <div key={employee.id} className="list-group-item text-center">
-//                             <div>
-//                                 <EmployeeItem
-//                                     key={employee.id}
-//                                     employee={employee}
-//                                     token = {token}
-//                                 />
-//                             </div>
-//                         </div>
-//                         <br />
-//                     </div>
-//                 </div>
-//             );
-//         }
-//         return null;
-//     });
-
-//     return (
-//         <div >
-//             {
-//                 loggedIn ?
-//                     <div data-testid="employees-list">
-//                         <h1 className="text-center font-weight-bold m-4">
-//                             EMPLOYEE LIST
-//                         </h1>
-//                         <div className="container">
-//                             <div className="row">
-//                                 <div className="col-4"></div>
-//                                 <div className="text-center col-4">
-//                                     <div className="form-outline" data-testid="search-box">
-// <input id="search-input"
-//     type="search"
-//     className="form-control m-4"
-//     placeholder="Search Employee"
-//     onChange={(e) => setSearchInput(e.target.value)}
-// />
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="col-4">
-//                                     <div className="form-outline m-4">
-//                                         <div className="dropdown" data-testid="sort-box">
-//                                             <button className="btn btn-dark dropdown-toggle"
-//                                                 type="button"
-//                                                 id="dropdownMenuButton"
-//                                                 data-toggle="dropdown"
-//                                                 aria-haspopup="true"
-//                                                 aria-expanded="false">
-//                                                 Sort
-//                                             </button>
-//                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-//                                                 <button className="dropdown-item"
-//                                                     onClick={() => setSort("firstName")} >
-//                                                     First Name
-//                                                 </button>
-//                                                 <button className="dropdown-item"
-//                                                     onClick={() => setSort("lastName")} >
-//                                                     Last Name
-//                                                 </button>
-//                                             </div>
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div className="conatiner">
-//                             <div className="row">
-//                                 {renderedList}
-//                             </div>
-//                         </div>
-//                     </div> :
-//                     <div className="text-center" data-testid="employees-list-logout">
-//                         <h3 className="text-center font-weight-bold m-4">
-//                             Please Login to Continue
-//                         </h3>
-//                         <Link to="/">
-//                             <button className="btn btn-outline-dark text-center m-2">
-//                                 Login
-//                             </button>
-//                         </Link>
-//                     </div>
-//             }
-//         </div>
-//     );
-// };
-
-// interface LinkStateProps {
-//     token: string
-//     employees: Employee[],
-//     loggedIn: boolean,
-//     manager: string
-// }
-
-// const mapStateToProps = (state: AppState, ownProps: any): LinkStateProps => {
-//     return {
-//         token: ownProps.token,
-//         employees: state.employees,
-//         loggedIn: state.loggedIn,
-//         manager: state.manager
-//     }
-// };
-
-// export default connect(mapStateToProps)(EmployeeList);
