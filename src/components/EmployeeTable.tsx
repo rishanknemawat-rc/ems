@@ -101,9 +101,10 @@ const EmployeeTable = ({ pageLimit, currentPage, employees, token, selectEmploye
                         <th scope="col" onClick={() => applySorting("id")}>Employee ID</th>
                         <th scope="col" >Manager</th>
                         <th scope="col" onClick={() => applySorting("department")}>Department</th>
-                        <th scope="col" >View</th>
+                        <th scope="col" colSpan={3}>Actions</th>
+                        {/* <th scope="col" >View</th>
                         <th scope="col" >Edit</th>
-                        <th scope="col" >Delete</th>
+                        <th scope="col" >Delete</th> */}
                     </tr>
                 </thead>
                 <tbody>

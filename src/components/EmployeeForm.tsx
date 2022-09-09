@@ -239,7 +239,7 @@ const EmployeeForm = ({
                                                 validate={validateDepartment}
                                                 required
                                             >
-                                                    <option value="">Select Department</option>
+                                                    <option value="">--Select Department--</option>
                                                     <option value="IT">IT</option>
                                                     <option value="Finance">Finance</option>
                                                     <option value="HR">HR</option>

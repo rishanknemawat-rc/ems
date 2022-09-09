@@ -22,7 +22,7 @@ const SearchBox = ({
                 initialValues={{
                     firstName: "",
                     lastName: "",
-                    employeeId: 0,
+                    employeeId: "",
                     department: "",
                     sort: "",
                     sortBy: ""
@@ -59,7 +59,7 @@ const SearchBox = ({
                                 <div className="form-group col-md-4">
                                     <label htmlFor="department">Department</label>
                                     <Field as="select" type="text" className="form-control" id="department" name="department">
-                                        <option value="">Select</option>
+                                        <option value="">--Select--</option>
                                         <option value="IT">IT</option>
                                         <option value="Finance">Finance</option>
                                         <option value="HR">HR</option>
@@ -73,7 +73,7 @@ const SearchBox = ({
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sort">Sort</label>
                                     <Field as="select" id="sort" className="form-control" name="sort">
-                                        <option value="">Select</option>
+                                        <option value="">--Select--</option>
                                         <option value="firstName">FirstName</option>
                                         <option value="lastName">LastName</option>
                                         <option value="id">EmployeeId</option>
@@ -83,13 +83,14 @@ const SearchBox = ({
                                 <div className="form-group col-md-4">
                                     <label htmlFor="sortBy">Sort By</label>
                                     <Field as="select" id="sortBy" className="form-control" name="sortBy">
-                                        <option value="">Select</option>
+                                        <option value="">--Select--</option>
                                         <option value="asc">Ascending</option>
                                         <option value="dsc">Descending</option>
                                     </Field>
                                 </div>
                             </div>
                             <div className="text-center font-weight-bold">
+                                <button type="reset" className="btn btn-outline-dark text-center m-2">Reset</button>
                                     <button type="submit" className="btn btn-outline-dark text-center m-2">Search</button>
                             </div>
                         </div>

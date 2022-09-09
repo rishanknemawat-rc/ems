@@ -42,6 +42,8 @@ const EmployeeList = ({
                 // console.log("Employees in Backend DataBase: ", response.data.data.content);
                 setTotalCount(response.data.data.totalPages);
                 setSearchResults(response.data.data.content);
+                if(response.data.data.totalPages>0 && currentPage > response.data.data.totalPages)
+                    setCurrentPage(1);
             })
             .catch((error) => {  console.log(error); });
     }, [

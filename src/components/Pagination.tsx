@@ -32,7 +32,10 @@ const Pagination = ({ currentPage, setCurrentPage, setPageLimit, pageLimit, tota
                     </div>
                     <select className="custom-select"
                         id="showSelect" defaultValue={5}
-                        onChange={e => setPageLimit(e.target.value)}
+                        onChange={e => {
+                            setPageLimit(e.target.value)
+                            setCurrentPage(1);
+                        }}
                     >
                         <option value={5}>5</option>
                         <option value={10}>10</option>

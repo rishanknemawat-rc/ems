@@ -20,6 +20,7 @@ const Login = ({ setToken, setManager, setLogin }:
     }) => {
 
     const history = useHistory();
+
     return (
         <div data-testid="login-form">
             <h1 className="text-center font-weight-bold m-3">Login</h1>
